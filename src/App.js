@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./styles/App.css";
+import Main from "./Main";
+import { makeStyles } from "@material-ui/styles";
+// import royalHeaderImg from "../images/royal_header_background4.jpg";
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#45748c",
+    width: "100%",
+    height: "100%",
+  },
+});
 
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <Main />
     </div>
   );
 }
