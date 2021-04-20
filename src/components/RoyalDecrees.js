@@ -4,10 +4,15 @@ import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import Divider from "@material-ui/core/Divider";
+import BannerBackground from "../images/main_background.jpg";
 
 const useStyles = makeStyles({
   root: {
-    paddingTop: 25,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${BannerBackground})`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100%",
+    marginTop: 25,
   },
   header: {
     color: "#71ccdf",
@@ -25,9 +30,9 @@ function RoyalDecrees() {
 
   return (
     <div className={classes.root}>
-      <Divider className={classes.dividerStyle} />
+      {/* <Divider className={classes.dividerStyle} /> */}
       <div className={classes.header}>Royal Decrees (Announcements)</div>
-      <Divider className={classes.dividerStyle} />
+      {/* <Divider className={classes.dividerStyle} /> */}
     </div>
   );
 }
