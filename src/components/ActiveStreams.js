@@ -70,11 +70,12 @@ function ActiveStreams() {
     };
     fetchData();
     setRoyalStreams([
-      "https://www.twitch.tv/don_artie",
-      "https://www.twitch.tv/royalclanaoe",
-      "https://www.twitch.tv/tadaoe",
-      "https://www.twitch.tv/daiywop",
-      "https://www.twitch.tv/antz_is_here",
+      "don_artie",
+      "royalclanaoe",
+      "tadaoe",
+      "daiywop",
+      "antz_is_here",
+      "Knusch",
     ]);
   }, []);
 
@@ -86,7 +87,7 @@ function ActiveStreams() {
       <List component="nav" aria-label="main mailbox folders">
         {activeStreams.map((stream) => (
           <div>
-            {!royalStreams.includes(stream.channel.url) ? (
+            {!royalStreams.includes(stream.channel.display_name) ? (
               <ListItemLink
                 key={stream._id}
                 className={classes.listItem}

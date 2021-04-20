@@ -87,21 +87,34 @@ function ListItemLink(props) {
 function RoyalStreams() {
   const classes = useStyles();
   const [activeStreams, setActiveStreams] = useState([]);
+  const [activeStreamIDs, setActiveStreamIDs] = useState([]);
   const [offlineStreams, setOfflineStreams] = useState([]);
   const [royalStreams, setRoyalStreams] = useState([]);
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
   const [offlineChannelsQuery, setOfflineChannelsQuery] = useState("");
 
   useEffect(() => {
+    setRoyalStreams([
+      "don_artie",
+      "royalclanaoe",
+      "tadaoe",
+      "daiywop",
+      "antz_is_here",
+    ]);
+
     const royalStreamsString =
       "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop";
 
     const fetchLiveStreamData = async () => {
+      let streamIDs = [];
       const result = await api.get(
-        "https://api.twitch.tv/kraken/streams/?game=Age%20of%20Empires%20III&limit=10"
+        "https://api.twitch.tv/kraken/streams/?game=Age%20of%20Empires%20III&limit=15"
       );
+      result.data.streams.map((stream) => {
+        streamIDs.push(stream.channel._id);
+      });
       setActiveStreams(result.data.streams);
-      console.log(result.data.streams);
+      setActiveStreamIDs(streamIDs);
     };
 
     const fetchOfflineStreamDataFromTwitch = async () => {
@@ -110,11 +123,14 @@ function RoyalStreams() {
       );
       setOfflineStreams(result.data.users);
     };
+
     fetchLiveStreamData();
     fetchOfflineStreamDataFromTwitch();
   }, []);
 
   const handleChange = (event) => {
+    console.log(offlineStreams);
+    console.log(activeStreamIDs);
     setShowOfflineChannels(!showOfflineChannels);
   };
 
@@ -139,7 +155,7 @@ function RoyalStreams() {
       <List component="nav">
         {activeStreams.map((stream) => (
           <div>
-            {royalStreams.includes(stream.channel.url) ? (
+            {royalStreams.includes(stream.channel.display_name) ? (
               <ListItemLink
                 key={stream._id}
                 className={classes.listItem}
@@ -169,25 +185,29 @@ function RoyalStreams() {
         {showOfflineChannels ? (
           <div>
             {offlineStreams.map((offlineStream) => (
-              <ListItemLink
-                key={offlineStream._id}
-                className={classes.listItem}
-                href={`https://www.twitch.tv/${offlineStream.display_name}`}
-              >
-                <ListItemAvatar style={{ marginRight: -20 }}>
-                  <Avatar
-                    alt="Twitch Profile Image"
-                    src={offlineStream.logo}
-                    style={{ height: 25, width: 25 }}
-                  />
-                </ListItemAvatar>
+              <div>
+                {!activeStreamIDs.includes(parseInt(offlineStream._id)) ? (
+                  <ListItemLink
+                    key={offlineStream._id}
+                    className={classes.listItem}
+                    href={`https://www.twitch.tv/${offlineStream.display_name}`}
+                  >
+                    <ListItemAvatar style={{ marginRight: -20 }}>
+                      <Avatar
+                        alt="Twitch Profile Image"
+                        src={offlineStream.logo}
+                        style={{ height: 25, width: 25 }}
+                      />
+                    </ListItemAvatar>
 
-                <ListItemText
-                  primary={offlineStream.display_name}
-                  style={{ textAlign: "left" }}
-                />
-                <VisibilityOffIcon fontSize="small" />
-              </ListItemLink>
+                    <ListItemText
+                      primary={offlineStream.display_name}
+                      style={{ textAlign: "left" }}
+                    />
+                    <VisibilityOffIcon fontSize="small" />
+                  </ListItemLink>
+                ) : null}
+              </div>
             ))}
           </div>
         ) : null}
