@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "15px",
     borderRadius: "15px",
   },
-  heroImg: {
+  heroContainer: {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${headerImg})`,
     height: 200,
     backgroundPosition: "center",
@@ -23,26 +23,47 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: "15px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.5)",
+    "@media (max-width: 992px)": {
+      textAlign: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "100%",
+      backgroundSize: "180%",
+    },
   },
   logoImg: {
     height: "100%",
     borderRadius: "15px 0 0 15px",
+    "@media (max-width: 992px)": {
+      paddingTop: 10,
+      borderRadius: "15px",
+      height: 100,
+      width: 100,
+    },
   },
-  heroTxt: {
-    width: "50%",
+  heroContent: {
+    width: "70%",
     padding: "10px",
     verticalAlign: "top",
     color: "#71ccdf",
     display: "inline-block",
-    "@media (max-width: 960px)": {
-      width: "50vw",
+    "@media (max-width: 992px)": {
+      textAlign: "center",
+      alignItems: "center",
+      width: "100%",
+    },
+  },
+  aboutUsHeader: {
+    width: "80%",
+    "@media (max-width: 992px)": {
+      textAlign: "center",
+      alignItems: "center",
+      width: "100%",
     },
   },
   navButtonRow: {
-    "@media (max-width: 960px)": {
-      paddingTop: "15px",
-      marginLeft: "auto",
-      marginRight: "auto",
+    "@media (max-width: 992px)": {
+      display: "none",
     },
   },
 
@@ -51,12 +72,12 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none!important",
     minWidth: "5vw",
     color: "#71ccdf",
-    fontSize: 20,
+    fontSize: 17,
     "&:hover": {
       backgroundColor: "#71ccdf",
       color: "#a44e62",
     },
-    "@media (max-width: 960px)": {
+    "@media (max-width: 992px)": {
       fontSize: 10,
       paddingLeft: 5,
       paddingRight: 5,
@@ -81,14 +102,15 @@ function NavHeader() {
   const classes = useStyles();
   return (
     <Row className={"no-gutters"}>
-      <Col xs={12}>
+      <Col xs={1}></Col>
+      <Col xs={10}>
         <Row className={"no-gutters"}>
           <Col xs={12} className={classes.root}>
-            <div className={classes.heroImg}>
+            <div className={classes.heroContainer}>
               <img src={logoImg} className={classes.logoImg} />
-              <div className={classes.heroTxt}>
+              <div className={classes.heroContent}>
                 <h1>Welcome To Royal Clan</h1>
-                <p>
+                <p className={classes.aboutUsHeader}>
                   We are the RoyaL Clan. A largely active clan in Age of Empires
                   3 DE. We host tournaments, create Youtube guides, and are
                   dedicated to a fun and safe gaming community.
@@ -165,6 +187,7 @@ function NavHeader() {
           </Col>
         </Row>
       </Col>
+      <Col xs={1}></Col>
     </Row>
   );
 }

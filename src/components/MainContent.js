@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import RoyalDecrees from "./RoyalDecrees";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles({
   root: {
@@ -30,9 +31,11 @@ function MainContent() {
   const classes = useStyles();
   return (
     <Row className={"no-gutters"}>
-      <Col xs={12} className={classes.root}>
+      <Col xs={1}></Col>
+      <Col xl={12} xs={10} className={classes.root}>
         <RoyalDecrees />
       </Col>
+      <Col xs={1}></Col>
     </Row>
   );
 }

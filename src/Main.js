@@ -5,32 +5,31 @@ import LeftContent from "./components/LeftContent";
 import RightContent from "./components/RightContent";
 import NavFooter from "./components/NavFooter";
 import { Row, Col } from "reactstrap";
+import Hidden from "@material-ui/core/Hidden";
 
 function Main() {
   return (
     <div>
       <Row className={"no-gutters"}>
-        <Col lg={1}></Col>
-        <Col lg={10}>
+        <Col xs={12}>
           <NavHeader />
         </Col>
-        <Col lg={1}></Col>
       </Row>
       <Row className={"no-gutters"}>
-        <Col lg={1}></Col>
-        <Col lg={2}>
+        <Col xl={1}></Col>
+        <Col xl={2} xs={12}>
           <LeftContent />
         </Col>
-        <Col lg={6}>
+        <Col xl={6} xs={12}>
           <MainContent />
         </Col>
-        <Col lg={2}>
+        <Col xl={2} xs={12}>
           <RightContent />
         </Col>
-        <Col lg={1}></Col>
+        <Col xl={1}></Col>
       </Row>
       <Row className={"no-gutters"}>
-        <Col lg={12}>
+        <Col xs={12}>
           <NavFooter />
         </Col>
       </Row>

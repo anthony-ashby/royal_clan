@@ -16,7 +16,9 @@ function NavFooter() {
   const classes = useStyles();
   return (
     <Row className={"no-gutters"}>
-      <Col xs={12} className={classes.root}></Col>
+      <Col xs={1}></Col>
+      <Col xs={10} className={classes.root}></Col>
+      <Col xs={1}></Col>
     </Row>
   );
 }

@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 
 import ActiveStreams from "./ActiveStreams";
 import RoyalStreams from "./RoyalStreams";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles({
   root: {
@@ -23,10 +24,13 @@ function RightContent() {
   return (
     <Row className={"no-gutters"}>
       <Col xs={1}></Col>
-      <Col xs={11} className={classes.root}>
+      <Col xl={11} xs={10} className={classes.root}>
         <RoyalStreams />
         <ActiveStreams />
       </Col>
+      <Hidden only={["xl"]}>
+        <Col xs={1}></Col>
+      </Hidden>
     </Row>
   );
 }
