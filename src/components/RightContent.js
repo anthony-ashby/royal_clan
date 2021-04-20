@@ -1,8 +1,9 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
-import Divider from "@material-ui/core/Divider";
+
 import ActiveStreams from "./ActiveStreams";
+import RoyalStreams from "./RoyalStreams";
 
 const useStyles = makeStyles({
   root: {
@@ -15,16 +16,6 @@ const useStyles = makeStyles({
     marginTop: "20px",
     textAlign: "center",
   },
-  header: {
-    color: "#71ccdf",
-    fontSize: 20,
-    height: 75,
-  },
-  dividerStyle: {
-    backgroundColor: "#a44e62",
-    marginLeft: 10,
-    marginRight: 10,
-  },
 });
 
 function RightContent() {
@@ -33,8 +24,7 @@ function RightContent() {
     <Row className={"no-gutters"}>
       <Col xs={1}></Col>
       <Col xs={11} className={classes.root}>
-        <div className={classes.header}>Royal Streams</div>
-        <Divider className={classes.dividerStyle} />
+        <RoyalStreams />
         <ActiveStreams />
       </Col>
     </Row>

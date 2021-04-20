@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import Divider from "@material-ui/core/Divider";
+import RoyalDecrees from "./RoyalDecrees";
 
 const useStyles = makeStyles({
   root: {
@@ -31,8 +32,7 @@ function MainContent() {
   return (
     <Row className={"no-gutters"}>
       <Col xs={12} className={classes.root}>
-        <div className={classes.header}>Royal Decrees (Announcements)</div>
-        <Divider className={classes.dividerStyle} />
+        <RoyalDecrees />
       </Col>
     </Row>
   );
