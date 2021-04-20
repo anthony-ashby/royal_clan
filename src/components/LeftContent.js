@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
-import Divider from "@material-ui/core/Divider";
 import CommunityLinks from "./CommunityLinks";
 
 const useStyles = makeStyles({

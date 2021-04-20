@@ -3,7 +3,6 @@ import api from "./api";
 import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
-import Divider from "@material-ui/core/Divider";
 import BannerBackground from "../images/main_background.jpg";
 
 const useStyles = makeStyles({
@@ -30,9 +29,7 @@ function RoyalDecrees() {
 
   return (
     <div className={classes.root}>
-      {/* <Divider className={classes.dividerStyle} /> */}
       <div className={classes.header}>Royal Decrees (Announcements)</div>
-      {/* <Divider className={classes.dividerStyle} /> */}
     </div>
   );
 }

@@ -5,18 +5,16 @@ import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import Divider from "@material-ui/core/Divider";
-import logoImg from "../images/royal_logo.JPG";
 import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
+import BannerBackground from "../images/main_background.jpg";
 
 const useStyles = makeStyles({
   root: {
@@ -37,17 +35,20 @@ const useStyles = makeStyles({
     },
   },
   header: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${BannerBackground})`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100%",
     color: "#71ccdf",
     fontSize: 20,
   },
-  dividerStyle: {
-    backgroundColor: "#a44e62",
-    marginLeft: 10,
-    marginRight: 10,
+  headerText: {
+    display: "inline-block",
+    float: "center",
   },
   customSwitchGroup: {
-    paddingTop: 10,
-    alignContent: "center",
+    display: "inline-block",
+    float: "center",
     color: "#71ccdf",
   },
   customSwitch: {
@@ -61,10 +62,10 @@ const CustomSwitch = withStyles({
   switchBase: {
     color: "#71ccdf",
     "&$checked": {
-      color: "#71ccdf",
+      color: "#a44e62",
     },
     "&$checked + $track": {
-      backgroundColor: "#71ccdf",
+      backgroundColor: "#a44e62",
     },
   },
   checked: {},
@@ -129,18 +130,18 @@ function RoyalStreams() {
   }, []);
 
   const handleChange = (event) => {
-    console.log(offlineStreams);
-    console.log(activeStreamIDs);
     setShowOfflineChannels(!showOfflineChannels);
   };
 
   return (
     <div className={classes.root}>
-      <Divider className={classes.dividerStyle} />
-      <div className={classes.header}>Royal Streams</div>
-      <Divider className={classes.dividerStyle} />
+      <div className={classes.header}>
+        <div className={classes.headerText}>Royal Streams</div>
+      </div>
       <FormGroup className={classes.customSwitchGroup}>
         <FormControlLabel
+          label="Show Offline Channels"
+          labelPlacement="start"
           control={
             <CustomSwitch
               checked={showOfflineChannels}
@@ -149,9 +150,9 @@ function RoyalStreams() {
               name="checkedA"
             />
           }
-          label="Show Offline Channels"
         />
       </FormGroup>
+
       <List component="nav">
         {activeStreams.map((stream) => (
           <div>
