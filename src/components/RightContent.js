@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import Divider from "@material-ui/core/Divider";
+import ActiveStreams from "./ActiveStreams";
 
 const useStyles = makeStyles({
   root: {
@@ -34,6 +35,7 @@ function RightContent() {
       <Col xs={11} className={classes.root}>
         <div className={classes.header}>Royal Streams</div>
         <Divider className={classes.dividerStyle} />
+        <ActiveStreams />
       </Col>
     </Row>
   );
