@@ -77,7 +77,8 @@ function ActiveStreams() {
       "tadaoe",
       "daiywop",
       "antz_is_here",
-      "Knusch",
+      "thejassz",
+      "herbiemaster",
     ]);
   }, []);
 
