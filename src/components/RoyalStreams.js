@@ -1,7 +1,7 @@
 import React from "react";
 import api from "./api";
 import { useState, useEffect } from "react";
-import { Row, Col } from "reactstrap";
+// import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -56,6 +56,7 @@ const useStyles = makeStyles({
       color: "#71ccdf",
     },
   },
+  checked: {},
 });
 
 const CustomSwitch = withStyles({
@@ -92,7 +93,6 @@ function RoyalStreams() {
   const [offlineStreams, setOfflineStreams] = useState([]);
   const [royalStreams, setRoyalStreams] = useState([]);
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
-  const [offlineChannelsQuery, setOfflineChannelsQuery] = useState("");
 
   useEffect(() => {
     setRoyalStreams([
@@ -101,21 +101,19 @@ function RoyalStreams() {
       "tadaoe",
       "daiywop",
       "antz_is_here",
-      "TheJASSZ",
+      "thejassz",
       "herbiemaster",
     ]);
 
     const royalStreamsString =
-      "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop,herbiemaster,TheJASSZ";
+      "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop,herbiemaster,thejassz";
 
     const fetchLiveStreamData = async () => {
       let streamIDs = [];
       const result = await api.get(
         "https://api.twitch.tv/kraken/streams/?game=Age%20of%20Empires%20III&limit=15"
       );
-      result.data.streams.map((stream) => {
-        streamIDs.push(stream.channel._id);
-      });
+      result.data.streams.map((stream) => streamIDs.push(stream.channel._id));
       setActiveStreams(result.data.streams);
       setActiveStreamIDs(streamIDs);
     };
@@ -157,7 +155,7 @@ function RoyalStreams() {
 
       <List component="nav">
         {activeStreams.map((stream) => (
-          <div>
+          <div key={stream._id}>
             {royalStreams.includes(stream.channel.display_name) ? (
               <ListItemLink
                 key={stream._id}

@@ -107,7 +107,11 @@ function NavHeader() {
         <Row className={"no-gutters"}>
           <Col xs={12} className={classes.root}>
             <div className={classes.heroContainer}>
-              <img src={logoImg} className={classes.logoImg} />
+              <img
+                src={logoImg}
+                alt={"royal logo"}
+                className={classes.logoImg}
+              />
               <div className={classes.heroContent}>
                 <h1>Welcome To Royal Clan</h1>
                 <p className={classes.aboutUsHeader}>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
-
 import ActiveStreams from "./ActiveStreams";
 import RoyalStreams from "./RoyalStreams";
 import Hidden from "@material-ui/core/Hidden";

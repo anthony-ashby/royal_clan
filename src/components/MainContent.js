@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import RoyalDecrees from "./RoyalDecrees";
-import Hidden from "@material-ui/core/Hidden";
+// import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles({
   root: {

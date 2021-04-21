@@ -5,7 +5,7 @@ import LeftContent from "./components/LeftContent";
 import RightContent from "./components/RightContent";
 import NavFooter from "./components/NavFooter";
 import { Row, Col } from "reactstrap";
-import Hidden from "@material-ui/core/Hidden";
+// import Hidden from "@material-ui/core/Hidden";
 
 function Main() {
   return (

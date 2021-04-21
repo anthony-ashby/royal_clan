@@ -1,7 +1,7 @@
 import React from "react";
-import api from "./api";
-import { useState, useEffect } from "react";
-import { Row, Col } from "reactstrap";
+// import api from "./api";
+// import { useState, useEffect } from "react";
+// import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import BannerBackground from "../images/main_background.jpg";
 

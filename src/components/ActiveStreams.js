@@ -1,7 +1,7 @@
 import React from "react";
 import api from "./api";
 import { useState, useEffect } from "react";
-import { Row, Col } from "reactstrap";
+// import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -68,7 +68,6 @@ function ActiveStreams() {
         "https://api.twitch.tv/kraken/streams/?game=Age%20of%20Empires%20III&limit=10"
       );
       setActiveStreams(result.data.streams);
-      console.log(result.data.streams);
     };
     fetchData();
     setRoyalStreams([
@@ -77,7 +76,7 @@ function ActiveStreams() {
       "tadaoe",
       "daiywop",
       "antz_is_here",
-      "TheJASSZ",
+      "thejassz",
       "herbiemaster",
     ]);
   }, []);
@@ -87,7 +86,7 @@ function ActiveStreams() {
       <div className={classes.header}>Live Streams</div>
       <List component="nav" aria-label="main mailbox folders">
         {activeStreams.map((stream) => (
-          <div>
+          <div key={stream._id}>
             {!royalStreams.includes(stream.channel.display_name) ? (
               <ListItemLink
                 key={stream._id}
