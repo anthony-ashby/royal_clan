@@ -101,12 +101,12 @@ function RoyalStreams() {
       "tadaoe",
       "daiywop",
       "antz_is_here",
-      "thejassz",
+      "TheJASSZ",
       "herbiemaster",
     ]);
 
     const royalStreamsString =
-      "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop,herbiemaster,thejassz";
+      "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop,herbiemaster,TheJASSZ";
 
     const fetchLiveStreamData = async () => {
       let streamIDs = [];
