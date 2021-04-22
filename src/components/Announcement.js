@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
   customIcons: {
     color: "#071a33",
   },
+  customIcons2: {
+    color: "#71ccdf",
+  },
   cardMoreInfo: {
     textAlign: "left",
   },
@@ -139,7 +142,7 @@ function Announcement() {
         <CardContent className={classes.cardMoreInfo}>
           <Accordion className={classes.customAccordian}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={classes.customIcons2} />}
               aria-controls="panel1a-content"
               id="panel1a-header"
               className={classes.customAccordianTitle}
@@ -188,7 +191,7 @@ function Announcement() {
           </Accordion>
           <Accordion className={classes.customAccordian}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={classes.customIcons2} />}
               aria-controls="panel2a-content"
               id="panel2a-header"
               className={classes.customAccordianTitle}
@@ -225,7 +228,7 @@ function Announcement() {
           </Accordion>
           <Accordion className={classes.customAccordian}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={classes.customIcons2} />}
               aria-controls="panel3a-content"
               id="panel3a-header"
               className={classes.customAccordianTitle}
@@ -255,7 +258,7 @@ function Announcement() {
           </Accordion>
           <Accordion className={classes.customAccordian}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={classes.customIcons2} />}
               aria-controls="panel4a-content"
               id="panel4a-header"
               className={classes.customAccordianTitle}
@@ -278,7 +281,7 @@ function Announcement() {
           </Accordion>
           <Accordion className={classes.customAccordian}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={classes.customIcons2} />}
               aria-controls="panel5a-content"
               id="panel5a-header"
               className={classes.customAccordianTitle}
