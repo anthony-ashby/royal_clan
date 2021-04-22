@@ -107,7 +107,7 @@ function Announcement() {
         <Typography variant="body2" color="#071a33" component="p">
           Royal Clan and Elite Gaming Channel join together to bring you the
           Helter Skelter, a first-of-its-kind 2v2 tournament with random maps,
-          civilizations, and teams!
+          civilizations, and teams! Click the arrow below for more information.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
