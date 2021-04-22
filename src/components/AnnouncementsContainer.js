@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import BannerBackground from "../images/main_background.jpg";
-import RoyalDecree from "./RoyalDecree";
+import Announcement from "./Announcement";
 
 const useStyles = makeStyles({
   root: {},
@@ -23,17 +23,17 @@ const useStyles = makeStyles({
   },
 });
 
-function RoyalDecreeContainer() {
+function AnnouncementsContainer() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <div className={classes.headerTxt}>Royal Decrees (Announcements)</div>
+        <div className={classes.headerTxt}>Announcements</div>
       </div>
-      <RoyalDecree />
+      <Announcement />
     </div>
   );
 }
 
-export default RoyalDecreeContainer;
+export default AnnouncementsContainer;
