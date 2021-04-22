@@ -1,19 +1,18 @@
 import React from "react";
-// import api from "./api";
-// import { useState, useEffect } from "react";
-// import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import BannerBackground from "../images/main_background.jpg";
+import RoyalDecree from "./RoyalDecree";
 
 const useStyles = makeStyles({
-  root: {
+  root: {},
+  header: {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${BannerBackground})`,
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%",
     marginTop: 25,
   },
-  header: {
+  headerTxt: {
     color: "#71ccdf",
     fontSize: 20,
   },
@@ -24,14 +23,17 @@ const useStyles = makeStyles({
   },
 });
 
-function CommunityLinks() {
+function RoyalDecreeContainer() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <div className={classes.header}>Community Links</div>
+      <div className={classes.header}>
+        <div className={classes.headerTxt}>Royal Decrees (Announcements)</div>
+      </div>
+      <RoyalDecree />
     </div>
   );
 }
 
-export default CommunityLinks;
+export default RoyalDecreeContainer;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
-import RoyalDecrees from "./RoyalDecrees";
+import RoyalDecreeContainer from "./RoyalDecreeContainer";
 // import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles({
@@ -33,7 +33,7 @@ function MainContent() {
     <Row className={"no-gutters"}>
       <Col xs={1}></Col>
       <Col xl={12} xs={10} className={classes.root}>
-        <RoyalDecrees />
+        <RoyalDecreeContainer />
       </Col>
       <Col xs={1}></Col>
     </Row>

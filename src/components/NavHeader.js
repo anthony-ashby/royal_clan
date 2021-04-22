@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
 import headerImg from "../images/royal_header_background.jpg";
-import logoImg from "../images/royal_logo.JPG";
+import logoImg from "../images/royal_clan_logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {

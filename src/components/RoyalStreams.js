@@ -47,6 +47,7 @@ const useStyles = makeStyles({
     float: "center",
   },
   customSwitchGroup: {
+    marginTop: 10,
     display: "inline-block",
     float: "center",
     color: "#71ccdf",
@@ -101,10 +102,12 @@ function RoyalStreams() {
       "tadaoe",
       "daiywop",
       "antz_is_here",
-      "thejassz",
+      "TheJASSZ",
       "herbiemaster",
     ]);
+  }, []);
 
+  useEffect(() => {
     const royalStreamsString =
       "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop,herbiemaster,thejassz";
 
@@ -127,7 +130,7 @@ function RoyalStreams() {
 
     fetchLiveStreamData();
     fetchOfflineStreamDataFromTwitch();
-  }, []);
+  }, [royalStreams]);
 
   const handleChange = (event) => {
     setShowOfflineChannels(!showOfflineChannels);
@@ -186,7 +189,7 @@ function RoyalStreams() {
         {showOfflineChannels ? (
           <div>
             {offlineStreams.map((offlineStream) => (
-              <div>
+              <div key={offlineStream._id}>
                 {!activeStreamIDs.includes(parseInt(offlineStream._id)) ? (
                   <ListItemLink
                     key={offlineStream._id}

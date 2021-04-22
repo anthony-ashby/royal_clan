@@ -24,14 +24,14 @@ const useStyles = makeStyles({
   },
 });
 
-function RoyalDecrees() {
+function CommunityLinkContainer() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <div className={classes.header}>Royal Decrees (Announcements)</div>
+      <div className={classes.header}>Community Links</div>
     </div>
   );
 }
 
-export default RoyalDecrees;
+export default CommunityLinkContainer;
