@@ -103,7 +103,7 @@ function Announcement() {
           </Tooltip>
         }
         title="Royal 2v2 Helter Skelter Team Tournament!"
-        subheader="Beginning May 1st, 2021"
+        subheader="Dates To Be Announced"
       />
       <CardMedia className={classes.media} image={RoyalHelterSkelter} />
       <CardContent className={classes.cardContent}>
@@ -148,7 +148,7 @@ function Announcement() {
               className={classes.customAccordianTitle}
             >
               <Typography className={classes.heading}>
-                Important Dates
+                Important Dates (Tentative)
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
