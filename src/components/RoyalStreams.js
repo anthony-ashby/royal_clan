@@ -99,7 +99,7 @@ function RoyalStreams() {
     setRoyalStreams([
       "don_artie",
       "royalclanaoe",
-      "tadaoe",
+      "TADaoe",
       "daiywop",
       "antz_is_here",
       "TheJASSZ",
@@ -109,7 +109,7 @@ function RoyalStreams() {
 
   useEffect(() => {
     const royalStreamsString =
-      "royalclanaoe,don_artie,antz_is_here,tadaoe,daiywop,herbiemaster,thejassz";
+      "royalclanaoe,don_artie,antz_is_here,TADaoe,daiywop,herbiemaster,thejassz";
 
     const fetchLiveStreamData = async () => {
       let streamIDs = [];
