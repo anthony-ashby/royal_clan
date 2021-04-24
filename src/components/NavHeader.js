@@ -6,6 +6,14 @@ import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
 import headerImg from "../images/royal_header_background.jpg";
 import logoImg from "../images/royal_clan_logo.png";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams,
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,71 +128,97 @@ function NavHeader() {
                   dedicated to a fun and safe gaming community.
                 </p>
                 <Row className={clsx("no-gutters", classes.navButtonRow)}>
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.leftButton)}
-                  >
-                    Home
-                  </Button>
+                  <Link to={"/"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.leftButton)}
+                    >
+                      Home
+                    </Button>
+                  </Link>
+
                   <Divider
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
                   />
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.midButton)}
-                  >
-                    Tournaments
-                  </Button>
+
+                  <Link to={"/tournaments"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.midButton)}
+                    >
+                      Tournaments
+                    </Button>
+                  </Link>
+
                   <Divider
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
                   />
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.midButton)}
-                  >
-                    Forums
-                  </Button>
+
+                  <Link to={"/forums"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.midButton)}
+                    >
+                      Forums
+                    </Button>
+                  </Link>
+
                   <Divider
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
                   />
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.midButton)}
-                  >
-                    Content
-                  </Button>
+
+                  <Link to={"/content"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.midButton)}
+                    >
+                      Content
+                    </Button>
+                  </Link>
+
                   <Divider
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
                   />
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.midButton)}
-                  >
-                    Join
-                  </Button>
+
+                  <Link to={"/join"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.midButton)}
+                    >
+                      Join
+                    </Button>
+                  </Link>
+
                   <Divider
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
                   />
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.midButton)}
-                  >
-                    Contact Us
-                  </Button>
+
+                  <Link to={"/contact"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.midButton)}
+                    >
+                      Contact Us
+                    </Button>
+                  </Link>
+
                   <Divider
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
                   />
-                  <Button
-                    className={clsx(classes.buttonStyle, classes.rightButton)}
-                  >
-                    Donate
-                  </Button>
+
+                  <Link to={"/donate"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={clsx(classes.buttonStyle, classes.rightButton)}
+                    >
+                      Donate
+                    </Button>
+                  </Link>
                 </Row>
               </div>
             </div>

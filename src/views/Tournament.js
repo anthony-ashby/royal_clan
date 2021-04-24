@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Announcement() {
+function Tournament() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -327,4 +327,4 @@ function Announcement() {
   );
 }
 
-export default Announcement;
+export default Tournament;
