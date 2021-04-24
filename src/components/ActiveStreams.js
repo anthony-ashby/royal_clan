@@ -73,7 +73,7 @@ function ActiveStreams() {
     setRoyalStreams([
       "don_artie",
       "royalclanaoe",
-      "tadaoe",
+      "TADaoe",
       "daiywop",
       "antz_is_here",
       "TheJASSZ",
