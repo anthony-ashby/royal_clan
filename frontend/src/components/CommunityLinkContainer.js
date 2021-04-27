@@ -22,6 +22,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { useAuth } from "../contexts/AuthContext";
 
 const useStyles = makeStyles({
   root: {},
@@ -107,6 +108,8 @@ function CommunityLinkContainer() {
     name: "",
     url: "",
   });
+
+  const { currentUser } = useAuth();
 
   const [showAddFormError, setAddShowFormError] = useState(false);
   const [showModifyFormError, setShowModifyFormError] = useState(false);
@@ -492,18 +495,21 @@ function CommunityLinkContainer() {
     <div className={classes.root}>
       <div className={classes.header}>Community Links</div>
       <div></div>
-      <div>
-        <ColorButtonGreen
-          style={{ marginTop: 10 }}
-          endIcon={<EditIcon />}
-          variant="contained"
-          color="primary"
-          className={classes.margin}
-          onClick={handleModalOpen}
-        >
-          Edit
-        </ColorButtonGreen>
-      </div>
+
+      {currentUser ? (
+        <div>
+          <ColorButtonGreen
+            style={{ marginTop: 10 }}
+            endIcon={<EditIcon />}
+            variant="contained"
+            color="primary"
+            className={classes.margin}
+            onClick={handleModalOpen}
+          >
+            Edit
+          </ColorButtonGreen>
+        </div>
+      ) : null}
 
       <List component="nav" aria-label="main mailbox folders">
         {communityLinks.map((link) => (

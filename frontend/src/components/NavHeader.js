@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
@@ -6,7 +6,8 @@ import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
 import headerImg from "../images/royal_header_background.jpg";
 import logoImg from "../images/royal_clan_logo.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,6 +102,20 @@ const useStyles = makeStyles((theme) => ({
 
 function NavHeader() {
   const classes = useStyles();
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState("");
+  const history = useHistory();
+
+  async function handleLogout() {
+    setError(" ");
+
+    try {
+      await logout();
+      history.push("/");
+    } catch {
+      setError("Failed to log out.");
+    }
+  }
   return (
     <Row className={"no-gutters"}>
       <Col xs={1}></Col>
@@ -177,20 +192,6 @@ function NavHeader() {
                     flexItem
                   />
 
-                  <Link to={"/join"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.midButton)}
-                    >
-                      Join
-                    </Button>
-                  </Link>
-
-                  <Divider
-                    className={classes.dividerStyle}
-                    orientation="vertical"
-                    flexItem
-                  />
-
                   <Link to={"/contact"} style={{ textDecoration: "none" }}>
                     <Button
                       className={clsx(classes.buttonStyle, classes.midButton)}
@@ -207,11 +208,73 @@ function NavHeader() {
 
                   <Link to={"/donate"} style={{ textDecoration: "none" }}>
                     <Button
-                      className={clsx(classes.buttonStyle, classes.rightButton)}
+                      className={clsx(classes.buttonStyle, classes.midButton)}
                     >
                       Donate
                     </Button>
                   </Link>
+
+                  {currentUser ? null : (
+                    <>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+
+                      <Link to={"/login"} style={{ textDecoration: "none" }}>
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            `
+                            ${currentUser ? "" : classes.rightButton}`
+                          )}
+                        >
+                          Login
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+
+                  {currentUser ? (
+                    <>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+
+                      <Link
+                        to={"/update-profile"}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.midButton
+                          )}
+                        >
+                          Update Profile
+                        </Button>
+                      </Link>
+
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+
+                      <Button
+                        className={clsx(
+                          classes.buttonStyle,
+                          classes.rightButton
+                        )}
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </Button>
+                    </>
+                  ) : null}
                 </Row>
               </div>
             </div>

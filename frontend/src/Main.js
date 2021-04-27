@@ -8,9 +8,16 @@ import Join from "./views/Join";
 import ContactUs from "./views/ContactUs";
 import Donate from "./views/Donate";
 import Forums from "./views/Forums";
+import Signup from "./views/Signup";
+import Dashboard from "./views/Dashboard";
+import Login from "./views/Login";
+import ForgotPassword from "./views/ForgotPassword";
 import { Row, Col } from "reactstrap";
 // import Hidden from "@material-ui/core/Hidden";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import UpdateProfile from "./views/UpdateProfile";
 
 function Main() {
   return (
@@ -23,29 +30,22 @@ function Main() {
             </Col>
           </Row>
 
-          <Switch>
-            <Route path="/tournaments">
-              <Tournaments />
-            </Route>
-            <Route path="/forums">
-              <Forums />
-            </Route>
-            <Route path="/content">
-              <Content />
-            </Route>
-            <Route path="/join">
-              <Join />
-            </Route>
-            <Route path="/contact">
-              <ContactUs />
-            </Route>
-            <Route path="/donate">
-              <Donate />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+          <AuthProvider>
+            <Switch>
+              <Route path="/tournaments" component={Tournaments} />
+              <Route path="/forums" component={Forums} />
+              <Route path="/content" component={Content} />
+              <Route path="/join" component={Join} />
+              <Route path="/contact" component={ContactUs} />
+              <Route path="/donate" component={Donate} />
+              <Route path="/login" component={Login} />
+              <Route path="/forgot-password" component={ForgotPassword} />
+              <PrivateRoute path="/update-profile" component={UpdateProfile} />
+              <Route path="/signup" component={Signup} />
+              <Route exact path="/" component={Home} />
+              {/* <Route exact path="/dashboard" component={Dashboard} /> */}
+            </Switch>
+          </AuthProvider>
 
           <Row className={"no-gutters"}>
             <Col xs={12}>

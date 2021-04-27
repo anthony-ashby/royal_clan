@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/App.css";
 import Main from "./Main";
 import { makeStyles } from "@material-ui/styles";
-// import royalHeaderImg from "../images/royal_header_background4.jpg";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const useStyles = makeStyles({
   root: {
@@ -15,9 +15,11 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Main />
-    </div>
+    <AuthProvider>
+      <div className={classes.root}>
+        <Main />
+      </div>
+    </AuthProvider>
   );
 }
 
