@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import RightContent from "../components/RightContent";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
@@ -8,15 +7,10 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import RoyalHelterSkelter from "../images/helter_skelter_announcement.jpg";
 import RoyalChallengeEvent from "../images/Royal_Challenge_Event.png";
-import Tournament1 from "./Tournament1";
-import Tournament2 from "./Tournament2";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { withStyles } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -49,40 +43,10 @@ const useStyles = makeStyles({
   customCardMedia: {
     height: "200px",
   },
-  buttonContainer: {
-    textAlign: "left",
-    marginTop: 25,
-    marginLeft: 25,
-  },
 });
-
-function Tournament3() {
-  return <h2>Tournament3</h2>;
-}
-
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: "#071a33",
-    backgroundColor: "#45748c",
-    fontWeight: "bold",
-    "&:hover": {
-      backgroundColor: "#45748c",
-    },
-  },
-}))(Button);
 
 function Tournaments() {
   const classes = useStyles();
-  const [showThumbnails, setShowThumbnails] = useState(true);
-  const [showTournament, setShowTournament] = useState(false);
-  const openTournament = () => {
-    setShowThumbnails(false);
-    setShowTournament(true);
-  };
-  const closeTournament = () => {
-    setShowThumbnails(true);
-    setShowTournament(false);
-  };
   return (
     <div>
       <Row className={"no-gutters"}>
@@ -97,117 +61,84 @@ function Tournaments() {
                   <div className={classes.headerTxt}>Tournaments</div>
                 </div>
 
-                {showTournament ? (
-                  <div className={classes.buttonContainer}>
-                    <ColorButton
-                      variant="contained"
-                      color="primary"
-                      className={classes.margin}
-                      startIcon={<ArrowBackIcon />}
-                      onClick={() => closeTournament()}
-                    >
-                      Back to Tournaments
-                    </ColorButton>
-                  </div>
-                ) : null}
-
-                <Router>
-                  <div>
-                    {showThumbnails ? (
-                      <Row className={"no-gutters"}>
-                        <Col xl={4} xs={12}>
-                          <Link
-                            to="/2v2helterskelter"
-                            style={{ textDecoration: "none" }}
-                            onClick={() => openTournament()}
-                          >
-                            <Card className={classes.customCard}>
-                              <CardActionArea>
-                                <CardMedia
-                                  className={classes.customCardMedia}
-                                  image={RoyalHelterSkelter}
-                                  title="Royal Helter Skelter"
-                                />
-                                <CardContent style={{ height: 200 }}>
-                                  <Typography
-                                    gutterBottom
-                                    variant="h5"
-                                    component="h2"
-                                  >
-                                    Royal 2v2 Helter Skelter
-                                  </Typography>
-                                  <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p"
-                                  >
-                                    Royal Clan and Elite Gaming Channel join
-                                    together to bring you the Helter Skelter, a
-                                    first-of-its-kind 2v2 tournament with random
-                                    maps, civilizations, and teams! Click the
-                                    arrow below for more information.
-                                  </Typography>
-                                </CardContent>
-                              </CardActionArea>
-                            </Card>
-                          </Link>
-                        </Col>
-                        <Col xl={4} xs={12}>
-                          <Link
-                            to="/RoyalChallengeEvent"
-                            style={{ textDecoration: "none" }}
-                            onClick={() => openTournament()}
-                          >
-                            <Card className={classes.customCard}>
-                              <CardActionArea>
-                                <CardMedia
-                                  className={classes.customCardMedia}
-                                  image={RoyalChallengeEvent}
-                                  title="Royal Challenge Event"
-                                />
-                                <CardContent style={{ height: 200 }}>
-                                  <Typography
-                                    gutterBottom
-                                    variant="h5"
-                                    component="h2"
-                                  >
-                                    Royal Challenge Event
-                                  </Typography>
-                                  <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p"
-                                  >
-                                    This is the Royal Clan Challenge Event!
-                                    THREE CHALLENGES are laid down by the Clan
-                                    and in partnership with Elite Gaming
-                                    Channel! The contestant with the BEST time
-                                    that meets all the rules WILL WIN $50 for
-                                    that challenge!
-                                  </Typography>
-                                </CardContent>
-                              </CardActionArea>
-                            </Card>
-                          </Link>
-                        </Col>
-                      </Row>
-                    ) : null}
-
-                    {showTournament ? (
-                      <Switch>
-                        <Route path="/2v2helterskelter">
-                          <Tournament1 />
-                        </Route>
-                        <Route path="/RoyalChallengeEvent">
-                          <Tournament2 />
-                        </Route>
-                        <Route path="/tournament3">
-                          <Tournament3 />
-                        </Route>
-                      </Switch>
-                    ) : null}
-                  </div>
-                </Router>
+                <div>
+                  <Row className={"no-gutters"}>
+                    <Col xl={4} xs={12}>
+                      <Link
+                        to="/helterskelter"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Card className={classes.customCard}>
+                          <CardActionArea>
+                            <CardMedia
+                              className={classes.customCardMedia}
+                              image={RoyalHelterSkelter}
+                              title="Royal Helter Skelter"
+                            />
+                            <CardContent style={{ height: 200 }}>
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="h2"
+                              >
+                                Royal 2v2 Helter Skelter
+                              </Typography>
+                              <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                component="p"
+                              >
+                                Royal Clan and Elite Gaming Channel join
+                                together to bring you the Helter Skelter, a
+                                first-of-its-kind 2v2 tournament with random
+                                maps, civilizations, and teams! Click for more
+                                information.
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card>
+                      </Link>
+                    </Col>
+                    <Col xl={4} xs={12}>
+                      <Link
+                        to="/royalchallengeevent"
+                        style={{ textDecoration: "none" }}
+                        // onClick={() => openTournament()}
+                      >
+                        <Card className={classes.customCard}>
+                          <CardActionArea>
+                            <CardMedia
+                              className={classes.customCardMedia}
+                              image={RoyalChallengeEvent}
+                              title="Royal Challenge Event"
+                            />
+                            <CardContent style={{ height: 200 }}>
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="h2"
+                              >
+                                Royal Challenge Event
+                              </Typography>
+                              <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                component="p"
+                              >
+                                This is the Royal Clan Challenge Event! THREE
+                                CHALLENGES are laid down by the Clan and in
+                                partnership with Elite Gaming Channel! The
+                                contestant with the BEST time that meets all the
+                                rules WILL WIN $50 for that challenge! Click for
+                                more information.
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card>
+                      </Link>
+                    </Col>
+                  </Row>
+                </div>
               </div>
             </Col>
             <Col xs={1}></Col>

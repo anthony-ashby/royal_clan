@@ -10,6 +10,8 @@ import Donate from "./views/Donate";
 import Forums from "./views/Forums";
 import Signup from "./views/Signup";
 import Login from "./views/Login";
+import HelterSkelter from "./views/HelterSkelter";
+import RoyalChallenge from "./views/RoyalChallenge";
 import ForgotPassword from "./views/ForgotPassword";
 import { Row, Col } from "reactstrap";
 // import Hidden from "@material-ui/core/Hidden";
@@ -32,6 +34,8 @@ function Main() {
           <AuthProvider>
             <Switch>
               <Route path="/tournaments" component={Tournaments} />
+              <Route path="/helterskelter" component={HelterSkelter} />
+              <Route path="/royalchallengeevent" component={RoyalChallenge} />
               <Route path="/forums" component={Forums} />
               <Route path="/content" component={Content} />
               <Route path="/join" component={Join} />
