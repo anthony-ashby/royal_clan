@@ -155,16 +155,16 @@ function CommunityLinkContainer() {
     },
   }))(Button);
 
-  useEffect(() => {
-    fetch("/community_links")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((jsonRes) => setCommunityLinks(jsonRes))
-      .then(setDbUpdatePending(false));
-  }, [dbUpdatePending]);
+  // useEffect(() => {
+  //   fetch("/community_links")
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       }
+  //     })
+  //     .then((jsonRes) => setCommunityLinks(jsonRes))
+  //     .then(setDbUpdatePending(false));
+  // }, [dbUpdatePending]);
 
   function ListItemLink(props) {
     const classes = useStyles();
@@ -186,15 +186,15 @@ function CommunityLinkContainer() {
     };
 
     if (newCommunityLink.name !== "" && newCommunityLink.url !== "") {
-      axios
-        .post("http://localhost:3001/create", newCommunityLink)
-        .then(setDbUpdatePending(true))
-        .then(
-          setCreateNewLink({
-            name: "",
-            url: "",
-          })
-        );
+      // axios
+      //   .post("http://localhost:3001/create", newCommunityLink)
+      //   .then(setDbUpdatePending(true))
+      //   .then(
+      //     setCreateNewLink({
+      //       name: "",
+      //       url: "",
+      //     })
+      //   );
 
       setOpenModal(false);
       setAddShowFormError(false);
@@ -211,15 +211,15 @@ function CommunityLinkContainer() {
     };
 
     if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
-      axios
-        .post("/update", updateCommunityLink)
-        .then(setDbUpdatePending(true))
-        .then(
-          setCreateNewLink({
-            name: "",
-            url: "",
-          })
-        );
+      // axios
+      //   .post("/update", updateCommunityLink)
+      //   .then(setDbUpdatePending(true))
+      //   .then(
+      //     setCreateNewLink({
+      //       name: "",
+      //       url: "",
+      //     })
+      //   );
 
       setOpenModal(false);
       setShowModifyFormError(false);
@@ -236,15 +236,15 @@ function CommunityLinkContainer() {
     };
 
     if (deleteLinkObject.name !== "" && deleteLinkObject.url !== "") {
-      axios
-        .post("/delete", deleteCommunityLink)
-        .then(setDbUpdatePending(true))
-        .then(
-          setCreateNewLink({
-            name: "",
-            url: "",
-          })
-        );
+      // axios
+      //   .post("/delete", deleteCommunityLink)
+      //   .then(setDbUpdatePending(true))
+      //   .then(
+      //     setCreateNewLink({
+      //       name: "",
+      //       url: "",
+      //     })
+      //   );
 
       setOpenModal(false);
       setShowDeleteFormError(false);
@@ -511,7 +511,7 @@ function CommunityLinkContainer() {
         </div>
       ) : null}
 
-      <List component="nav" aria-label="main mailbox folders">
+      {/* <List component="nav" aria-label="main mailbox folders">
         {communityLinks.map((link) => (
           <div key={link._id}>
             <ListItemLink className={classes.listItem} href={link.url}>
@@ -519,7 +519,7 @@ function CommunityLinkContainer() {
             </ListItemLink>
           </div>
         ))}
-      </List>
+      </List> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
