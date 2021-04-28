@@ -11,7 +11,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import RoyalHelterSkelter from "../images/helter_skelter_announcement.jpg";
-import Tournament from "../views/Tournament";
+import RoyalChallengeEvent from "../images/Royal_Challenge_Event.png";
+import Tournament1 from "./Tournament1";
+import Tournament2 from "./Tournament2";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -53,10 +55,6 @@ const useStyles = makeStyles({
     marginLeft: 25,
   },
 });
-
-function Tournament2() {
-  return <h2>Tournament2</h2>;
-}
 
 function Tournament3() {
   return <h2>Tournament3</h2>;
@@ -130,7 +128,7 @@ function Tournaments() {
                                   image={RoyalHelterSkelter}
                                   title="Royal Helter Skelter"
                                 />
-                                <CardContent>
+                                <CardContent style={{ height: 200 }}>
                                   <Typography
                                     gutterBottom
                                     variant="h5"
@@ -154,15 +152,53 @@ function Tournaments() {
                             </Card>
                           </Link>
                         </Col>
+                        <Col xl={4} xs={12}>
+                          <Link
+                            to="/RoyalChallengeEvent"
+                            style={{ textDecoration: "none" }}
+                            onClick={() => openTournament()}
+                          >
+                            <Card className={classes.customCard}>
+                              <CardActionArea>
+                                <CardMedia
+                                  className={classes.customCardMedia}
+                                  image={RoyalChallengeEvent}
+                                  title="Royal Challenge Event"
+                                />
+                                <CardContent style={{ height: 200 }}>
+                                  <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="h2"
+                                  >
+                                    Royal Challenge Event
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p"
+                                  >
+                                    This is the Royal Clan Challenge Event!
+                                    THREE CHALLENGES are laid down by the Clan
+                                    and in partnership with Elite Gaming
+                                    Channel! The contestant with the BEST time
+                                    that meets all the rules WILL WIN $50 for
+                                    that challenge!
+                                  </Typography>
+                                </CardContent>
+                              </CardActionArea>
+                            </Card>
+                          </Link>
+                        </Col>
                       </Row>
                     ) : null}
 
                     {showTournament ? (
                       <Switch>
                         <Route path="/2v2helterskelter">
-                          <Tournament />
+                          <Tournament1 />
                         </Route>
-                        <Route path="/tournament2">
+                        <Route path="/RoyalChallengeEvent">
                           <Tournament2 />
                         </Route>
                         <Route path="/tournament3">
