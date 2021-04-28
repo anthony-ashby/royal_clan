@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
@@ -103,17 +103,14 @@ const useStyles = makeStyles((theme) => ({
 function NavHeader() {
   const classes = useStyles();
   const { currentUser, logout } = useAuth();
-  const [error, setError] = useState("");
   const history = useHistory();
 
   async function handleLogout() {
-    setError(" ");
-
     try {
       await logout();
       history.push("/");
-    } catch {
-      setError("Failed to log out.");
+    } catch (err) {
+      console.log(err);
     }
   }
   return (

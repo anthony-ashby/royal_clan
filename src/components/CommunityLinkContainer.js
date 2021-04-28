@@ -4,10 +4,8 @@ import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-
 import ListItemText from "@material-ui/core/ListItemText";
 import BannerBackground from "../images/main_background.jpg";
-import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -155,16 +153,20 @@ function CommunityLinkContainer() {
     },
   }))(Button);
 
-  // useEffect(() => {
-  //   fetch("/community_links")
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //     })
-  //     .then((jsonRes) => setCommunityLinks(jsonRes))
-  //     .then(setDbUpdatePending(false));
-  // }, [dbUpdatePending]);
+  const loadLinks = async () => {
+    try {
+      const res = await fetch("/api/getLinks");
+      const links = await res.json();
+      setCommunityLinks(links);
+      setDbUpdatePending(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    loadLinks();
+  }, [dbUpdatePending]);
 
   function ListItemLink(props) {
     const classes = useStyles();
@@ -183,74 +185,84 @@ function CommunityLinkContainer() {
     const newCommunityLink = {
       name: createNewLink.name,
       url: createNewLink.url,
+      description: "Generic Description",
     };
 
-    if (newCommunityLink.name !== "" && newCommunityLink.url !== "") {
-      // axios
-      //   .post("http://localhost:3001/create", newCommunityLink)
-      //   .then(setDbUpdatePending(true))
-      //   .then(
-      //     setCreateNewLink({
-      //       name: "",
-      //       url: "",
-      //     })
-      //   );
+    const addLink = async () => {
+      if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
+        try {
+          await fetch("/api/createLink", {
+            method: "POST",
+            body: JSON.stringify(newCommunityLink),
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        setOpenModal(false);
+        setAddShowFormError(false);
+        setDbUpdatePending(true);
+      } else {
+        setAddShowFormError(true);
+      }
+    };
 
-      setOpenModal(false);
-      setAddShowFormError(false);
-    } else {
-      setAddShowFormError(true);
-    }
+    addLink();
   }
 
   function handleModifySubmit(event) {
     const updateCommunityLink = {
-      _id: modifyLinkObject._id,
       name: modifyLinkObject.name,
+      _id: modifyLinkObject._id,
       url: modifyLinkObject.url,
+      description: "Generic Description",
+      archived: false,
     };
 
-    if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
-      // axios
-      //   .post("/update", updateCommunityLink)
-      //   .then(setDbUpdatePending(true))
-      //   .then(
-      //     setCreateNewLink({
-      //       name: "",
-      //       url: "",
-      //     })
-      //   );
+    const updateLink = async () => {
+      if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
+        try {
+          await fetch("/api/updateLink", {
+            method: "PUT",
+            body: JSON.stringify(updateCommunityLink),
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        setOpenModal(false);
+        setShowModifyFormError(false);
+        setDbUpdatePending(true);
+      } else {
+        setShowModifyFormError(true);
+      }
+    };
 
-      setOpenModal(false);
-      setShowModifyFormError(false);
-    } else {
-      setShowModifyFormError(true);
-    }
+    updateLink();
   }
 
   function handleDeleteSubmit(event) {
     const deleteCommunityLink = {
       _id: deleteLinkObject._id,
-      name: deleteLinkObject.name,
-      url: deleteLinkObject.url,
     };
 
-    if (deleteLinkObject.name !== "" && deleteLinkObject.url !== "") {
-      // axios
-      //   .post("/delete", deleteCommunityLink)
-      //   .then(setDbUpdatePending(true))
-      //   .then(
-      //     setCreateNewLink({
-      //       name: "",
-      //       url: "",
-      //     })
-      //   );
+    const deleteLink = async () => {
+      if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
+        try {
+          await fetch("/api/deleteLink", {
+            method: "DELETE",
+            body: JSON.stringify(deleteCommunityLink),
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        setOpenModal(false);
+        setShowDeleteFormError(false);
+        setDbUpdatePending(true);
+      } else {
+        setShowDeleteFormError(true);
+      }
+    };
 
-      setOpenModal(false);
-      setShowDeleteFormError(false);
-    } else {
-      setShowDeleteFormError(true);
-    }
+    deleteLink();
   }
 
   function handleModalCancel(event) {
@@ -511,7 +523,7 @@ function CommunityLinkContainer() {
         </div>
       ) : null}
 
-      {/* <List component="nav" aria-label="main mailbox folders">
+      <List component="nav" aria-label="main mailbox folders">
         {communityLinks.map((link) => (
           <div key={link._id}>
             <ListItemLink className={classes.listItem} href={link.url}>
@@ -519,7 +531,7 @@ function CommunityLinkContainer() {
             </ListItemLink>
           </div>
         ))}
-      </List> */}
+      </List>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

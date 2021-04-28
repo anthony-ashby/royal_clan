@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import RightContent from "../components/RightContent";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";

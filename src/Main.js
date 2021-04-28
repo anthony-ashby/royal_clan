@@ -9,7 +9,6 @@ import ContactUs from "./views/ContactUs";
 import Donate from "./views/Donate";
 import Forums from "./views/Forums";
 import Signup from "./views/Signup";
-import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
 import ForgotPassword from "./views/ForgotPassword";
 import { Row, Col } from "reactstrap";
