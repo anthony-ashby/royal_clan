@@ -125,7 +125,7 @@ const useStyles = makeStyles({
 
 function HelterSkelter() {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
 
   const ColorButton = withStyles((theme) => ({
     root: {
@@ -263,32 +263,25 @@ function HelterSkelter() {
                             <Typography>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
-                                  2 May: Tournament administrators will reveal
-                                  the top 16 players that are participating in
-                                  the tournament. Event will be streamed to show
-                                  the random wheel spinning to determine teams,
-                                  civilizations, and maps (for the ENTIRE
-                                  tournament). Teams will be selected at random.
-                                  Civilizations will be selected randomly from
-                                  each player’s civ pool. Maps will be selected
-                                  randomly. All teams, matchups, civs, and maps
-                                  will be known on this date. Commence practice
-                                  and scheduling for first round.
+                                  29 April: Tournament administrators will
+                                  reveal the top 16 players that are
+                                  participating in the tournament. Event will be
+                                  streamed to show the random wheel spinning to
+                                  determine teams, civilizations, and maps (for
+                                  the ENTIRE tournament). Teams will be selected
+                                  at random. Civilizations will be selected
+                                  randomly from each player’s civ pool. Maps
+                                  will be selected randomly. All teams,
+                                  matchups, civs, and maps will be known on this
+                                  date. Commence practice and scheduling for
+                                  first round.
                                 </li>
                                 <li style={{ paddingTop: 10 }}>
-                                  7-9 May: First round is played.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  14-16 May: Second round is played. First round
-                                  is streamed.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  21-23 May: Third (final) round is played.
-                                  Second round is streamed.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  28-30 May: Third (final) round is streamed.
-                                  Tournament ends.
+                                  30 April - 10 May: All matches and streams
+                                  will take place so as not to conflict with the
+                                  upcoming ESOC AOE3 Global Championships. Every
+                                  effort should be made to complete the
+                                  tournament during this time period.
                                 </li>
                               </ul>
                             </Typography>
@@ -364,8 +357,8 @@ function HelterSkelter() {
                                   R1G1, Brits – R2G1, Dutch – R2G2, …).
                                 </li>
                                 <li style={{ paddingTop: 10 }}>
-                                  There will be no civ bans or other
-                                  restrictions.
+                                  The players have voted through a majority and
+                                  Sweden is BANNED.
                                 </li>
                               </ul>
                             </Typography>
@@ -396,6 +389,29 @@ function HelterSkelter() {
                                 <li style={{ paddingTop: 10 }}>
                                   There will be no map bans or other
                                   restrictions.
+                                </li>
+
+                                <li style={{ paddingTop: 10 }}>
+                                  Players must install/enable the following mod
+                                  to be used for maps:{" "}
+                                  <a
+                                    href="https://www.ageofempires.com/mods/details/22419/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    RoyaL 2v2 Helter Skelter Tournament Maps.
+                                  </a>
+                                </li>
+                                <li style={{ paddingTop: 10 }}>
+                                  For more information on the map pool, please
+                                  visit:{" "}
+                                  <a
+                                    href="https://docs.google.com/document/d/1uF1dSInpcQvxXXB6spg-iSKxS162otdW1i-_BoUlcNk/edit"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    RoyaL 2v2 Helter Skelter Map Pool.
+                                  </a>
                                 </li>
                               </ul>
                               <div className={classes.mapPool}>

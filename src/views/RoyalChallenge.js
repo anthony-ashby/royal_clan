@@ -107,7 +107,7 @@ const useStyles = makeStyles({
 
 function RoyalChallenge() {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
 
   const ColorButton = withStyles((theme) => ({
     root: {

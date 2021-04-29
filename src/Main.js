@@ -46,7 +46,6 @@ function Main() {
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
               <Route path="/signup" component={Signup} />
               <Route exact path="/" component={Home} />
-              {/* <Route exact path="/dashboard" component={Dashboard} /> */}
             </Switch>
           </AuthProvider>
 
