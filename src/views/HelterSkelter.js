@@ -39,6 +39,13 @@ import nepal from "../images/maps/nepal.png";
 import punjab from "../images/maps/punjab.png";
 import saguenay from "../images/maps/saguenay.png";
 
+import match1 from "../images/helter_round1/Haitch-Perez_Jeri-Soldier.png";
+import match2 from "../images/helter_round1/Kaister-Don_Opti-Aizamk.png";
+import match3 from "../images/helter_round1/Prinz-King_AOK-Wicked.png";
+import match4 from "../images/helter_round1/Danielek-Kynesie_Knusch-Aykin.png";
+
+import ReactPlayer from "react-player";
+
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#2e3c45",
@@ -244,6 +251,93 @@ function HelterSkelter() {
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                       <CardContent className={classes.cardMoreInfo}>
+                        <Accordion className={classes.customAccordian}>
+                          <AccordionSummary
+                            expandIcon={
+                              <ExpandMoreIcon
+                                className={classes.customIcons2}
+                              />
+                            }
+                            aria-controls="panel7a-content"
+                            id="panel7a-header"
+                            className={classes.customAccordianTitle}
+                          >
+                            <Typography className={classes.heading}>
+                              Digital Content - Broadcasts
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              <ReactPlayer
+                                url="https://www.twitch.tv/videos/1005770334?t=00h05m37s"
+                                controls
+                              />
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
+                        <Accordion className={classes.customAccordian}>
+                          <AccordionSummary
+                            expandIcon={
+                              <ExpandMoreIcon
+                                className={classes.customIcons2}
+                              />
+                            }
+                            aria-controls="panel6a-content"
+                            id="panel6a-header"
+                            className={classes.customAccordianTitle}
+                          >
+                            <Typography className={classes.heading}>
+                              Round 1 (Quarterfinals) Match Details
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              <Row
+                                className={"no-gutters"}
+                                style={{ textAlign: "center" }}
+                              >
+                                <Col xl={12}>
+                                  <img
+                                    src={match1}
+                                    alt={"match1"}
+                                    style={{
+                                      marginTop: 20,
+                                      width: "90%",
+                                      borderRadius: 20,
+                                    }}
+                                  />
+                                  <img
+                                    src={match2}
+                                    alt={"match2"}
+                                    style={{
+                                      marginTop: 20,
+                                      width: "90%",
+                                      borderRadius: 20,
+                                    }}
+                                  />
+                                  <img
+                                    src={match3}
+                                    alt={"match3"}
+                                    style={{
+                                      marginTop: 20,
+                                      width: "90%",
+                                      borderRadius: 20,
+                                    }}
+                                  />
+                                  <img
+                                    src={match4}
+                                    alt={"match4"}
+                                    style={{
+                                      marginTop: 20,
+                                      width: "90%",
+                                      borderRadius: 20,
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
                         <Accordion className={classes.customAccordian}>
                           <AccordionSummary
                             expandIcon={
@@ -532,6 +626,12 @@ function HelterSkelter() {
                           <AccordionDetails>
                             <Typography>
                               <ul>
+                                <li style={{ paddingTop: 10 }}>
+                                  The players have voted through a majority and
+                                  there will be NO FEEDING before the first 4
+                                  minutes of a game. This includes crate
+                                  gathering.
+                                </li>
                                 <li style={{ paddingTop: 10 }}>
                                   Once a date/time is agreed upon by all players
                                   for a particular match, everyone must make
