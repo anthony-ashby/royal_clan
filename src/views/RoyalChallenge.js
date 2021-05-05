@@ -374,11 +374,6 @@ function RoyalChallenge() {
                               </h3>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
-                                  MAKE and/or SHIP a total of 15 Howdahs and
-                                  SHIP “Elephant Combat and then pause or
-                                  resign.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
                                   All civs and their convert cards for all civs:
                                 </li>
                                 <li style={{ paddingTop: 10 }}>
@@ -456,56 +451,6 @@ function RoyalChallenge() {
                                 </li>
                                 <li style={{ paddingTop: 10 }}>
                                   Game Speed: Medium
-                                </li>
-                              </ul>
-                            </Typography>
-                          </AccordionDetails>
-                        </Accordion>
-                        <Accordion className={classes.customAccordian}>
-                          <AccordionSummary
-                            expandIcon={
-                              <ExpandMoreIcon
-                                className={classes.customIcons2}
-                              />
-                            }
-                            aria-controls="panel5a-content"
-                            id="panel5a-header"
-                            className={classes.customAccordianTitle}
-                          >
-                            <Typography className={classes.heading}>
-                              Scheduling and Other Rules
-                            </Typography>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Typography>
-                              <ul>
-                                <li style={{ paddingTop: 10 }}>
-                                  Once a date/time is agreed upon by all players
-                                  for a particular match, everyone must make
-                                  their best effort to show up on time. There
-                                  will be a penalty for inexcusable delays as
-                                  follows:
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Quarterfinals – If a match is delayed by 30
-                                  min., the team causing the delay will forfeit.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Semifinals – If a match is delayed by 1 hr.,
-                                  the team causing the delay will forfeit.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Finals – If a match is delayed by 1 hr., the
-                                  team causing the delay will forfeit.
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  If any conflict arises during the tournament,
-                                  tournament admins will discuss potential
-                                  remedies and hold a vote on outcomes. NO
-                                  tournament admins will take place in the
-                                  tournament and no player actively playing in
-                                  the tournament will have ANY say in committee
-                                  actions.
                                 </li>
                               </ul>
                             </Typography>
