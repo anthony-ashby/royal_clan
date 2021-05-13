@@ -86,8 +86,6 @@ const useStyles = makeStyles({
     color: "#71ccdf",
     padding: 20,
     position: "relative",
-    // boxShadow: theme.shadows[5],
-    // padding: theme.spacing(2, 4, 3),
   },
 });
 
@@ -95,6 +93,15 @@ function CommunityLinkContainer() {
   const classes = useStyles();
   const [dbUpdatePending, setDbUpdatePending] = useState(false);
   const [openModal, setOpenModal] = React.useState(false);
+  const { currentUser } = useAuth();
+  const [showAddFormError, setAddShowFormError] = useState(false);
+  const [showModifyFormError, setShowModifyFormError] = useState(false);
+  const [showDeleteFormError, setShowDeleteFormError] = useState(false);
+  const [modifyLink, setModifyLink] = React.useState("");
+  const [modifyLinkObject, setModifyLinkObject] = React.useState({});
+  const [deleteLink, setDeleteLink] = React.useState("");
+  const [deleteLinkObject, setDeleteLinkObject] = React.useState({});
+  const [modalTab, setModalTab] = React.useState(0);
   const [communityLinks, setCommunityLinks] = useState([
     {
       _id: "",
@@ -106,30 +113,6 @@ function CommunityLinkContainer() {
     name: "",
     url: "",
   });
-
-  const { currentUser } = useAuth();
-
-  const [showAddFormError, setAddShowFormError] = useState(false);
-  const [showModifyFormError, setShowModifyFormError] = useState(false);
-  const [showDeleteFormError, setShowDeleteFormError] = useState(false);
-
-  const [modalTab, setModalTab] = React.useState(0);
-
-  const handleTabChange = (event, newValue) => {
-    setModalTab(newValue);
-  };
-
-  const handleModalOpen = () => {
-    setOpenModal(true);
-  };
-
-  const handleModalClose = () => {
-    setCreateNewLink({
-      name: "",
-      url: "",
-    });
-    setOpenModal(false);
-  };
 
   const ColorButtonGreen = withStyles((theme) => ({
     root: {
@@ -153,9 +136,25 @@ function CommunityLinkContainer() {
     },
   }))(Button);
 
+  const handleTabChange = (event, newValue) => {
+    setModalTab(newValue);
+  };
+
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleModalClose = () => {
+    setCreateNewLink({
+      name: "",
+      url: "",
+    });
+    setOpenModal(false);
+  };
+
   const loadLinks = async () => {
     try {
-      const res = await fetch("/api/getLinks");
+      const res = await fetch("/.netlify/functions/getLinks");
       const links = await res.json();
       setCommunityLinks(links);
       setDbUpdatePending(false);
@@ -168,19 +167,6 @@ function CommunityLinkContainer() {
     loadLinks();
   }, [dbUpdatePending]);
 
-  function ListItemLink(props) {
-    const classes = useStyles();
-    return (
-      <ListItem
-        button
-        component="a"
-        {...props}
-        target="_blank"
-        className={classes.customLink}
-      />
-    );
-  }
-
   function handleAddSubmit(event) {
     const newCommunityLink = {
       name: createNewLink.name,
@@ -191,7 +177,7 @@ function CommunityLinkContainer() {
     const addLink = async () => {
       if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
         try {
-          await fetch("/api/createLink", {
+          await fetch("/.netlify/functions/createLink", {
             method: "POST",
             body: JSON.stringify(newCommunityLink),
           });
@@ -221,7 +207,7 @@ function CommunityLinkContainer() {
     const updateLink = async () => {
       if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
         try {
-          await fetch("/api/updateLink", {
+          await fetch("/.netlify/functions/updateLink", {
             method: "PUT",
             body: JSON.stringify(updateCommunityLink),
           });
@@ -247,7 +233,7 @@ function CommunityLinkContainer() {
     const deleteLink = async () => {
       if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
         try {
-          await fetch("/api/deleteLink", {
+          await fetch("/.netlify/functions/deleteLink", {
             method: "DELETE",
             body: JSON.stringify(deleteCommunityLink),
           });
@@ -294,11 +280,6 @@ function CommunityLinkContainer() {
     });
   }
 
-  const [modifyLink, setModifyLink] = React.useState("");
-  const [modifyLinkObject, setModifyLinkObject] = React.useState({});
-  const [deleteLink, setDeleteLink] = React.useState("");
-  const [deleteLinkObject, setDeleteLinkObject] = React.useState({});
-
   const handleModifyFormSelection = (event) => {
     setModifyLink(event.target.value);
     let modifyObj = communityLinks.filter(
@@ -314,6 +295,19 @@ function CommunityLinkContainer() {
     );
     setDeleteLinkObject(deleteObj[0]);
   };
+
+  function ListItemLink(props) {
+    const classes = useStyles();
+    return (
+      <ListItem
+        button
+        component="a"
+        {...props}
+        target="_blank"
+        className={classes.customLink}
+      />
+    );
+  }
 
   function renderForm(param) {
     switch (param) {

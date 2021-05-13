@@ -1,4 +1,4 @@
-type Link {
+type communityLinks {
   url: String!
   name: String!
   description: String!
@@ -6,5 +6,5 @@ type Link {
 }
 
 type Query {
-  allLinks: [Link!]!
+  allCommunityLinks: [communityLinks!]!
 }
