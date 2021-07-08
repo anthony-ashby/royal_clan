@@ -1,7 +1,7 @@
 import React from "react";
 import TwitchApi from "./apis/TwitchApi";
 import { useState, useEffect } from "react";
-// import { Row, Col } from "reactstrap";
+import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -15,6 +15,21 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
 import BannerBackground from "../images/main_background.jpg";
+
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import EditIcon from "@material-ui/icons/Edit";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { useAuth } from "../contexts/AuthContext";
 
 const useStyles = makeStyles({
   root: {
@@ -94,6 +109,18 @@ function RoyalStreams() {
   const [offlineStreams, setOfflineStreams] = useState([]);
   const [royalStreams, setRoyalStreams] = useState([]);
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
+
+  const [dbUpdatePending, setDbUpdatePending] = useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const { currentUser } = useAuth();
+  const [showAddFormError, setAddShowFormError] = useState(false);
+  const [showModifyFormError, setShowModifyFormError] = useState(false);
+  const [showDeleteFormError, setShowDeleteFormError] = useState(false);
+  const [modifyLink, setModifyLink] = React.useState("");
+  const [modifyLinkObject, setModifyLinkObject] = React.useState({});
+  const [deleteLink, setDeleteLink] = React.useState("");
+  const [deleteLinkObject, setDeleteLinkObject] = React.useState({});
+  const [modalTab, setModalTab] = React.useState(0);
 
   useEffect(() => {
     setRoyalStreams([

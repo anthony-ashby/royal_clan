@@ -9,6 +9,9 @@ import Button from "@material-ui/core/Button";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   root: {
@@ -103,28 +106,49 @@ function Login() {
                   <div className={classes.headerTxt}>Login</div>
                 </div>
                 <div style={{ margin: 15, color: "#71ccdf" }}>Login form</div>
-                <form noValidate autoComplete="off">
+                <form noValidate>
                   <TextField
-                    className={classes.customInputField}
-                    id="email_input"
-                    label="Email Address"
                     variant="filled"
+                    margin="normal"
+                    required
+                    id="email"
+                    label="Email Address"
                     name="email"
                     value={userInput.email}
                     onChange={handleTextFieldChange}
-                    required
-                  />
-                  <TextField
+                    autocomplete="email"
                     className={classes.customInputField}
-                    id="pw_input"
-                    label="Password"
+                  />
+
+                  <TextField
                     variant="filled"
+                    margin="normal"
+                    required
+                    id="password"
+                    label="Password"
                     name="password"
+                    type="password"
                     value={userInput.password}
                     onChange={handleTextFieldChange}
-                    required
+                    autocomplete="current-password"
+                    className={classes.customInputField}
                   />
+                  <Row className={"no-gutters"} style={{ marginTop: 20 }}>
+                    <Col xl={12} xs={12}>
+                      <ColorButtonGreen
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                        style={{ width: "50%" }}
+                        disabled={loading}
+                      >
+                        Log in
+                      </ColorButtonGreen>
+                    </Col>
+                  </Row>
                 </form>
+
                 {errorMsg ? (
                   <Alert
                     severity="error"
@@ -133,19 +157,7 @@ function Login() {
                     {errorMsg}
                   </Alert>
                 ) : null}
-                <Row className={"no-gutters"} style={{ marginTop: 20 }}>
-                  <Col xl={12} xs={12}>
-                    <ColorButtonGreen
-                      variant="contained"
-                      color="primary"
-                      onClick={handleSubmit}
-                      style={{ width: "50%" }}
-                      disabled={loading}
-                    >
-                      Log in
-                    </ColorButtonGreen>
-                  </Col>
-                </Row>
+
                 <div style={{ margin: 15, color: "#71ccdf" }}>
                   <Link to="/forgot-password">Forgot password?</Link>
                 </div>

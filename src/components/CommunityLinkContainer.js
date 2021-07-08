@@ -154,7 +154,7 @@ function CommunityLinkContainer() {
 
   const loadLinks = async () => {
     try {
-      const res = await fetch("/.netlify/functions/getLinks");
+      const res = await fetch("/.netlify/functions/getCommunityLinks");
       const links = await res.json();
       setCommunityLinks(links);
       setDbUpdatePending(false);
@@ -177,7 +177,7 @@ function CommunityLinkContainer() {
     const addLink = async () => {
       if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
         try {
-          await fetch("/.netlify/functions/createLink", {
+          await fetch("/.netlify/functions/createCommunityLink", {
             method: "POST",
             body: JSON.stringify(newCommunityLink),
           });
@@ -207,7 +207,7 @@ function CommunityLinkContainer() {
     const updateLink = async () => {
       if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
         try {
-          await fetch("/.netlify/functions/updateLink", {
+          await fetch("/.netlify/functions/updateCommunityLink", {
             method: "PUT",
             body: JSON.stringify(updateCommunityLink),
           });
@@ -233,7 +233,7 @@ function CommunityLinkContainer() {
     const deleteLink = async () => {
       if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
         try {
-          await fetch("/.netlify/functions/deleteLink", {
+          await fetch("/.netlify/functions/deleteCommunityLink", {
             method: "DELETE",
             body: JSON.stringify(deleteCommunityLink),
           });
@@ -336,34 +336,37 @@ function CommunityLinkContainer() {
                 value={createNewLink.url}
                 onChange={handleAddFormTextFieldChange}
               />
+              {showAddFormError ? (
+                <div>
+                  Please make sure you entered a value for Name and URL.
+                </div>
+              ) : null}
+              <div className={classes.buttonContainer}>
+                <Row className={"no-gutters"}>
+                  <Col xl={6} xs={12}>
+                    <ColorButtonRed
+                      variant="contained"
+                      color="primary"
+                      onClick={handleModalCancel}
+                      style={{ width: "90%" }}
+                    >
+                      Cancel
+                    </ColorButtonRed>
+                  </Col>
+                  <Col xl={6} xs={12}>
+                    <ColorButtonGreen
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAddSubmit}
+                      style={{ width: "90%" }}
+                    >
+                      Submit
+                    </ColorButtonGreen>
+                  </Col>
+                </Row>
+              </div>
             </form>
-            {showAddFormError ? (
-              <div>Please make sure you entered a value for Name and URL.</div>
-            ) : null}
-            <div className={classes.buttonContainer}>
-              <Row className={"no-gutters"}>
-                <Col xl={6} xs={12}>
-                  <ColorButtonRed
-                    variant="contained"
-                    color="primary"
-                    onClick={handleModalCancel}
-                    style={{ width: "90%" }}
-                  >
-                    Cancel
-                  </ColorButtonRed>
-                </Col>
-                <Col xl={6} xs={12}>
-                  <ColorButtonGreen
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAddSubmit}
-                    style={{ width: "90%" }}
-                  >
-                    Submit
-                  </ColorButtonGreen>
-                </Col>
-              </Row>
-            </div>
           </>
         );
       case 1:
@@ -410,34 +413,37 @@ function CommunityLinkContainer() {
                 onChange={handleModifyFormTextFieldChange}
                 focused={true}
               />
+              {showModifyFormError ? (
+                <div>
+                  Please make sure you entered a value for Name and URL.
+                </div>
+              ) : null}
+              <div className={classes.buttonContainer}>
+                <Row className={"no-gutters"}>
+                  <Col xl={6} xs={12}>
+                    <ColorButtonRed
+                      variant="contained"
+                      color="primary"
+                      onClick={handleModalCancel}
+                      style={{ width: "90%" }}
+                    >
+                      Cancel
+                    </ColorButtonRed>
+                  </Col>
+                  <Col xl={6} xs={12}>
+                    <ColorButtonGreen
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleModifySubmit}
+                      style={{ width: "90%" }}
+                    >
+                      Submit
+                    </ColorButtonGreen>
+                  </Col>
+                </Row>
+              </div>
             </form>
-            {showModifyFormError ? (
-              <div>Please make sure you entered a value for Name and URL.</div>
-            ) : null}
-            <div className={classes.buttonContainer}>
-              <Row className={"no-gutters"}>
-                <Col xl={6} xs={12}>
-                  <ColorButtonRed
-                    variant="contained"
-                    color="primary"
-                    onClick={handleModalCancel}
-                    style={{ width: "90%" }}
-                  >
-                    Cancel
-                  </ColorButtonRed>
-                </Col>
-                <Col xl={6} xs={12}>
-                  <ColorButtonGreen
-                    variant="contained"
-                    color="primary"
-                    onClick={handleModifySubmit}
-                    style={{ width: "90%" }}
-                  >
-                    Submit
-                  </ColorButtonGreen>
-                </Col>
-              </Row>
-            </div>
           </>
         );
       case 2:
@@ -480,6 +486,7 @@ function CommunityLinkContainer() {
                 </Col>
                 <Col xl={6} xs={12}>
                   <ColorButtonGreen
+                    type="submit"
                     variant="contained"
                     color="primary"
                     onClick={handleDeleteSubmit}

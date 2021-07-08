@@ -1,4 +1,4 @@
-const { DELETE_LINK } = require("./utils/linkQueries");
+const { DELETE_LINK } = require("./utils/communityLinkQueries");
 const sendQuery = require("./utils/sendQuery");
 const formattedResponse = require("./utils/formattedResponse");
 

@@ -1,4 +1,4 @@
-const { GET_LINKS } = require("./utils/linkQueries");
+const { GET_LINKS } = require("./utils/communityLinkQueries");
 const sendQuery = require("./utils/sendQuery");
 const formattedResponse = require("./utils/formattedResponse");
 
