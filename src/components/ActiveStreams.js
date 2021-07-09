@@ -1,7 +1,4 @@
 import React from "react";
-import TwitchApi from "./apis/TwitchApi";
-import { useState, useEffect } from "react";
-// import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -52,49 +49,12 @@ function ListItemLink(props) {
   );
 }
 
-function ActiveStreams() {
+const ActiveStreams = ({
+  setDbUpdatePending,
+  activeStreams,
+  royalStreamsArr,
+}) => {
   const classes = useStyles();
-  const [activeStreams, setActiveStreams] = useState([]);
-  const [royalStreams, setRoyalStreams] = useState([]);
-  const [royalStreamsArr, setRoyalStreamsArr] = useState([]);
-  const [royalStreamsString, setRoyalStreamsString] = useState();
-  const [dbUpdatePending, setDbUpdatePending] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await TwitchApi.get(
-        "https://api.twitch.tv/kraken/streams/?game=Age%20of%20Empires%20III&limit=10"
-      );
-      setActiveStreams(result.data.streams);
-    };
-    fetchData();
-  }, []);
-
-  const loadStreams = async () => {
-    try {
-      const res = await fetch("/.netlify/functions/getRoyalStreams");
-      const streams = await res.json();
-      if (streams.length > 0) {
-        let tempArr = [];
-        let tempStr = "";
-        streams.forEach((channel) => {
-          tempArr.push(channel.name.toLowerCase());
-          tempStr += `${channel.name.toLowerCase()},`;
-        });
-        setRoyalStreamsArr(tempArr);
-        setRoyalStreamsString(tempStr);
-      }
-      setRoyalStreams(streams);
-
-      setDbUpdatePending(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    loadStreams();
-  }, [dbUpdatePending]);
 
   return (
     <div className={classes.root}>
@@ -132,6 +92,6 @@ function ActiveStreams() {
       </List>
     </div>
   );
-}
+};
 
 export default ActiveStreams;

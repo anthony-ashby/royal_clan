@@ -1,6 +1,4 @@
-import React from "react";
-import TwitchApi from "./apis/TwitchApi";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
@@ -142,21 +140,20 @@ function ListItemLink(props) {
   );
 }
 
-function RoyalStreams() {
+const RoyalStreams = ({
+  royalStreams,
+  setDbUpdatePending,
+  activeStreams,
+  royalStreamsArr,
+  activeStreamIDs,
+  offlineStreams,
+}) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const [activeStreams, setActiveStreams] = useState([]);
-  const [activeStreamIDs, setActiveStreamIDs] = useState([]);
-  const [offlineStreams, setOfflineStreams] = useState([]);
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
-  const [royalStreams, setRoyalStreams] = useState([]);
-  const [royalStreamsArr, setRoyalStreamsArr] = useState([]);
-  const [royalStreamsString, setRoyalStreamsString] = useState();
-
-  const [dbUpdatePending, setDbUpdatePending] = useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   const [modalTab, setModalTab] = React.useState(0);
-
+  const [errorMsg, setErrorMsg] = useState("");
   const [showAddFormError, setAddShowFormError] = useState(false);
   const [showDeleteFormError, setShowDeleteFormError] = useState(false);
   const [deleteStream, setDeleteStream] = React.useState("");
@@ -166,39 +163,6 @@ function RoyalStreams() {
     name: "",
     url: "",
   });
-
-  useEffect(() => {
-    const fetchLiveStreamData = async () => {
-      let streamIDs = [];
-      const result = await TwitchApi.get(
-        "https://api.twitch.tv/kraken/streams/?game=Age%20of%20Empires%20III&limit=15"
-      );
-      result.data.streams.map((stream) => streamIDs.push(stream.channel._id));
-      setActiveStreams(result.data.streams);
-      setActiveStreamIDs(streamIDs);
-    };
-
-    fetchLiveStreamData();
-
-    if (royalStreamsArr.length > 0) {
-      let tempString = "";
-      royalStreamsArr.forEach((channel) => {
-        tempString += `${channel.toLowerCase()},`;
-      });
-      tempString = tempString.slice(0, -1);
-      setRoyalStreamsString(tempString);
-    }
-
-    if (royalStreamsString) {
-      const fetchOfflineStreamDataFromTwitch = async () => {
-        const result = await TwitchApi.get(
-          `https://api.twitch.tv/kraken/users?login=${royalStreamsString}`
-        );
-        setOfflineStreams(result.data.users);
-      };
-      fetchOfflineStreamDataFromTwitch();
-    }
-  }, [royalStreamsArr, royalStreamsString]);
 
   const handleChange = (event) => {
     setShowOfflineChannels(!showOfflineChannels);
@@ -238,6 +202,7 @@ function RoyalStreams() {
   const handleModalClose = () => {
     clearFormData();
     setOpenModal(false);
+    setShowOfflineChannels(true);
   };
 
   function handleModalCancel(event) {
@@ -249,35 +214,11 @@ function RoyalStreams() {
       name: "",
       url: "",
     });
+    setDeleteStream("");
+    setDeleteStreamObject({});
     setAddShowFormError(false);
     setShowDeleteFormError(false);
   };
-
-  const loadStreams = async () => {
-    try {
-      const res = await fetch("/.netlify/functions/getRoyalStreams");
-      const streams = await res.json();
-      if (streams.length > 0) {
-        let tempArr = [];
-        let tempStr = "";
-        streams.forEach((channel) => {
-          tempArr.push(channel.name.toLowerCase());
-          tempStr += `${channel.name.toLowerCase()},`;
-        });
-        setRoyalStreamsArr(tempArr);
-        setRoyalStreamsString(tempStr);
-      }
-      setRoyalStreams(streams);
-
-      setDbUpdatePending(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    loadStreams();
-  }, [dbUpdatePending]);
 
   function handleAddFormTextFieldChange(event) {
     const { value } = event.target;
@@ -297,7 +238,11 @@ function RoyalStreams() {
     };
 
     const addStream = async () => {
-      if (createNewStream.name !== "" && createNewStream.url !== "") {
+      if (
+        createNewStream.name !== "" &&
+        createNewStream.url !== "" &&
+        !royalStreams.some((e) => e.name === createNewStream.name)
+      ) {
         try {
           await fetch("/.netlify/functions/createRoyalStream", {
             method: "POST",
@@ -309,12 +254,19 @@ function RoyalStreams() {
         setOpenModal(false);
         setAddShowFormError(false);
         setDbUpdatePending(true);
+      } else if (royalStreams.some((e) => e.name === createNewStream.name)) {
+        setErrorMsg("This channel already exists within Royal Streams.");
+        setAddShowFormError(true);
       } else {
+        setErrorMsg(
+          "There was an error adding the URL to Royal Streams, please try again."
+        );
         setAddShowFormError(true);
       }
     };
 
     addStream();
+    handleModalClose();
   }
 
   const handleDeleteFormSelection = (event) => {
@@ -348,6 +300,7 @@ function RoyalStreams() {
       }
     };
 
+    handleModalClose();
     deleteStream();
   }
 
@@ -369,9 +322,7 @@ function RoyalStreams() {
                 value={createNewStream.url}
                 onChange={handleAddFormTextFieldChange}
               />
-              {showAddFormError ? (
-                <div>Please make sure you entered a value Stream URL.</div>
-              ) : null}
+              {showAddFormError ? <div>{errorMsg}</div> : null}
               <div className={classes.buttonContainer}>
                 <Row className={"no-gutters"}>
                   <Col xl={6} xs={12}>
@@ -598,6 +549,6 @@ function RoyalStreams() {
       </Modal>
     </div>
   );
-}
+};
 
 export default RoyalStreams;

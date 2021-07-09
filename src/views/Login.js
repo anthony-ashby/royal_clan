@@ -9,9 +9,6 @@ import Button from "@material-ui/core/Button";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   root: {
