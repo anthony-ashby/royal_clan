@@ -44,7 +44,7 @@ function Main() {
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <Route path="/signup" component={Signup} />
+              {/* <Route path="/signup" component={Signup} /> */}
               <Route exact path="/" component={Home} />
             </Switch>
           </AuthProvider>
