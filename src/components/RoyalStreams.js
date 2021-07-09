@@ -270,20 +270,20 @@ function RoyalStreams() {
     setShowDeleteFormError(false);
   };
 
-  // const loadStreams = async () => {
-  //   try {
-  //     const res = await fetch("/.netlify/functions/getRoyalStreams");
-  //     const streams = await res.json();
-  //     setStreams(streams);
-  //     setDbUpdatePending(false);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const loadStreams = async () => {
+    try {
+      const res = await fetch("/.netlify/functions/getRoyalStreams");
+      const streams = await res.json();
+      setStreams(streams);
+      setDbUpdatePending(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // useEffect(() => {
-  //   loadStreams();
-  // }, [dbUpdatePending]);
+  useEffect(() => {
+    loadStreams();
+  }, [dbUpdatePending]);
 
   function handleAddFormTextFieldChange(event) {
     const { value } = event.target;
@@ -371,6 +371,8 @@ function RoyalStreams() {
   //     />
   //   );
   // }
+
+  console.log(streams);
 
   function renderForm(param) {
     switch (param) {
