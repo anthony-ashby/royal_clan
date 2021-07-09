@@ -76,6 +76,8 @@ function ActiveStreams() {
     ]);
   }, []);
 
+  console.log(activeStreams);
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>Live Streams</div>

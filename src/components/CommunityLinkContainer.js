@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     fontSize: 3,
     color: "#71ccdf",
     "&:hover": {
-      backgroundColor: "#71ccdf",
+      backgroundColor: "#fff",
       color: "#a44e62",
     },
   },
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     marginTop: 20,
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#71ccdf",
+    backgroundColor: "#fff",
     fontWeight: "bold",
     width: "80%",
   },
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
     marginTop: 20,
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#71ccdf",
+    backgroundColor: "#fff",
     fontWeight: "bold",
     width: "80%",
     textAlign: "left",
@@ -137,6 +137,7 @@ function CommunityLinkContainer() {
   }))(Button);
 
   const handleTabChange = (event, newValue) => {
+    clearFormData();
     setModalTab(newValue);
   };
 
@@ -145,11 +146,19 @@ function CommunityLinkContainer() {
   };
 
   const handleModalClose = () => {
+    clearFormData();
+    setOpenModal(false);
+  };
+
+  const clearFormData = () => {
     setCreateNewLink({
       name: "",
       url: "",
     });
-    setOpenModal(false);
+    setModifyLinkObject({});
+    setModifyLink("");
+    setAddShowFormError(false);
+    setShowModifyFormError(false);
   };
 
   const loadLinks = async () => {
@@ -252,12 +261,7 @@ function CommunityLinkContainer() {
   }
 
   function handleModalCancel(event) {
-    // setCreateNewLink({});
-    // setModifyLinkObject({});
-    setModifyLink("");
-    setOpenModal(false);
-    setAddShowFormError(false);
-    setShowModifyFormError(false);
+    handleModalClose();
   }
 
   function handleAddFormTextFieldChange(event) {
@@ -555,10 +559,29 @@ function CommunityLinkContainer() {
                 indicatorColor="primary"
                 textColor="primary"
                 centered
+                style={{ backgroundColor: "#71ccdf" }}
               >
-                <Tab label="Add Link" />
-                <Tab label="Modify Link" />
-                <Tab label="Delete Link" />
+                <Tab
+                  label="Add Link"
+                  style={{
+                    backgroundColor: modalTab === 0 ? "#071a33" : "#71ccdf",
+                    color: modalTab === 0 ? "#71ccdf" : "#071a33",
+                  }}
+                />
+                <Tab
+                  label="Modify Link"
+                  style={{
+                    backgroundColor: modalTab === 1 ? "#071a33" : "#71ccdf",
+                    color: modalTab === 1 ? "#71ccdf" : "#071a33",
+                  }}
+                />
+                <Tab
+                  label="Delete Link"
+                  style={{
+                    backgroundColor: modalTab === 2 ? "#071a33" : "#71ccdf",
+                    color: modalTab === 2 ? "#71ccdf" : "#071a33",
+                  }}
+                />
               </Tabs>
             </Paper>
             {renderForm(modalTab)}

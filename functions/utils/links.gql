@@ -5,6 +5,12 @@ type communityLinks {
   archived: Boolean
 }
 
+type royalStreams {
+  url: String!
+  name: String!
+}
+
 type Query {
   allCommunityLinks: [communityLinks!]!
+  allRoyalStreams: [royalStreams!]!
 }

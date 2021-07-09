@@ -121,6 +121,7 @@ function RoyalStreams() {
   const [deleteLink, setDeleteLink] = React.useState("");
   const [deleteLinkObject, setDeleteLinkObject] = React.useState({});
   const [modalTab, setModalTab] = React.useState(0);
+  const [royalStreamsString, setRoyalStreamsString] = useState();
 
   useEffect(() => {
     setRoyalStreams([
@@ -135,9 +136,6 @@ function RoyalStreams() {
   }, []);
 
   useEffect(() => {
-    const royalStreamsString =
-      "royalclanaoe,don_artie,antz_is_here,TADaoe,daiywop,herbiemaster,thejassz";
-
     const fetchLiveStreamData = async () => {
       let streamIDs = [];
       const result = await TwitchApi.get(
@@ -148,26 +146,113 @@ function RoyalStreams() {
       setActiveStreamIDs(streamIDs);
     };
 
-    const fetchOfflineStreamDataFromTwitch = async () => {
-      const result = await TwitchApi.get(
-        `https://api.twitch.tv/kraken/users?login=${royalStreamsString}`
-      );
-      setOfflineStreams(result.data.users);
-    };
-
     fetchLiveStreamData();
-    fetchOfflineStreamDataFromTwitch();
-  }, [royalStreams]);
+
+    if (royalStreams.length > 0) {
+      let tempString = "";
+      royalStreams.forEach((channel) => {
+        tempString += `${channel.toLowerCase()},`;
+      });
+      tempString = tempString.slice(0, -1);
+      setRoyalStreamsString(tempString);
+    }
+
+    if (royalStreamsString) {
+      const fetchOfflineStreamDataFromTwitch = async () => {
+        const result = await TwitchApi.get(
+          `https://api.twitch.tv/kraken/users?login=${royalStreamsString}`
+        );
+        setOfflineStreams(result.data.users);
+      };
+      fetchOfflineStreamDataFromTwitch();
+    }
+  }, [royalStreams, royalStreamsString]);
 
   const handleChange = (event) => {
     setShowOfflineChannels(!showOfflineChannels);
   };
+
+  const ColorButtonGreen = withStyles((theme) => ({
+    root: {
+      color: "#071a33",
+      backgroundColor: "#57b570",
+      fontWeight: "bold",
+      "&:hover": {
+        backgroundColor: "#57b570",
+      },
+    },
+  }))(Button);
+
+  const ColorButtonRed = withStyles((theme) => ({
+    root: {
+      color: "#071a33",
+      backgroundColor: "#bf5858",
+      fontWeight: "bold",
+      "&:hover": {
+        backgroundColor: "#bf5858",
+      },
+    },
+  }))(Button);
+
+  const handleTabChange = (event, newValue) => {
+    clearFormData();
+    setModalTab(newValue);
+  };
+
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleModalClose = () => {
+    clearFormData();
+    setOpenModal(false);
+  };
+
+  const clearFormData = () => {
+    // setCreateNewLink({
+    //   name: "",
+    //   url: "",
+    // });
+    // setModifyLinkObject({});
+    // setModifyLink("");
+    // setAddShowFormError(false);
+    // setShowModifyFormError(false);
+  };
+
+  const loadStreams = async () => {
+    try {
+      const res = await fetch("/.netlify/functions/getRoyalStreams");
+      const links = await res.json();
+      // setCommunityLinks(links);
+      // setDbUpdatePending(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    loadStreams();
+  }, [dbUpdatePending]);
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <div className={classes.headerText}>Royal Streams</div>
       </div>
+      {currentUser ? (
+        <div>
+          <ColorButtonGreen
+            style={{ marginTop: 10 }}
+            endIcon={<EditIcon />}
+            variant="contained"
+            color="primary"
+            className={classes.margin}
+            onClick={handleModalOpen}
+          >
+            Edit
+          </ColorButtonGreen>
+        </div>
+      ) : null}
       <FormGroup className={classes.customSwitchGroup}>
         <FormControlLabel
           label="Show Offline Channels"
