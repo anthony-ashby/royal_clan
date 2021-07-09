@@ -11,7 +11,7 @@ query {
 
 const CREATE_STREAM = `
     mutation($name: String!, $url: String! ) {
-        createRoyalStream( data: { name:$name, url: $url }) {
+        createRoyalStreams( data: { name:$name, url: $url }) {
             name
             _id
             url
@@ -21,7 +21,7 @@ const CREATE_STREAM = `
 
 const DELETE_STREAM = `
   mutation($id: ID!) {
-        deleteRoyalStream( id: $id) {
+        deleteRoyalStreams( id: $id) {
             _id
         }
     }
