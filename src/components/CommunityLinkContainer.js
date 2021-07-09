@@ -184,7 +184,7 @@ function CommunityLinkContainer() {
     };
 
     const addLink = async () => {
-      if (modifyLinkObject.name !== "" && modifyLinkObject.url !== "") {
+      if (createNewLink.name !== "" && createNewLink.url !== "") {
         try {
           await fetch("/.netlify/functions/createCommunityLink", {
             method: "POST",

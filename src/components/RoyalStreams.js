@@ -72,6 +72,46 @@ const useStyles = makeStyles({
       color: "#71ccdf",
     },
   },
+  customInputField: {
+    marginTop: 20,
+    borderRadius: 5,
+    color: "#071a33",
+    backgroundColor: "#fff",
+    fontWeight: "bold",
+    width: "80%",
+  },
+  customDropDown: {
+    marginTop: 20,
+    borderRadius: 5,
+    color: "#071a33",
+    backgroundColor: "#fff",
+    fontWeight: "bold",
+    width: "80%",
+    textAlign: "left",
+  },
+  buttonContainer: {
+    textAlign: "center",
+    width: "96%",
+    marginTop: 20,
+    position: "absolute",
+    bottom: 20,
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: "#2e3c45",
+    border: "2px solid #71ccdf",
+    height: "70vh",
+    width: "50vw",
+    borderRadius: 5,
+    textAlign: "center",
+    color: "#71ccdf",
+    padding: 20,
+    position: "relative",
+  },
   checked: {},
 });
 
@@ -104,24 +144,33 @@ function ListItemLink(props) {
 
 function RoyalStreams() {
   const classes = useStyles();
+  const { currentUser } = useAuth();
   const [activeStreams, setActiveStreams] = useState([]);
   const [activeStreamIDs, setActiveStreamIDs] = useState([]);
   const [offlineStreams, setOfflineStreams] = useState([]);
-  const [royalStreams, setRoyalStreams] = useState([]);
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
+  const [royalStreams, setRoyalStreams] = useState([]);
+  const [royalStreamsString, setRoyalStreamsString] = useState();
 
   const [dbUpdatePending, setDbUpdatePending] = useState(false);
   const [openModal, setOpenModal] = React.useState(false);
-  const { currentUser } = useAuth();
-  const [showAddFormError, setAddShowFormError] = useState(false);
-  const [showModifyFormError, setShowModifyFormError] = useState(false);
-  const [showDeleteFormError, setShowDeleteFormError] = useState(false);
-  const [modifyLink, setModifyLink] = React.useState("");
-  const [modifyLinkObject, setModifyLinkObject] = React.useState({});
-  const [deleteLink, setDeleteLink] = React.useState("");
-  const [deleteLinkObject, setDeleteLinkObject] = React.useState({});
   const [modalTab, setModalTab] = React.useState(0);
-  const [royalStreamsString, setRoyalStreamsString] = useState();
+
+  const [showAddFormError, setAddShowFormError] = useState(false);
+  const [showDeleteFormError, setShowDeleteFormError] = useState(false);
+  const [deleteStream, setDeleteStream] = React.useState("");
+  const [deleteStreamObject, setDeleteStreamObject] = React.useState({});
+  const [streams, setStreams] = useState([
+    {
+      _id: "",
+      name: "",
+      url: "",
+    },
+  ]);
+  const [createNewStream, setCreateNewStream] = useState({
+    name: "",
+    url: "",
+  });
 
   useEffect(() => {
     setRoyalStreams([
@@ -208,23 +257,25 @@ function RoyalStreams() {
     setOpenModal(false);
   };
 
+  function handleModalCancel(event) {
+    handleModalClose();
+  }
+
   const clearFormData = () => {
-    // setCreateNewLink({
-    //   name: "",
-    //   url: "",
-    // });
-    // setModifyLinkObject({});
-    // setModifyLink("");
-    // setAddShowFormError(false);
-    // setShowModifyFormError(false);
+    setCreateNewStream({
+      name: "",
+      url: "",
+    });
+    setAddShowFormError(false);
+    setShowDeleteFormError(false);
   };
 
   const loadStreams = async () => {
     try {
       const res = await fetch("/.netlify/functions/getRoyalStreams");
-      const links = await res.json();
-      // setCommunityLinks(links);
-      // setDbUpdatePending(false);
+      const streams = await res.json();
+      setStreams(streams);
+      setDbUpdatePending(false);
     } catch (err) {
       console.log(err);
     }
@@ -233,6 +284,200 @@ function RoyalStreams() {
   useEffect(() => {
     loadStreams();
   }, [dbUpdatePending]);
+
+  function handleAddFormTextFieldChange(event) {
+    const { value } = event.target;
+    setCreateNewStream((prevInput) => {
+      return {
+        ...prevInput,
+        url: value,
+        name: value.slice(22),
+      };
+    });
+  }
+
+  function handleAddSubmit(event) {
+    const addStreamObj = {
+      name: createNewStream.name,
+      url: createNewStream.url,
+    };
+
+    const addStream = async () => {
+      if (createNewStream.name !== "" && createNewStream.url !== "") {
+        try {
+          await fetch("/.netlify/functions/createRoyalStream", {
+            method: "POST",
+            body: JSON.stringify(addStreamObj),
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        setOpenModal(false);
+        setAddShowFormError(false);
+        setDbUpdatePending(true);
+      } else {
+        setAddShowFormError(true);
+      }
+
+      console.log(addStreamObj);
+    };
+
+    addStream();
+  }
+
+  const handleDeleteFormSelection = (event) => {
+    setDeleteStream(event.target.value);
+    let deleteObj = streams.filter(
+      (stream) => stream._id === event.target.value
+    );
+    setDeleteStreamObject(deleteObj[0]);
+  };
+
+  function handleDeleteSubmit(event) {
+    const deleteStreamObj = {
+      _id: deleteStreamObject._id,
+    };
+
+    const deleteStream = async () => {
+      if (deleteStreamObject._id !== "") {
+        try {
+          await fetch("/.netlify/functions/deleteRoyalStream", {
+            method: "DELETE",
+            body: JSON.stringify(deleteStreamObj),
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        setOpenModal(false);
+        setShowDeleteFormError(false);
+        setDbUpdatePending(true);
+      } else {
+        setShowDeleteFormError(true);
+      }
+    };
+
+    deleteStream();
+  }
+
+  // function ListItemLink(props) {
+  //   const classes = useStyles();
+  //   return (
+  //     <ListItem
+  //       button
+  //       component="a"
+  //       {...props}
+  //       target="_blank"
+  //       className={classes.customLink}
+  //     />
+  //   );
+  // }
+
+  function renderForm(param) {
+    switch (param) {
+      case 0:
+        return (
+          <>
+            <div style={{ marginTop: 10 }}>
+              Which stream channel would you like to add Royal Streams?
+            </div>
+            <form noValidate autoComplete="off">
+              <TextField
+                className={classes.customInputField}
+                id="outlined-basic2"
+                label="Stream URL"
+                variant="filled"
+                name="url"
+                value={createNewStream.url}
+                onChange={handleAddFormTextFieldChange}
+              />
+              {showAddFormError ? (
+                <div>Please make sure you entered a value Stream URL.</div>
+              ) : null}
+              <div className={classes.buttonContainer}>
+                <Row className={"no-gutters"}>
+                  <Col xl={6} xs={12}>
+                    <ColorButtonRed
+                      variant="contained"
+                      color="primary"
+                      onClick={handleModalCancel}
+                      style={{ width: "90%" }}
+                    >
+                      Cancel
+                    </ColorButtonRed>
+                  </Col>
+                  <Col xl={6} xs={12}>
+                    <ColorButtonGreen
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAddSubmit}
+                      style={{ width: "90%" }}
+                    >
+                      Submit
+                    </ColorButtonGreen>
+                  </Col>
+                </Row>
+              </div>
+            </form>
+          </>
+        );
+      case 1:
+        return (
+          <>
+            <div style={{ marginTop: 10 }}>
+              Which stream channel would you like to delete from Royal Streams?
+            </div>
+            <FormControl variant="filled" className={classes.customDropDown}>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Stream
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-filled"
+                value={deleteStream}
+                onChange={handleDeleteFormSelection}
+              >
+                {streams.map((stream) => (
+                  <MenuItem key={stream._id} value={stream._id}>
+                    {stream.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {showDeleteFormError ? (
+              <div>Please select a stream to delete.</div>
+            ) : null}
+            <div className={classes.buttonContainer}>
+              <Row className={"no-gutters"}>
+                <Col xl={6} xs={12}>
+                  <ColorButtonRed
+                    variant="contained"
+                    color="primary"
+                    onClick={handleModalCancel}
+                    style={{ width: "90%" }}
+                  >
+                    Cancel
+                  </ColorButtonRed>
+                </Col>
+                <Col xl={6} xs={12}>
+                  <ColorButtonGreen
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleDeleteSubmit}
+                    style={{ width: "90%" }}
+                  >
+                    Submit
+                  </ColorButtonGreen>
+                </Col>
+              </Row>
+            </div>
+          </>
+        );
+      default:
+        return "foo";
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -328,6 +573,50 @@ function RoyalStreams() {
           </div>
         ) : null}
       </List>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={openModal}
+        onClose={handleModalClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openModal}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">Edit Royal Streams</h2>
+            <Paper>
+              <Tabs
+                value={modalTab}
+                onChange={handleTabChange}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+                style={{ backgroundColor: "#71ccdf" }}
+              >
+                <Tab
+                  label="Add Stream"
+                  style={{
+                    backgroundColor: modalTab === 0 ? "#071a33" : "#71ccdf",
+                    color: modalTab === 0 ? "#71ccdf" : "#071a33",
+                  }}
+                />
+                <Tab
+                  label="Delete Stream"
+                  style={{
+                    backgroundColor: modalTab === 1 ? "#071a33" : "#71ccdf",
+                    color: modalTab === 1 ? "#71ccdf" : "#071a33",
+                  }}
+                />
+              </Tabs>
+            </Paper>
+            {renderForm(modalTab)}
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }
