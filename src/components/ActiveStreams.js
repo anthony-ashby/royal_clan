@@ -56,6 +56,9 @@ function ActiveStreams() {
   const classes = useStyles();
   const [activeStreams, setActiveStreams] = useState([]);
   const [royalStreams, setRoyalStreams] = useState([]);
+  const [royalStreamsArr, setRoyalStreamsArr] = useState([]);
+  const [royalStreamsString, setRoyalStreamsString] = useState();
+  const [dbUpdatePending, setDbUpdatePending] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,18 +68,33 @@ function ActiveStreams() {
       setActiveStreams(result.data.streams);
     };
     fetchData();
-    setRoyalStreams([
-      "don_artie",
-      "royalclanaoe",
-      "TADaoe",
-      "daiywop",
-      "antz_is_here",
-      "TheJASSZ",
-      "herbiemaster",
-    ]);
   }, []);
 
-  console.log(activeStreams);
+  const loadStreams = async () => {
+    try {
+      const res = await fetch("/.netlify/functions/getRoyalStreams");
+      const streams = await res.json();
+      if (streams.length > 0) {
+        let tempArr = [];
+        let tempStr = "";
+        streams.forEach((channel) => {
+          tempArr.push(channel.name.toLowerCase());
+          tempStr += `${channel.name.toLowerCase()},`;
+        });
+        setRoyalStreamsArr(tempArr);
+        setRoyalStreamsString(tempStr);
+      }
+      setRoyalStreams(streams);
+
+      setDbUpdatePending(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    loadStreams();
+  }, [dbUpdatePending]);
 
   return (
     <div className={classes.root}>
@@ -84,7 +102,7 @@ function ActiveStreams() {
       <List component="nav" aria-label="main mailbox folders">
         {activeStreams.map((stream) => (
           <div key={stream._id}>
-            {!royalStreams.includes(stream.channel.display_name) ? (
+            {!royalStreamsArr.includes(stream.channel.display_name) ? (
               <ListItemLink
                 key={stream._id}
                 className={classes.listItem}

@@ -150,6 +150,7 @@ function RoyalStreams() {
   const [offlineStreams, setOfflineStreams] = useState([]);
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
   const [royalStreams, setRoyalStreams] = useState([]);
+  const [royalStreamsArr, setRoyalStreamsArr] = useState([]);
   const [royalStreamsString, setRoyalStreamsString] = useState();
 
   const [dbUpdatePending, setDbUpdatePending] = useState(false);
@@ -160,29 +161,11 @@ function RoyalStreams() {
   const [showDeleteFormError, setShowDeleteFormError] = useState(false);
   const [deleteStream, setDeleteStream] = React.useState("");
   const [deleteStreamObject, setDeleteStreamObject] = React.useState({});
-  const [streams, setStreams] = useState([
-    {
-      _id: "",
-      name: "",
-      url: "",
-    },
-  ]);
+
   const [createNewStream, setCreateNewStream] = useState({
     name: "",
     url: "",
   });
-
-  useEffect(() => {
-    setRoyalStreams([
-      "don_artie",
-      "royalclanaoe",
-      "TADaoe",
-      "daiywop",
-      "antz_is_here",
-      "TheJASSZ",
-      "herbiemaster",
-    ]);
-  }, []);
 
   useEffect(() => {
     const fetchLiveStreamData = async () => {
@@ -197,9 +180,9 @@ function RoyalStreams() {
 
     fetchLiveStreamData();
 
-    if (royalStreams.length > 0) {
+    if (royalStreamsArr.length > 0) {
       let tempString = "";
-      royalStreams.forEach((channel) => {
+      royalStreamsArr.forEach((channel) => {
         tempString += `${channel.toLowerCase()},`;
       });
       tempString = tempString.slice(0, -1);
@@ -215,7 +198,7 @@ function RoyalStreams() {
       };
       fetchOfflineStreamDataFromTwitch();
     }
-  }, [royalStreams, royalStreamsString]);
+  }, [royalStreamsArr, royalStreamsString]);
 
   const handleChange = (event) => {
     setShowOfflineChannels(!showOfflineChannels);
@@ -274,7 +257,18 @@ function RoyalStreams() {
     try {
       const res = await fetch("/.netlify/functions/getRoyalStreams");
       const streams = await res.json();
-      setStreams(streams);
+      if (streams.length > 0) {
+        let tempArr = [];
+        let tempStr = "";
+        streams.forEach((channel) => {
+          tempArr.push(channel.name.toLowerCase());
+          tempStr += `${channel.name.toLowerCase()},`;
+        });
+        setRoyalStreamsArr(tempArr);
+        setRoyalStreamsString(tempStr);
+      }
+      setRoyalStreams(streams);
+
       setDbUpdatePending(false);
     } catch (err) {
       console.log(err);
@@ -318,8 +312,6 @@ function RoyalStreams() {
       } else {
         setAddShowFormError(true);
       }
-
-      console.log(addStreamObj);
     };
 
     addStream();
@@ -327,7 +319,7 @@ function RoyalStreams() {
 
   const handleDeleteFormSelection = (event) => {
     setDeleteStream(event.target.value);
-    let deleteObj = streams.filter(
+    let deleteObj = royalStreams.filter(
       (stream) => stream._id === event.target.value
     );
     setDeleteStreamObject(deleteObj[0]);
@@ -358,21 +350,6 @@ function RoyalStreams() {
 
     deleteStream();
   }
-
-  // function ListItemLink(props) {
-  //   const classes = useStyles();
-  //   return (
-  //     <ListItem
-  //       button
-  //       component="a"
-  //       {...props}
-  //       target="_blank"
-  //       className={classes.customLink}
-  //     />
-  //   );
-  // }
-
-  console.log(streams);
 
   function renderForm(param) {
     switch (param) {
@@ -439,7 +416,7 @@ function RoyalStreams() {
                 value={deleteStream}
                 onChange={handleDeleteFormSelection}
               >
-                {streams.map((stream) => (
+                {royalStreams.map((stream) => (
                   <MenuItem key={stream._id} value={stream._id}>
                     {stream.name}
                   </MenuItem>
@@ -518,7 +495,7 @@ function RoyalStreams() {
       <List component="nav">
         {activeStreams.map((stream) => (
           <div key={stream._id}>
-            {royalStreams.includes(stream.channel.display_name) ? (
+            {royalStreamsArr.includes(stream.channel.name) ? (
               <ListItemLink
                 key={stream._id}
                 className={classes.listItem}
