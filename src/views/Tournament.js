@@ -166,6 +166,12 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
   //     console.log("delete tournament");
   //   };
 
+  // console.log(
+  //   JSON.parse(tournament.sections).map(
+  //     (section) => parse(section.sectionBody).props.children.type
+  //   )
+  // );
+
   return (
     <div>
       <Row className={"no-gutters"}>
@@ -275,7 +281,28 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
                               </div>
                             </AccordionSummary>
                             <AccordionDetails>
-                              {parse(parse(section.sectionBody).props.children)
+                              {/* {section.sectionBody ? (
+                                parse(parse(section.sectionBody).props.children)
+                                  .type === "iframe" ? (
+                                  <div
+                                    style={{
+                                      backgroundColor: "#fff",
+                                      width: "100%",
+                                    }}
+                                  >
+                                    {parse(
+                                      parse(section.sectionBody).props.children
+                                    )}
+                                  </div>
+                                ) : (
+                                  parse(section.sectionBody)
+                                )
+                              ) : null} */}
+
+                              {parse(section.sectionBody)}
+
+                              {/* {section.sectionBody &&
+                              parse(parse(section.sectionBody).props.children)
                                 .type === "iframe" ? (
                                 <div
                                   style={{
@@ -290,6 +317,7 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
                               ) : (
                                 parse(section.sectionBody)
                               )}
+                              {parse(section.sectionBody)} */}
                             </AccordionDetails>
                           </Accordion>
                         ))}
