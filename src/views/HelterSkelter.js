@@ -12,7 +12,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import RoyalHelterSkelter from "../images/helter_skelter_announcement.jpg";
 import ForumIcon from "@material-ui/icons/Forum";
@@ -214,12 +213,12 @@ function HelterSkelter() {
                       image={RoyalHelterSkelter}
                     />
                     <CardContent className={classes.cardContent}>
-                      <Typography variant="body2" component="p">
+                      <div variant="body2" component="p">
                         Royal Clan and Elite Gaming Channel join together to
                         bring you the Helter Skelter, a first-of-its-kind 2v2
                         tournament with random maps, civilizations, and teams!
                         Click the arrow below for more information.
-                      </Typography>
+                      </div>
                     </CardContent>
                     <CardActions disableSpacing>
                       <Tooltip
@@ -262,17 +261,15 @@ function HelterSkelter() {
                             id="panel7a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Digital Content - Broadcasts
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
-                              <ReactPlayer
-                                url="https://www.twitch.tv/videos/1005770334?t=00h05m37s"
-                                controls
-                              />
-                            </Typography>
+                            <ReactPlayer
+                              url="https://www.twitch.tv/videos/1005770334?t=00h05m37s"
+                              controls
+                            />
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -286,12 +283,12 @@ function HelterSkelter() {
                             id="panel6a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Round 1 (Quarterfinals) Match Details
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <Row
                                 className={"no-gutters"}
                                 style={{ textAlign: "center" }}
@@ -335,7 +332,7 @@ function HelterSkelter() {
                                   />
                                 </Col>
                               </Row>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -349,12 +346,12 @@ function HelterSkelter() {
                             id="panel1a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Important Dates (Tentative)
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   29 April: Tournament administrators will
@@ -378,7 +375,7 @@ function HelterSkelter() {
                                   tournament during this time period.
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -392,12 +389,12 @@ function HelterSkelter() {
                             id="panel2a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Tournament Format
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   The tournament will consist of 16 players
@@ -421,7 +418,7 @@ function HelterSkelter() {
                                   team collecting it entirely.
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -435,12 +432,12 @@ function HelterSkelter() {
                             id="panel3a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Civilization Rules
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   Each player on signup will nominate 6
@@ -455,7 +452,7 @@ function HelterSkelter() {
                                   Sweden is BANNED.
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -469,12 +466,10 @@ function HelterSkelter() {
                             id="panel4a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
-                              Map Rules
-                            </Typography>
+                            <div className={classes.heading}>Map Rules</div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   The map for each game for the entire
@@ -605,7 +600,7 @@ function HelterSkelter() {
                                   </Col>
                                 </Row>
                               </div>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -619,12 +614,12 @@ function HelterSkelter() {
                             id="panel5a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Scheduling and Other Rules
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   The players have voted through a majority and
@@ -661,7 +656,7 @@ function HelterSkelter() {
                                   actions.
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                       </CardContent>

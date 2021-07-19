@@ -161,7 +161,7 @@ function NavHeader() {
                     flexItem
                   />
 
-                  <Link to={"/forums"} style={{ textDecoration: "none" }}>
+                  {/* <Link to={"/forums"} style={{ textDecoration: "none" }}>
                     <Button
                       className={clsx(classes.buttonStyle, classes.midButton)}
                     >
@@ -173,7 +173,7 @@ function NavHeader() {
                     className={classes.dividerStyle}
                     orientation="vertical"
                     flexItem
-                  />
+                  /> */}
 
                   <Link to={"/content"} style={{ textDecoration: "none" }}>
                     <Button

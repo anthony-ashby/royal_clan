@@ -120,7 +120,7 @@ function CommunityLinkContainer() {
       backgroundColor: "#57b570",
       fontWeight: "bold",
       "&:hover": {
-        backgroundColor: "#57b570",
+        backgroundColor: "rgb(87,181,112,0.7)",
       },
     },
   }))(Button);
@@ -131,7 +131,7 @@ function CommunityLinkContainer() {
       backgroundColor: "#bf5858",
       fontWeight: "bold",
       "&:hover": {
-        backgroundColor: "#bf5858",
+        backgroundColor: "rgb(191,88,88,0.7)",
       },
     },
   }))(Button);

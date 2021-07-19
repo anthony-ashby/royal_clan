@@ -4,16 +4,14 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import RoyalHelterSkelter from "../images/helter_skelter_announcement.jpg";
-import RoyalChallengeEvent from "../images/Royal_Challenge_Event.png";
-import ForumIcon from "@material-ui/icons/Forum";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
+import { useAuth } from "../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,13 +39,25 @@ const useStyles = makeStyles((theme) => ({
     size: 20,
     color: "#071a33",
   },
+  titleLoggedIn: {
+    color: "#071a33",
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingLeft: "40px",
+  },
   title: {
     color: "#071a33",
     fontSize: 20,
     fontWeight: "bold",
+    paddingRight: "60px",
+  },
+  subheaderLoggedIn: {
+    color: "#071a33",
+    paddingLeft: "40px",
   },
   subheader: {
     color: "#071a33",
+    paddingRight: "60px",
   },
   customIcons: {
     color: "#071a33",
@@ -66,57 +76,113 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#2e3c45",
     color: "#71ccdf",
   },
+  customEditButton: {
+    marginTop: "10px",
+    color: "#071a33",
+    backgroundColor: "#57b570",
+    fontWeight: "bold",
+    "&:hover": {
+      backgroundColor: "rgb(87,181,112,0.7)",
+    },
+  },
+  customDeleteButton: {
+    marginTop: "10px",
+    marginLeft: "5px",
+    color: "#071a33",
+    backgroundColor: "#bf5858",
+    fontWeight: "bold",
+    "&:hover": {
+      backgroundColor: "rgb(191,88,88,0.7)",
+    },
+  },
 }));
 
-function Announcement() {
+const Announcement = ({
+  announcement,
+  modifySpecificAnnouncement,
+  deleteSpecificAnnouncement,
+}) => {
   const classes = useStyles();
+  const { currentUser } = useAuth();
+
   return (
     <div>
       <Card className={classes.root}>
         <CardHeader
           classes={{
             root: classes.cardHeader,
-            title: classes.title,
-            subheader: classes.subheader,
+            title: currentUser ? classes.titleLoggedIn : classes.title,
+            subheader: currentUser
+              ? classes.subheaderLoggedIn
+              : classes.subheader,
           }}
           avatar={
             <Tooltip
-              title={"antz_is_here"}
+              title={"Royal Admin"}
               aria-label="username"
               placement="top"
             >
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                A
-              </Avatar>
+              <Avatar className={classes.avatar}>R</Avatar>
             </Tooltip>
           }
           action={
-            <Tooltip
-              title="Manage Post"
-              aria-label="manage post"
-              placement="top"
-            >
-              <IconButton>
-                <MoreVertIcon className={classes.customIcons} />
-              </IconButton>
-            </Tooltip>
+            currentUser && (
+              <>
+                <Tooltip
+                  title="Modify"
+                  aria-label="modify announcement"
+                  placement="top"
+                >
+                  <IconButton
+                    aria-label="modify"
+                    className={classes.customEditButton}
+                    onClick={() => modifySpecificAnnouncement(announcement)}
+                  >
+                    <EditIcon className={classes.customIcons} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title="Delete"
+                  aria-label="delete announcement"
+                  placement="top"
+                >
+                  <IconButton
+                    aria-label="delete"
+                    className={classes.customDeleteButton}
+                    onClick={() => deleteSpecificAnnouncement(announcement)}
+                  >
+                    <DeleteIcon className={classes.customIcons} />
+                  </IconButton>
+                </Tooltip>
+              </>
+            )
           }
-          title="Royal 2v2 Helter Skelter Team Tournament!"
-          subheader="Dates To Be Announced"
+          title={announcement.title}
+          subheader={announcement.dateModified.slice(0, 10)}
         />
-        <Link to="/helterskelter" style={{ textDecoration: "none" }}>
-          <CardMedia className={classes.media} image={RoyalHelterSkelter} />
-        </Link>
+
+        {announcement.imageURL && announcement.type === "tournament" && (
+          <Link
+            to={`/${announcement.title.split(" ").join("")}`}
+            style={{ textDecoration: "none" }}
+          >
+            <CardMedia
+              className={classes.media}
+              image={announcement.imageURL}
+            />
+          </Link>
+        )}
+
+        {announcement.imageURL && announcement.type === "general" && (
+          <CardMedia className={classes.media} image={announcement.imageURL} />
+        )}
 
         <CardContent className={classes.cardContent}>
-          <Typography variant="body2" component="p">
-            Royal Clan and Elite Gaming Channel join together to bring you the
-            Helter Skelter, a first-of-its-kind 2v2 tournament with random maps,
-            civilizations, and teams! Click the image above for more information
-            and rules.
-          </Typography>
+          <div variant="body2" component="p" style={{ textAlign: "left" }}>
+            {parse(announcement.body)}
+          </div>
         </CardContent>
-        <CardActions disableSpacing>
+        {/* <CardActions disableSpacing>
           <Tooltip
             title="View in Forums"
             aria-label="view in forums"
@@ -126,68 +192,10 @@ function Announcement() {
               <ForumIcon className={classes.customIcons} />
             </IconButton>
           </Tooltip>
-        </CardActions>
-      </Card>
-
-      <Card className={classes.root}>
-        <CardHeader
-          classes={{
-            root: classes.cardHeader,
-            title: classes.title,
-            subheader: classes.subheader,
-          }}
-          avatar={
-            <Tooltip
-              title={"antz_is_here"}
-              aria-label="username"
-              placement="top"
-            >
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                A
-              </Avatar>
-            </Tooltip>
-          }
-          action={
-            <Tooltip
-              title="Manage Post"
-              aria-label="manage post"
-              placement="top"
-            >
-              <IconButton>
-                <MoreVertIcon className={classes.customIcons} />
-              </IconButton>
-            </Tooltip>
-          }
-          title="Royal Challenge Event!"
-          subheader="April 27th - May 16th (Ongoing)"
-        />
-        <Link to="/royalchallengeevent" style={{ textDecoration: "none" }}>
-          <CardMedia className={classes.media} image={RoyalChallengeEvent} />
-        </Link>
-
-        <CardContent className={classes.cardContent}>
-          <Typography variant="body2" component="p">
-            This is the Royal Clan Challenge Event! THREE CHALLENGES are laid
-            down by the Clan and in partnership with Elite Gaming Channel! The
-            contestant with the BEST time that meets all the rules WILL WIN $50
-            for that challenge! Click the image above for more information and
-            rules.
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <Tooltip
-            title="View in Forums"
-            aria-label="view in forums"
-            placement="bottom"
-          >
-            <IconButton>
-              <ForumIcon className={classes.customIcons} />
-            </IconButton>
-          </Tooltip>
-        </CardActions>
+        </CardActions> */}
       </Card>
     </div>
   );
-}
+};
 
 export default Announcement;

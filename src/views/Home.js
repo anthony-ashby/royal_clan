@@ -5,7 +5,7 @@ import RightContent from "../components/RightContent";
 import { Row, Col } from "reactstrap";
 import Hidden from "@material-ui/core/Hidden";
 
-function Home() {
+const Home = ({ announcements, setAnnouncementsPending }) => {
   return (
     <div>
       <Row className={"no-gutters"}>
@@ -18,7 +18,10 @@ function Home() {
         </Hidden>
 
         <Col xl={6} xs={12}>
-          <MainContent />
+          <MainContent
+            announcements={announcements}
+            setAnnouncementsPending={setAnnouncementsPending}
+          />
         </Col>
 
         <Col xl={2} xs={12}>
@@ -29,6 +32,6 @@ function Home() {
       </Row>
     </div>
   );
-}
+};
 
 export default Home;

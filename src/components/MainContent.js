@@ -26,17 +26,20 @@ const useStyles = makeStyles({
   },
 });
 
-function MainContent() {
+const MainContent = ({ announcements, setAnnouncementsPending }) => {
   const classes = useStyles();
   return (
     <Row className={"no-gutters"}>
       <Col xs={1}></Col>
       <Col xl={12} xs={10} className={classes.root}>
-        <AnnouncementsContainer />
+        <AnnouncementsContainer
+          announcements={announcements}
+          setAnnouncementsPending={setAnnouncementsPending}
+        />
       </Col>
       <Col xs={1}></Col>
     </Row>
   );
-}
+};
 
 export default MainContent;

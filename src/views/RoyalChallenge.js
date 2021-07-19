@@ -12,7 +12,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import RoyalChallengeEvent from "../images/Royal_Challenge_Event.png";
 import ForumIcon from "@material-ui/icons/Forum";
@@ -189,12 +188,12 @@ function RoyalChallenge() {
                       image={RoyalChallengeEvent}
                     />
                     <CardContent className={classes.cardContent}>
-                      <Typography variant="body2" component="p">
+                      <div variant="body2" component="p">
                         This is the Royal Clan Challenge Event! THREE CHALLENGES
                         are laid down by the Clan and in partnership with Elite
                         Gaming Channel! The contestant with the BEST time that
                         meets all the rules WILL WIN $50 for that challenge!
-                      </Typography>
+                      </div>
                     </CardContent>
                     <CardActions disableSpacing>
                       <Tooltip
@@ -237,12 +236,10 @@ function RoyalChallenge() {
                             id="panel1a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
-                              General Rules
-                            </Typography>
+                            <div className={classes.heading}>General Rules</div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   Best Time that meets all conditions - win the
@@ -273,7 +270,7 @@ function RoyalChallenge() {
                                   follow the Lobby Setup Rules!
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -287,12 +284,10 @@ function RoyalChallenge() {
                             id="panel2a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
-                              Win Condition
-                            </Typography>
+                            <div className={classes.heading}>Win Condition</div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
                                   Message a Screenshot with the final time AND
@@ -314,7 +309,7 @@ function RoyalChallenge() {
                                   time is now beat 9 min!
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -328,12 +323,12 @@ function RoyalChallenge() {
                             id="panel3a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
+                            <div className={classes.heading}>
                               Challenge Descriptions
-                            </Typography>
+                            </div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
+                            <div>
                               <h3>15 Howdahs!</h3>
                               <ul>
                                 <li style={{ paddingTop: 10 }}>
@@ -410,7 +405,7 @@ function RoyalChallenge() {
                                   Map: Saguenay
                                 </li>
                               </ul>
-                            </Typography>
+                            </div>
                           </AccordionDetails>
                         </Accordion>
                         <Accordion className={classes.customAccordian}>
@@ -424,36 +419,32 @@ function RoyalChallenge() {
                             id="panel4a-header"
                             className={classes.customAccordianTitle}
                           >
-                            <Typography className={classes.heading}>
-                              Lobby Setup
-                            </Typography>
+                            <div className={classes.heading}>Lobby Setup</div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <Typography>
-                              <ul>
-                                <li style={{ paddingTop: 10 }}>
-                                  Game Type: Supremacy
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Game Rules: Classic
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Difficulty: Easy
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Starting Age: Exploration Age
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Ending Age: Imperial Age
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Starting Resources: Standard
-                                </li>
-                                <li style={{ paddingTop: 10 }}>
-                                  Game Speed: Medium
-                                </li>
-                              </ul>
-                            </Typography>
+                            <ul>
+                              <li style={{ paddingTop: 10 }}>
+                                Game Type: Supremacy
+                              </li>
+                              <li style={{ paddingTop: 10 }}>
+                                Game Rules: Classic
+                              </li>
+                              <li style={{ paddingTop: 10 }}>
+                                Difficulty: Easy
+                              </li>
+                              <li style={{ paddingTop: 10 }}>
+                                Starting Age: Exploration Age
+                              </li>
+                              <li style={{ paddingTop: 10 }}>
+                                Ending Age: Imperial Age
+                              </li>
+                              <li style={{ paddingTop: 10 }}>
+                                Starting Resources: Standard
+                              </li>
+                              <li style={{ paddingTop: 10 }}>
+                                Game Speed: Medium
+                              </li>
+                            </ul>
                           </AccordionDetails>
                         </Accordion>
                       </CardContent>

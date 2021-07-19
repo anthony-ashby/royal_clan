@@ -10,7 +10,24 @@ type royalStreams {
   name: String!
 }
 
+type announcements {
+  dateCreated: String!
+  dateModified: String
+  dateArchived: String
+  createdBy: String!
+  modifiedBy: String
+  archived: Boolean
+  title: String!
+  imageURL: String
+  videoURL: String
+  embed: String
+  body: String!
+  type: String!
+  sections: String
+}
+
 type Query {
   allCommunityLinks: [communityLinks!]!
   allRoyalStreams: [royalStreams!]!
+  allAnnouncements: [announcements!]!
 }

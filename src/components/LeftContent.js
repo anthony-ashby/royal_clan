@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import CommunityLinkContainer from "./CommunityLinkContainer";
-import Hidden from "@material-ui/core/Hidden";
+// import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles({
   root: {
@@ -31,9 +31,9 @@ function LeftContent() {
   const classes = useStyles();
   return (
     <Row className={"no-gutters"}>
-      <Hidden only={["xl"]}>
+      {/* <Hidden only={["xl"]}>
         <Col xs={1}></Col>
-      </Hidden>
+      </Hidden> */}
       <Col xl={11} xs={10} className={classes.root}>
         <CommunityLinkContainer />
       </Col>

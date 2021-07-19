@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RightContent from "../components/RightContent";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
@@ -7,10 +7,8 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import RoyalHelterSkelter from "../images/helter_skelter_announcement.jpg";
-import RoyalChallengeEvent from "../images/Royal_Challenge_Event.png";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 
 const useStyles = makeStyles({
   root: {
@@ -45,8 +43,22 @@ const useStyles = makeStyles({
   },
 });
 
-function Tournaments() {
+const Tournaments = ({ announcements }) => {
   const classes = useStyles();
+  const [tournaments, setTournaments] = useState([]);
+
+  useEffect(() => {
+    if (announcements) {
+      let filtered = [];
+      for (let i = 0; i < announcements.length; i++) {
+        if (announcements[i].type === "tournament") {
+          filtered.push(announcements[i]);
+        }
+      }
+      setTournaments(filtered);
+    }
+  }, [announcements]);
+
   return (
     <div>
       <Row className={"no-gutters"}>
@@ -63,80 +75,28 @@ function Tournaments() {
 
                 <div>
                   <Row className={"no-gutters"}>
-                    <Col xl={4} xs={12}>
-                      <Link
-                        to="/helterskelter"
-                        style={{ textDecoration: "none" }}
-                      >
-                        <Card className={classes.customCard}>
-                          <CardActionArea>
-                            <CardMedia
-                              className={classes.customCardMedia}
-                              image={RoyalHelterSkelter}
-                              title="Royal Helter Skelter"
-                            />
-                            <CardContent style={{ height: 200 }}>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="h2"
-                              >
-                                Royal 2v2 Helter Skelter
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="textSecondary"
-                                component="p"
-                              >
-                                Royal Clan and Elite Gaming Channel join
-                                together to bring you the Helter Skelter, a
-                                first-of-its-kind 2v2 tournament with random
-                                maps, civilizations, and teams! Click for more
-                                information.
-                              </Typography>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                      </Link>
-                    </Col>
-                    <Col xl={4} xs={12}>
-                      <Link
-                        to="/royalchallengeevent"
-                        style={{ textDecoration: "none" }}
-                        // onClick={() => openTournament()}
-                      >
-                        <Card className={classes.customCard}>
-                          <CardActionArea>
-                            <CardMedia
-                              className={classes.customCardMedia}
-                              image={RoyalChallengeEvent}
-                              title="Royal Challenge Event"
-                            />
-                            <CardContent style={{ height: 200 }}>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="h2"
-                              >
-                                Royal Challenge Event
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="textSecondary"
-                                component="p"
-                              >
-                                This is the Royal Clan Challenge Event! THREE
-                                CHALLENGES are laid down by the Clan and in
-                                partnership with Elite Gaming Channel! The
-                                contestant with the BEST time that meets all the
-                                rules WILL WIN $50 for that challenge! Click for
-                                more information.
-                              </Typography>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                      </Link>
-                    </Col>
+                    {tournaments.map((tournament) => (
+                      <Col xl={4} xs={12} key={tournament._id}>
+                        <Link
+                          to={`/${tournament.title.split(" ").join("")}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Card className={classes.customCard}>
+                            <CardActionArea>
+                              <CardMedia
+                                className={classes.customCardMedia}
+                                image={tournament.imageURL}
+                                title={tournament.title}
+                              />
+                              <CardContent style={{ height: "100%" }}>
+                                <h3>{tournament.title}</h3>
+                                <div>{parse(tournament.body)}</div>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        </Link>
+                      </Col>
+                    ))}
                   </Row>
                 </div>
               </div>
@@ -153,6 +113,6 @@ function Tournaments() {
       </Row>
     </div>
   );
-}
+};
 
 export default Tournaments;
