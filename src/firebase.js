@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/storage";
 import "firebase/auth";
+import "firebase/database";
 require("dotenv").config();
 
 const app = firebase.initializeApp({
@@ -14,4 +15,5 @@ const app = firebase.initializeApp({
 
 export const auth = app.auth();
 export const storage = firebase.storage();
+export const contactdb = firebase.database().ref("contact-messages");
 export default app;

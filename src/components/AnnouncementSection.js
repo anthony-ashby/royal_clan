@@ -6,6 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
+import UploadAdapter from "./UploadAdapter";
 // import parse from "html-react-parser";
 
 const useStyles = makeStyles({
@@ -101,6 +102,13 @@ const AnnouncementSection = ({
         <CKEditor
           editor={ClassicEditor}
           data={section.sectionBody}
+          onReady={(editor) => {
+            editor.plugins.get("FileRepository").createUploadAdapter = (
+              loader
+            ) => {
+              return new UploadAdapter(loader);
+            };
+          }}
           onChange={handleAddNewSectionBody}
         />
       </div>

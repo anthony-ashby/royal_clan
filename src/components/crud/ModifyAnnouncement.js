@@ -17,6 +17,7 @@ import { storage } from "../../firebase";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import AnnouncementSection from "../AnnouncementSection";
+import UploadAdapter from "../UploadAdapter";
 // import parse from "html-react-parser";
 
 const useStyles = makeStyles({
@@ -522,6 +523,13 @@ const ModifyAnnouncement = ({
             <CKEditor
               editor={ClassicEditor}
               data={bodyText}
+              onReady={(editor) => {
+                editor.plugins.get("FileRepository").createUploadAdapter = (
+                  loader
+                ) => {
+                  return new UploadAdapter(loader);
+                };
+              }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setBodyText(data);
