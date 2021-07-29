@@ -12,6 +12,6 @@
   status = 200
 
 [[redirects]]
-  from = "/BattleRoyale"
-  to = "/BattleRoyale!"
+  from = "https://www.royal-clan.com/BattleRoyale"
+  to = "https://www.royal-clan.com/BattleRoyale!"
   status = 200
