@@ -22,6 +22,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import ModifyTournament from "../components/crud/ModifyTournament";
 import parse from "html-react-parser";
+import { PlayCircleFilledWhite } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: {
@@ -84,9 +85,6 @@ const useStyles = makeStyles({
   customIcons2: {
     color: "#71ccdf",
   },
-  cardMoreInfo: {
-    textAlign: "left",
-  },
   customAccordianTitle: {
     backgroundColor: "#071a33",
     color: "#71ccdf",
@@ -135,6 +133,21 @@ const useStyles = makeStyles({
     padding: 20,
     position: "relative",
     overflowY: "auto",
+  },
+  cardContent: {
+    "& a:link, a:visited, a:active": {
+      backgroundColor: "#45748c",
+      color: "#071a33",
+    },
+    "& a:hover": {
+      backgroundColor: "#45748c",
+    },
+  },
+  cardMoreInfo: {
+    textAlign: "left",
+    "& a:link, a:visited, a:active a:hover": {
+      color: "#71ccdf",
+    },
   },
 });
 

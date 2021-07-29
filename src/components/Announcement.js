@@ -95,6 +95,15 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "rgb(191,88,88,0.7)",
     },
   },
+  cardContent: {
+    "& a:link, a:visited, a:active": {
+      backgroundColor: "#45748c",
+      color: "#071a33",
+    },
+    "& a:hover": {
+      backgroundColor: "#45748c",
+    },
+  },
 }));
 
 const Announcement = ({
@@ -174,7 +183,11 @@ const Announcement = ({
             )}
 
             <CardContent className={classes.cardContent}>
-              <div variant="body2" component="p" style={{ textAlign: "left" }}>
+              <div
+                variant="body2"
+                component="p"
+                style={{ textAlign: "center" }}
+              >
                 {parse(announcement.body)}
               </div>
             </CardContent>
@@ -250,7 +263,7 @@ const Announcement = ({
           )}
 
           <CardContent className={classes.cardContent}>
-            <div variant="body2" component="p" style={{ textAlign: "left" }}>
+            <div variant="body2" component="p" style={{ textAlign: "center" }}>
               {parse(announcement.body)}
             </div>
           </CardContent>
@@ -320,7 +333,7 @@ const Announcement = ({
           )}
 
           <CardContent className={classes.cardContent}>
-            <div variant="body2" component="p" style={{ textAlign: "left" }}>
+            <div variant="body2" component="p" style={{ textAlign: "center" }}>
               {parse(announcement.body)}
             </div>
           </CardContent>
