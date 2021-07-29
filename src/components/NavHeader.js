@@ -214,7 +214,7 @@ function NavHeader() {
                     </Button>
                   </Link>
 
-                  {currentUser ? null : (
+                  {/* {currentUser ? null : (
                     <>
                       <Divider
                         className={classes.dividerStyle}
@@ -234,7 +234,7 @@ function NavHeader() {
                         </Button>
                       </Link>
                     </>
-                  )}
+                  )} */}
 
                   {currentUser ? (
                     <>
