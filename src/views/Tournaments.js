@@ -41,6 +41,15 @@ const useStyles = makeStyles({
   customCardMedia: {
     height: "200px",
   },
+  cardContent: {
+    "& a:link, a:visited, a:active": {
+      backgroundColor: "#45748c",
+      color: "#071a33",
+    },
+    "& a:hover": {
+      backgroundColor: "#45748c",
+    },
+  },
 });
 
 const Tournaments = ({ announcements }) => {
@@ -88,7 +97,7 @@ const Tournaments = ({ announcements }) => {
                                 image={tournament.imageURL}
                                 title={tournament.title}
                               />
-                              <CardContent style={{ height: "100%" }}>
+                              <CardContent className={classes.cardContent}>
                                 <h3>{tournament.title}</h3>
                                 <div>{parse(tournament.body)}</div>
                               </CardContent>
