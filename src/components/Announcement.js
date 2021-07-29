@@ -107,93 +107,225 @@ const Announcement = ({
 
   return (
     <div>
-      <Card className={classes.root}>
-        <CardHeader
-          classes={{
-            root: classes.cardHeader,
-            title: currentUser ? classes.titleLoggedIn : classes.title,
-            subheader: currentUser
-              ? classes.subheaderLoggedIn
-              : classes.subheader,
-          }}
-          avatar={
-            <Tooltip
-              title={"Royal Admin"}
-              aria-label="username"
-              placement="top"
-            >
-              <Avatar className={classes.avatar}>R</Avatar>
-            </Tooltip>
-          }
-          action={
-            currentUser && (
-              <>
+      {announcement.type === "tournament" && !currentUser && (
+        <Link
+          to={`/${announcement.title.split(" ").join("")}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Card className={classes.root}>
+            <CardHeader
+              classes={{
+                root: classes.cardHeader,
+                title: currentUser ? classes.titleLoggedIn : classes.title,
+                subheader: currentUser
+                  ? classes.subheaderLoggedIn
+                  : classes.subheader,
+              }}
+              avatar={
                 <Tooltip
-                  title="Modify"
-                  aria-label="modify announcement"
+                  title={"Royal Admin"}
+                  aria-label="username"
                   placement="top"
                 >
-                  <IconButton
-                    aria-label="modify"
-                    className={classes.customEditButton}
-                    onClick={() => modifySpecificAnnouncement(announcement)}
-                  >
-                    <EditIcon className={classes.customIcons} />
-                  </IconButton>
+                  <Avatar className={classes.avatar}>R</Avatar>
                 </Tooltip>
-                <Tooltip
-                  title="Delete"
-                  aria-label="delete announcement"
-                  placement="top"
-                >
-                  <IconButton
-                    aria-label="delete"
-                    className={classes.customDeleteButton}
-                    onClick={() => deleteSpecificAnnouncement(announcement)}
-                  >
-                    <DeleteIcon className={classes.customIcons} />
-                  </IconButton>
-                </Tooltip>
-              </>
-            )
-          }
-          title={announcement.title}
-          subheader={announcement.dateModified.slice(0, 10)}
-        />
+              }
+              action={
+                currentUser && (
+                  <>
+                    <Tooltip
+                      title="Modify"
+                      aria-label="modify announcement"
+                      placement="top"
+                    >
+                      <IconButton
+                        aria-label="modify"
+                        className={classes.customEditButton}
+                        onClick={() => modifySpecificAnnouncement(announcement)}
+                      >
+                        <EditIcon className={classes.customIcons} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip
+                      title="Delete"
+                      aria-label="delete announcement"
+                      placement="top"
+                    >
+                      <IconButton
+                        aria-label="delete"
+                        className={classes.customDeleteButton}
+                        onClick={() => deleteSpecificAnnouncement(announcement)}
+                      >
+                        <DeleteIcon className={classes.customIcons} />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                )
+              }
+              title={announcement.title}
+              subheader={announcement.dateModified.slice(0, 10)}
+            />
 
-        {announcement.imageURL && announcement.type === "tournament" && (
-          <Link
-            to={`/${announcement.title.split(" ").join("")}`}
-            style={{ textDecoration: "none" }}
-          >
+            {announcement.imageURL && (
+              <CardMedia
+                className={classes.media}
+                image={announcement.imageURL}
+              />
+            )}
+
+            <CardContent className={classes.cardContent}>
+              <div variant="body2" component="p" style={{ textAlign: "left" }}>
+                {parse(announcement.body)}
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+      )}
+
+      {announcement.type === "tournament" && currentUser && (
+        <Card className={classes.root}>
+          <CardHeader
+            classes={{
+              root: classes.cardHeader,
+              title: currentUser ? classes.titleLoggedIn : classes.title,
+              subheader: currentUser
+                ? classes.subheaderLoggedIn
+                : classes.subheader,
+            }}
+            avatar={
+              <Tooltip
+                title={"Royal Admin"}
+                aria-label="username"
+                placement="top"
+              >
+                <Avatar className={classes.avatar}>R</Avatar>
+              </Tooltip>
+            }
+            action={
+              currentUser && (
+                <>
+                  <Tooltip
+                    title="Modify"
+                    aria-label="modify announcement"
+                    placement="top"
+                  >
+                    <IconButton
+                      aria-label="modify"
+                      className={classes.customEditButton}
+                      onClick={() => modifySpecificAnnouncement(announcement)}
+                    >
+                      <EditIcon className={classes.customIcons} />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip
+                    title="Delete"
+                    aria-label="delete announcement"
+                    placement="top"
+                  >
+                    <IconButton
+                      aria-label="delete"
+                      className={classes.customDeleteButton}
+                      onClick={() => deleteSpecificAnnouncement(announcement)}
+                    >
+                      <DeleteIcon className={classes.customIcons} />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )
+            }
+            title={announcement.title}
+            subheader={announcement.dateModified.slice(0, 10)}
+          />
+
+          {announcement.imageURL && (
+            <Link
+              to={`/${announcement.title.split(" ").join("")}`}
+              style={{ textDecoration: "none" }}
+            >
+              <CardMedia
+                className={classes.media}
+                image={announcement.imageURL}
+              />
+            </Link>
+          )}
+
+          <CardContent className={classes.cardContent}>
+            <div variant="body2" component="p" style={{ textAlign: "left" }}>
+              {parse(announcement.body)}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {announcement.type === "general" && (
+        <Card className={classes.root}>
+          <CardHeader
+            classes={{
+              root: classes.cardHeader,
+              title: currentUser ? classes.titleLoggedIn : classes.title,
+              subheader: currentUser
+                ? classes.subheaderLoggedIn
+                : classes.subheader,
+            }}
+            avatar={
+              <Tooltip
+                title={"Royal Admin"}
+                aria-label="username"
+                placement="top"
+              >
+                <Avatar className={classes.avatar}>R</Avatar>
+              </Tooltip>
+            }
+            action={
+              currentUser && (
+                <>
+                  <Tooltip
+                    title="Modify"
+                    aria-label="modify announcement"
+                    placement="top"
+                  >
+                    <IconButton
+                      aria-label="modify"
+                      className={classes.customEditButton}
+                      onClick={() => modifySpecificAnnouncement(announcement)}
+                    >
+                      <EditIcon className={classes.customIcons} />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip
+                    title="Delete"
+                    aria-label="delete announcement"
+                    placement="top"
+                  >
+                    <IconButton
+                      aria-label="delete"
+                      className={classes.customDeleteButton}
+                      onClick={() => deleteSpecificAnnouncement(announcement)}
+                    >
+                      <DeleteIcon className={classes.customIcons} />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )
+            }
+            title={announcement.title}
+            subheader={announcement.dateModified.slice(0, 10)}
+          />
+
+          {announcement.imageURL && (
             <CardMedia
               className={classes.media}
               image={announcement.imageURL}
             />
-          </Link>
-        )}
+          )}
 
-        {announcement.imageURL && announcement.type === "general" && (
-          <CardMedia className={classes.media} image={announcement.imageURL} />
-        )}
-
-        <CardContent className={classes.cardContent}>
-          <div variant="body2" component="p" style={{ textAlign: "left" }}>
-            {parse(announcement.body)}
-          </div>
-        </CardContent>
-        {/* <CardActions disableSpacing>
-          <Tooltip
-            title="View in Forums"
-            aria-label="view in forums"
-            placement="bottom"
-          >
-            <IconButton>
-              <ForumIcon className={classes.customIcons} />
-            </IconButton>
-          </Tooltip>
-        </CardActions> */}
-      </Card>
+          <CardContent className={classes.cardContent}>
+            <div variant="body2" component="p" style={{ textAlign: "left" }}>
+              {parse(announcement.body)}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };
