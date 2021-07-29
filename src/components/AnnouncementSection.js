@@ -65,8 +65,6 @@ const AnnouncementSection = ({
     setSections(tempSections);
   }
 
-  // console.log(sectionText);
-
   return (
     <div className={classes.root}>
       <TextField

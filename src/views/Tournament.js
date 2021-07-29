@@ -162,16 +162,6 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
     setEditing(false);
   };
 
-  //   const deleteTournament = () => {
-  //     console.log("delete tournament");
-  //   };
-
-  // console.log(
-  //   JSON.parse(tournament.sections).map(
-  //     (section) => parse(section.sectionBody).props.children.type
-  //   )
-  // );
-
   return (
     <div>
       <Row className={"no-gutters"}>
@@ -298,8 +288,7 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
                                   parse(section.sectionBody)
                                 )
                               ) : null} */}
-
-                              {parse(section.sectionBody)}
+                              <div>{parse(section.sectionBody)}</div>
 
                               {/* {section.sectionBody &&
                               parse(parse(section.sectionBody).props.children)

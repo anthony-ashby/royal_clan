@@ -15,6 +15,7 @@ import { storage } from "../../firebase";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../UploadAdapter";
+import parse from "html-react-parser";
 
 const useStyles = makeStyles({
   root: {},
