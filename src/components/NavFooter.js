@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Icon from "@material-ui/core/Icon";
 import BannerBackground from "../images/main_background.jpg";
 
@@ -26,29 +25,29 @@ const useStyles = makeStyles({
   },
   discordButton: {
     backgroundColor: "#7289da",
-    color: "#fff",
+    color: "white",
     margin: 20,
     "&:hover": {
       backgroundColor: "rgb(114,137,218,0.5)",
-      color: "#fff",
+      color: "white",
     },
   },
   youtubeButton: {
     backgroundColor: "#FF0000",
-    color: "#fff",
+    color: "white",
     margin: 20,
     "&:hover": {
       backgroundColor: "rgb(255,0,0,0.5)",
-      color: "#fff",
+      color: "white",
     },
   },
   twitchButton: {
     backgroundColor: "#6441A5",
-    color: "#fff",
+    color: "white",
     margin: 20,
     "&:hover": {
       backgroundColor: "rgb(100,65,165,0.5)",
-      color: "#fff",
+      color: "white",
     },
   },
 });
@@ -67,7 +66,9 @@ function NavFooter() {
               className={classes.discordButton}
               href="https://discord.gg/Bqnm7cqQpS"
               target="_blank"
-              startIcon={<Icon className="fab fa-discord" color="#fff" />}
+              startIcon={
+                <Icon className="fab fa-discord" style={{ fill: "white" }} />
+              }
             >
               Discord
             </Button>
@@ -77,7 +78,10 @@ function NavFooter() {
               href="https://www.youtube.com/channel/UCVygB-argZJ4hdEipSSBkrQ"
               target="_blank"
               startIcon={
-                <Icon className="fab fa-youtube-square" color="#fff" />
+                <Icon
+                  className="fab fa-youtube-square"
+                  style={{ fill: "white" }}
+                />
               }
             >
               YouTube
@@ -87,7 +91,9 @@ function NavFooter() {
               className={classes.twitchButton}
               href="https://www.twitch.tv/royalclanaoe"
               target="_blank"
-              startIcon={<Icon className="fab fa-twitch" color="#fff" />}
+              startIcon={
+                <Icon className="fab fa-twitch" style={{ fill: "white" }} />
+              }
             >
               Twitch
             </Button>

@@ -10,14 +10,14 @@
 
 table {
   color: #71ccdf !important;
-  width: 100%;
+  width: 50%;
 }
 
 td {
   width: 50%;
 }
 
-td[colspan]:not([colspan="1"]) {
+td {
   text-align: center;
 }
 

@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   customInputSectionField: {
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     fontWeight: "bold",
     width: "90%",
   },

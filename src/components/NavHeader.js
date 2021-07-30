@@ -8,6 +8,7 @@ import headerImg from "../images/royal_header_background.jpg";
 import logoImg from "../images/royal_clan_logo.png";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import Icon from "@material-ui/core/Icon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
   },
   heroContainer: {
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${headerImg})`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.95)), url(${headerImg})`,
     height: 200,
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: "15px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.5)",
+    textAlign: "center",
     "@media (max-width: 992px)": {
       textAlign: "center",
       alignItems: "center",
@@ -34,39 +36,48 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   logoImg: {
-    height: "100%",
+    height: 200,
+    width: "80%",
+    marginRight: "20%",
     borderRadius: "15px 0 0 15px",
-    "@media (max-width: 992px)": {
-      paddingTop: 10,
-      borderRadius: "15px",
-      height: 100,
-      width: 100,
+    "@media (max-width: 1200px)": {
+      display: "none",
     },
   },
   heroContent: {
-    width: "70%",
+    width: "100%",
     padding: "10px",
     verticalAlign: "top",
     color: "#71ccdf",
     display: "inline-block",
-    "@media (max-width: 992px)": {
+    "@media (max-width: 1200px)": {
       textAlign: "center",
       alignItems: "center",
       width: "100%",
     },
   },
-  aboutUsHeader: {
+  socialLinks: {
+    backgroundColor: "#111821",
+    height: 200,
     width: "80%",
-    "@media (max-width: 992px)": {
-      textAlign: "center",
-      alignItems: "center",
+    borderRadius: "0 15px 15px 0",
+    marginLeft: "20%",
+    "@media (max-width: 1200px)": {
+      display: "none",
+    },
+  },
+  aboutUsHeader: {
+    marginLeft: "10%",
+    width: "80%",
+    "@media (max-width: 1200px)": {
+      marginLeft: "0",
       width: "100%",
     },
   },
   navButtonRow: {
-    "@media (max-width: 992px)": {
-      display: "none",
-    },
+    // "@media (max-width: 1200px)": {
+    //   display: "none",
+    // },
   },
 
   buttonStyle: {
@@ -98,6 +109,36 @@ const useStyles = makeStyles((theme) => ({
   dividerStyle: {
     backgroundColor: "#a44e62",
   },
+  discordButton: {
+    backgroundColor: "rgb(114,137,218,0.5)",
+    color: "white",
+    marginTop: 25,
+    width: "70%",
+    "&:hover": {
+      backgroundColor: "rgb(114,137,218,0.9)",
+      color: "white",
+    },
+  },
+  youtubeButton: {
+    backgroundColor: "rgb(255,0,0,0.5)",
+    color: "white",
+    marginTop: 25,
+    width: "70%",
+    "&:hover": {
+      backgroundColor: "rgb(255,0,0,0.9)",
+      color: "white",
+    },
+  },
+  twitchButton: {
+    backgroundColor: "rgb(100,65,165,0.5)",
+    color: "white",
+    marginTop: 25,
+    width: "70%",
+    "&:hover": {
+      backgroundColor: "rgb(100,65,165,0.9)",
+      color: "white",
+    },
+  },
 }));
 
 function NavHeader() {
@@ -120,51 +161,64 @@ function NavHeader() {
         <Row className={"no-gutters"}>
           <Col xs={12} className={classes.root}>
             <div className={classes.heroContainer}>
-              <Link to={"/"} style={{ textDecoration: "none" }}>
-                <img
-                  src={logoImg}
-                  alt={"royal logo"}
-                  className={classes.logoImg}
-                />
-              </Link>
-
-              <div className={classes.heroContent}>
-                <h1>Welcome To Royal Clan</h1>
-                <p className={classes.aboutUsHeader}>
-                  We are the RoyaL Clan. A largely active clan in Age of Empires
-                  3 DE. We host tournaments, create Youtube guides, and are
-                  dedicated to a fun and safe gaming community.
-                </p>
-                <Row className={clsx("no-gutters", classes.navButtonRow)}>
+              <Row className={"no-gutters"}>
+                <Col xs={2}>
                   <Link to={"/"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.leftButton)}
-                    >
-                      Home
-                    </Button>
+                    <img
+                      src={logoImg}
+                      alt={"royal logo"}
+                      className={classes.logoImg}
+                    />
                   </Link>
-
-                  <Divider
-                    className={classes.dividerStyle}
-                    orientation="vertical"
-                    flexItem
-                  />
-
-                  <Link to={"/tournaments"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.midButton)}
+                </Col>
+                <Col xs={8}>
+                  <div className={classes.heroContent}>
+                    <h1>Welcome To Royal Clan</h1>
+                    <p className={classes.aboutUsHeader}>
+                      We are the RoyaL Clan. A largely active clan in Age of
+                      Empires 3 DE. We host tournaments, create Youtube guides,
+                      and are dedicated to a fun and safe gaming community.
+                    </p>
+                    <Row
+                      className={clsx(
+                        "no-gutters, justify-content-center",
+                        classes.navButtonRow
+                      )}
                     >
-                      Tournaments
-                    </Button>
-                  </Link>
-
-                  <Divider
-                    className={classes.dividerStyle}
-                    orientation="vertical"
-                    flexItem
-                  />
-
-                  {/* <Link to={"/forums"} style={{ textDecoration: "none" }}>
+                      <Link to={"/"} style={{ textDecoration: "none" }}>
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.leftButton
+                          )}
+                        >
+                          Home
+                        </Button>
+                      </Link>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+                      <Link
+                        to={"/tournaments"}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.midButton
+                          )}
+                        >
+                          Tournaments
+                        </Button>
+                      </Link>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+                      {/* <Link to={"/forums"} style={{ textDecoration: "none" }}>
                     <Button
                       className={clsx(classes.buttonStyle, classes.midButton)}
                     >
@@ -177,44 +231,47 @@ function NavHeader() {
                     orientation="vertical"
                     flexItem
                   /> */}
-
-                  <Link to={"/content"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.midButton)}
-                    >
-                      Content
-                    </Button>
-                  </Link>
-
-                  <Divider
-                    className={classes.dividerStyle}
-                    orientation="vertical"
-                    flexItem
-                  />
-
-                  <Link to={"/contact"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.midButton)}
-                    >
-                      Contact Us
-                    </Button>
-                  </Link>
-
-                  <Divider
-                    className={classes.dividerStyle}
-                    orientation="vertical"
-                    flexItem
-                  />
-
-                  <Link to={"/donate"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.midButton)}
-                    >
-                      Donate
-                    </Button>
-                  </Link>
-
-                  {/* {currentUser ? null : (
+                      <Link to={"/content"} style={{ textDecoration: "none" }}>
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.midButton
+                          )}
+                        >
+                          Content
+                        </Button>
+                      </Link>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+                      <Link to={"/contact"} style={{ textDecoration: "none" }}>
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.midButton
+                          )}
+                        >
+                          Contact Us
+                        </Button>
+                      </Link>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
+                      <Link to={"/donate"} style={{ textDecoration: "none" }}>
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.midButton
+                          )}
+                        >
+                          Donate
+                        </Button>
+                      </Link>
+                      {/* {currentUser ? null : (
                     <>
                       <Divider
                         className={classes.dividerStyle}
@@ -235,48 +292,102 @@ function NavHeader() {
                       </Link>
                     </>
                   )} */}
+                      {currentUser ? (
+                        <>
+                          <Divider
+                            className={classes.dividerStyle}
+                            orientation="vertical"
+                            flexItem
+                          />
 
-                  {currentUser ? (
-                    <>
-                      <Divider
-                        className={classes.dividerStyle}
-                        orientation="vertical"
-                        flexItem
-                      />
+                          <Link
+                            to={"/update-profile"}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Button
+                              className={clsx(
+                                classes.buttonStyle,
+                                classes.midButton
+                              )}
+                            >
+                              Update Profile
+                            </Button>
+                          </Link>
 
-                      <Link
-                        to={"/update-profile"}
-                        style={{ textDecoration: "none" }}
-                      >
+                          <Divider
+                            className={classes.dividerStyle}
+                            orientation="vertical"
+                            flexItem
+                          />
+
+                          <Button
+                            className={clsx(
+                              classes.buttonStyle,
+                              classes.rightButton
+                            )}
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </Button>
+                        </>
+                      ) : null}
+                    </Row>
+                  </div>
+                </Col>
+                <Col xs={2}>
+                  <div className={classes.socialLinks}>
+                    <Row className={"no-gutters justify-center"}>
+                      <Col>
                         <Button
-                          className={clsx(
-                            classes.buttonStyle,
-                            classes.midButton
-                          )}
+                          size="small"
+                          variant="contained"
+                          className={classes.discordButton}
+                          href="https://discord.gg/Bqnm7cqQpS"
+                          target="_blank"
+                          startIcon={
+                            <Icon
+                              className="fab fa-discord"
+                              style={{ fill: "white" }}
+                            />
+                          }
                         >
-                          Update Profile
+                          Discord
                         </Button>
-                      </Link>
-
-                      <Divider
-                        className={classes.dividerStyle}
-                        orientation="vertical"
-                        flexItem
-                      />
-
-                      <Button
-                        className={clsx(
-                          classes.buttonStyle,
-                          classes.rightButton
-                        )}
-                        onClick={handleLogout}
-                      >
-                        Logout
-                      </Button>
-                    </>
-                  ) : null}
-                </Row>
-              </div>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          className={classes.youtubeButton}
+                          href="https://www.youtube.com/channel/UCVygB-argZJ4hdEipSSBkrQ"
+                          target="_blank"
+                          startIcon={
+                            <Icon
+                              className="fab fa-youtube-square"
+                              style={{ fill: "white" }}
+                            />
+                          }
+                        >
+                          YouTube
+                        </Button>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          className={classes.twitchButton}
+                          href="https://www.twitch.tv/royalclanaoe"
+                          target="_blank"
+                          startIcon={
+                            <Icon
+                              className="fab fa-twitch"
+                              style={{ fill: "white" }}
+                            />
+                          }
+                        >
+                          Twitch
+                        </Button>
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Row>
             </div>
           </Col>
         </Row>

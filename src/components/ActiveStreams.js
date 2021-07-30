@@ -49,20 +49,17 @@ function ListItemLink(props) {
   );
 }
 
-const ActiveStreams = ({
-  setDbUpdatePending,
-  activeStreams,
-  royalStreamsArr,
-}) => {
+const ActiveStreams = ({ activeStreams, royalStreamsArr }) => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <div className={classes.header}>Live Streams</div>
       <List component="nav" aria-label="main mailbox folders">
         {activeStreams.map((stream) => (
           <div key={stream._id}>
-            {!royalStreamsArr.includes(stream.channel.display_name) ? (
+            {!royalStreamsArr.includes(
+              stream.channel.display_name.toLowerCase()
+            ) ? (
               <ListItemLink
                 key={stream._id}
                 className={classes.listItem}

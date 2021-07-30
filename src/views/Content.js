@@ -3,7 +3,7 @@ import RightContent from "../components/RightContent";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import BannerBackground from "../images/main_background.jpg";
-import UnderConstruction from "../images/under_construction.JPG";
+import ReactPlayer from "react-player";
 
 const useStyles = makeStyles({
   root: {
@@ -29,29 +29,50 @@ const useStyles = makeStyles({
   },
 });
 
-function Content() {
+const Content = ({ youtubeVideos, twitchVideos }) => {
   const classes = useStyles();
   return (
     <div>
       <Row className={"no-gutters"}>
         <Col xl={1}></Col>
-
         <Col xl={8} xs={12}>
           <Row className={"no-gutters"}>
             <Col xs={1}></Col>
             <Col xl={12} xs={10} className={classes.root}>
               <div>
                 <div className={classes.header}>
-                  <div className={classes.headerTxt}>Content</div>
+                  <div className={classes.headerTxt}>Latest Content</div>
                 </div>
-                <div style={{ margin: 15, color: "#71ccdf" }}>
-                  Under Construction. Please check back later.
-                  <img
-                    src={UnderConstruction}
-                    alt="under construction"
-                    style={{ margin: 10, borderRadius: 25, width: "90%" }}
-                  />
-                </div>
+                <Row className={"no-gutters"}>
+                  {twitchVideos !== undefined
+                    ? twitchVideos.map((video) => (
+                        <Col xl={4} xs={12} key={video._id}>
+                          <ReactPlayer
+                            url={video.url}
+                            controls
+                            width="100%"
+                            style={{ padding: "20px" }}
+                            playing={false}
+                            muted={true}
+                          />
+                        </Col>
+                      ))
+                    : null}
+                </Row>
+                <Row className={"no-gutters"}>
+                  {youtubeVideos !== undefined
+                    ? youtubeVideos.map((video) => (
+                        <Col xl={4} xs={12} key={video.id.videoId}>
+                          <ReactPlayer
+                            url={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                            controls
+                            width="100%"
+                            style={{ padding: "20px" }}
+                          />
+                        </Col>
+                      ))
+                    : null}
+                </Row>
               </div>
             </Col>
             <Col xs={1}></Col>
@@ -66,6 +87,6 @@ function Content() {
       </Row>
     </div>
   );
-}
+};
 
 export default Content;

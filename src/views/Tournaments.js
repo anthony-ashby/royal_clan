@@ -4,11 +4,11 @@ import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import BannerBackground from "../images/main_background.jpg";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
@@ -50,6 +50,15 @@ const useStyles = makeStyles({
       backgroundColor: "#45748c",
     },
   },
+  moreInfoBtn: {
+    marginTop: "20px",
+    color: "#45748c",
+    backgroundColor: "#071a33",
+    fontWeight: "bold",
+    "&:hover": {
+      backgroundColor: "rgb(7,26,51,0.7)",
+    },
+  },
 });
 
 const Tournaments = ({ announcements }) => {
@@ -86,24 +95,30 @@ const Tournaments = ({ announcements }) => {
                   <Row className={"no-gutters"}>
                     {tournaments.map((tournament) => (
                       <Col xl={4} xs={12} key={tournament._id}>
-                        <Link
-                          to={`/${tournament.title.split(" ").join("")}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <Card className={classes.customCard}>
-                            <CardActionArea>
-                              <CardMedia
-                                className={classes.customCardMedia}
-                                image={tournament.imageURL}
-                                title={tournament.title}
-                              />
-                              <CardContent className={classes.cardContent}>
-                                <h3>{tournament.title}</h3>
-                                <div>{parse(tournament.body)}</div>
-                              </CardContent>
-                            </CardActionArea>
-                          </Card>
-                        </Link>
+                        <Card className={classes.customCard}>
+                          <Link
+                            to={`/${tournament.title.split(" ").join("")}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <CardMedia
+                              className={classes.customCardMedia}
+                              image={tournament.imageURL}
+                              title={tournament.title}
+                            />
+                          </Link>
+                          <CardContent className={classes.cardContent}>
+                            <h3>{tournament.title}</h3>
+                            <div>{parse(tournament.body)}</div>
+                            <Link
+                              to={`/${tournament.title.split(" ").join("")}`}
+                              style={{ textDecoration: "none" }}
+                            >
+                              <Button className={classes.moreInfoBtn}>
+                                More Information
+                              </Button>
+                            </Link>
+                          </CardContent>
+                        </Card>
                       </Col>
                     ))}
                   </Row>

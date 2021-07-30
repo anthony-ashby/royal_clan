@@ -12,6 +12,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 import { useAuth } from "../contexts/AuthContext";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,6 +105,15 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#45748c",
     },
   },
+  moreInfoBtn: {
+    marginTop: "20px",
+    color: "#45748c",
+    backgroundColor: "#071a33",
+    fontWeight: "bold",
+    "&:hover": {
+      backgroundColor: "rgb(7,26,51,0.7)",
+    },
+  },
 }));
 
 const Announcement = ({
@@ -117,11 +127,11 @@ const Announcement = ({
   return (
     <div>
       {announcement.type === "tournament" && !currentUser && (
-        <Link
-          to={`/${announcement.title.split(" ").join("")}`}
-          style={{ textDecoration: "none" }}
-        >
-          <Card className={classes.root}>
+        <Card className={classes.root}>
+          <Link
+            to={`/${announcement.title.split(" ").join("")}`}
+            style={{ textDecoration: "none" }}
+          >
             <CardHeader
               classes={{
                 root: classes.cardHeader,
@@ -181,18 +191,22 @@ const Announcement = ({
                 image={announcement.imageURL}
               />
             )}
+          </Link>
 
-            <CardContent className={classes.cardContent}>
-              <div
-                variant="body2"
-                component="p"
-                style={{ textAlign: "center" }}
+          <CardContent className={classes.cardContent}>
+            <div variant="body2" component="p" style={{ textAlign: "center" }}>
+              {parse(announcement.body)}
+              <Link
+                to={`/${announcement.title.split(" ").join("")}`}
+                style={{ textDecoration: "none" }}
               >
-                {parse(announcement.body)}
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
+                <Button className={classes.moreInfoBtn}>
+                  More Information
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
       {announcement.type === "tournament" && currentUser && (

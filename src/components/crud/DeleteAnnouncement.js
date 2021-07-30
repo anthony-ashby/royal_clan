@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     marginTop: 20,
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     fontWeight: "bold",
     width: "80%",
     textAlign: "left",

@@ -15,7 +15,6 @@ import { storage } from "../../firebase";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../UploadAdapter";
-import parse from "html-react-parser";
 
 const useStyles = makeStyles({
   root: {},
@@ -23,7 +22,7 @@ const useStyles = makeStyles({
     marginTop: 20,
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     fontWeight: "bold",
     width: "80%",
   },
@@ -43,7 +42,7 @@ const useStyles = makeStyles({
     marginTop: 20,
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     fontWeight: "bold",
     width: "80%",
     textAlign: "left",
@@ -72,7 +71,7 @@ const useStyles = makeStyles({
   customInputSectionField: {
     borderRadius: 5,
     color: "#071a33",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     fontWeight: "bold",
     width: "90%",
   },

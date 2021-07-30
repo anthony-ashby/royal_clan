@@ -22,7 +22,6 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import ModifyTournament from "../components/crud/ModifyTournament";
 import parse from "html-react-parser";
-import { PlayCircleFilledWhite } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: {
@@ -289,7 +288,7 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
                                   .type === "iframe" ? (
                                   <div
                                     style={{
-                                      backgroundColor: "#fff",
+                                      backgroundColor: "white",
                                       width: "100%",
                                     }}
                                   >
@@ -308,7 +307,7 @@ const Tournament = ({ tournament, setAnnouncementsPending }) => {
                                 .type === "iframe" ? (
                                 <div
                                   style={{
-                                    backgroundColor: "#fff",
+                                    backgroundColor: "white",
                                     width: "100%",
                                   }}
                                 >
