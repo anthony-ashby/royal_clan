@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RightContent from "../components/RightContent";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import BannerBackground from "../images/main_background.jpg";
 import ReactPlayer from "react-player";
+import TwitchApi from "../components/apis/TwitchApi";
+import YouTubeApi from "../components/apis/YouTubeApi";
 
 const useStyles = makeStyles({
   root: {
@@ -29,8 +31,35 @@ const useStyles = makeStyles({
   },
 });
 
-const Content = ({ youtubeVideos, twitchVideos }) => {
+const Content = () => {
   const classes = useStyles();
+  const [twitchVideos, setTwitchVideos] = useState();
+  const [youtubeVideos, setYoutubeVideos] = useState();
+
+  const fetchTwitchVideos = async () => {
+    const result = await TwitchApi.get(
+      "https://api.twitch.tv/kraken/channels/502627142/videos?limit=3"
+    );
+    setTwitchVideos(result.data.videos);
+  };
+
+  useEffect(() => {
+    fetchTwitchVideos();
+  }, []);
+
+  const fetchYouTubeVideos = async () => {
+    const result = await YouTubeApi.get("/search", {
+      params: {
+        channelId: "UCVygB-argZJ4hdEipSSBkrQ",
+      },
+    });
+    setYoutubeVideos(result.data.items);
+  };
+
+  useEffect(() => {
+    fetchYouTubeVideos();
+  }, []);
+
   return (
     <div>
       <Row className={"no-gutters"}>

@@ -16,15 +16,11 @@ import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import UpdateProfile from "./views/UpdateProfile";
 import Tournament from "./views/Tournament";
-import TwitchApi from "./components/apis/TwitchApi";
-import YouTubeApi from "./components/apis/YouTubeApi";
 
 const Main = () => {
   const [announcementsPending, setAnnouncementsPending] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
   const [tournaments, setTournaments] = useState([]);
-  const [twitchVideos, setTwitchVideos] = useState();
-  const [youtubeVideos, setYoutubeVideos] = useState();
 
   const loadAnnouncements = async () => {
     try {
@@ -52,30 +48,6 @@ const Main = () => {
       setTournaments(filtered);
     }
   }, [announcements]);
-
-  const fetchTwitchVideos = async () => {
-    const result = await TwitchApi.get(
-      "https://api.twitch.tv/kraken/channels/502627142/videos?limit=3"
-    );
-    setTwitchVideos(result.data.videos);
-  };
-
-  useEffect(() => {
-    fetchTwitchVideos();
-  }, []);
-
-  const fetchYouTubeVideos = async () => {
-    const result = await YouTubeApi.get("/search", {
-      params: {
-        channelId: "UCVygB-argZJ4hdEipSSBkrQ",
-      },
-    });
-    setYoutubeVideos(result.data.items);
-  };
-
-  useEffect(() => {
-    fetchYouTubeVideos();
-  }, []);
 
   return (
     <div>
@@ -107,10 +79,7 @@ const Main = () => {
 
               {/* <Route path="/forums" component={Forums} /> */}
               <Route path="/content">
-                <Content
-                  twitchVideos={twitchVideos}
-                  youtubeVideos={youtubeVideos}
-                />
+                <Content />
               </Route>
               {/* <Route path="/join" component={Join} /> */}
               <Route path="/contact" component={ContactUs} />
