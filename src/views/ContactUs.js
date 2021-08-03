@@ -12,6 +12,8 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { contactdb } from "../firebase";
+import emailjs from "emailjs-com";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   root: {
@@ -52,10 +54,20 @@ const useStyles = makeStyles({
     bottom: 20,
     margin: "auto",
   },
+  alertContainer: {
+    textAlign: "center",
+    width: "80%",
+    marginTop: 20,
+    bottom: 20,
+    margin: "auto",
+  },
 });
 
 function ContactUs() {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [contactType, setContactType] = useState("general");
   const [newContact, setNewContact] = useState({
     contactType: contactType,
@@ -100,7 +112,12 @@ function ContactUs() {
     });
   }
 
-  const handleSubmit = (event) => {
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+    setShowSuccess(false);
+    setShowError(false);
+    setLoading(true);
+
     const contactMsg = {
       contactType: contactType,
       contactName: newContact.contactName,
@@ -108,13 +125,58 @@ function ContactUs() {
       contactBody: newContact.contactBody,
     };
 
-    const sendMessage = () => {
+    const sendMessageToDb = () => {
       let newContactInfo = contactdb.push();
-      newContactInfo.set(contactMsg);
+      newContactInfo.set(contactMsg).catch((error) => {
+        console.log("Problem saving to db with error: " + error.message);
+      });
     };
 
-    sendMessage();
-    handleClear();
+    sendMessageToDb();
+
+    if (contactType === "general") {
+      emailjs
+        .sendForm(
+          "service_levg32h",
+          "template_jbjgtmk",
+          e.target,
+          "user_zlIKllHNylhYP07sicoGm"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            setLoading(false);
+            setShowSuccess(true);
+            handleClear();
+          },
+          (error) => {
+            console.log(error.text);
+            setLoading(false);
+            setShowError(true);
+          }
+        );
+    } else if (contactType === "technical") {
+      emailjs
+        .sendForm(
+          "service_8f8phbm",
+          "template_5bom2un",
+          e.target,
+          "user_zlIKllHNylhYP07sicoGm"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            setLoading(false);
+            setShowSuccess(true);
+            handleClear();
+          },
+          (error) => {
+            console.log(error.text);
+            setLoading(false);
+            setShowError(true);
+          }
+        );
+    }
   };
 
   const handleClear = (event) => {
@@ -139,7 +201,7 @@ function ContactUs() {
                 <div className={classes.header}>
                   <div className={classes.headerTxt}>Contact Us</div>
                 </div>
-                <form noValidate autoComplete="off">
+                <form noValidate autoComplete="off" onSubmit={handleSendEmail}>
                   <div>
                     <FormControl
                       style={{ marginTop: "20px" }}
@@ -222,6 +284,25 @@ function ContactUs() {
                     />
                   </div>
                   <div>
+                    {showSuccess && (
+                      <Alert
+                        severity="success"
+                        className={classes.alertContainer}
+                      >
+                        Your message was sent, thank you for your inquiry!
+                      </Alert>
+                    )}
+
+                    {showError && (
+                      <Alert
+                        severity="error"
+                        className={classes.alertContainer}
+                      >
+                        There was an error sending your message, please try
+                        again!
+                      </Alert>
+                    )}
+
                     <div className={classes.buttonContainer}>
                       <Row className={"no-gutters"}>
                         <Col xl={6} xs={12}>
@@ -238,8 +319,10 @@ function ContactUs() {
                           <ColorButtonGreen
                             variant="contained"
                             color="primary"
-                            onClick={handleSubmit}
+                            // onClick={handleSubmit}
+                            type="submit"
                             style={{ width: "95%" }}
+                            disabled={loading}
                           >
                             Submit
                           </ColorButtonGreen>
