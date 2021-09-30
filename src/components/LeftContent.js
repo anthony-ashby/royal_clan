@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import CommunityLinkContainer from "./CommunityLinkContainer";
+import MerchCarousel from "./MerchCarousel";
 // import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles({
@@ -31,11 +32,9 @@ function LeftContent() {
   const classes = useStyles();
   return (
     <Row className={"no-gutters"}>
-      {/* <Hidden only={["xl"]}>
-        <Col xs={1}></Col>
-      </Hidden> */}
       <Col xl={11} xs={10} className={classes.root}>
         <CommunityLinkContainer />
+        <MerchCarousel />
       </Col>
       <Col xs={1}></Col>
     </Row>

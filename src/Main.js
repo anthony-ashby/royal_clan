@@ -6,6 +6,7 @@ import Tournaments from "./views/Tournaments";
 import Content from "./views/Content";
 import ContactUs from "./views/ContactUs";
 import Donate from "./views/Donate";
+import Merch from "./views/Merch";
 // import Forums from "./views/Forums";
 // import Signup from "./views/Signup";
 import Login from "./views/Login";
@@ -76,18 +77,15 @@ const Main = () => {
                   />
                 </Route>
               ))}
-
-              {/* <Route path="/forums" component={Forums} /> */}
               <Route path="/content">
                 <Content />
               </Route>
-              {/* <Route path="/join" component={Join} /> */}
               <Route path="/contact" component={ContactUs} />
               <Route path="/donate" component={Donate} />
+              <Route path="/merch" component={Merch} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              {/* <Route path="/signup" component={Signup} /> */}
               <Route exact path="/">
                 <Home
                   announcements={announcements}

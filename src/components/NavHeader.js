@@ -261,6 +261,21 @@ function NavHeader() {
                         orientation="vertical"
                         flexItem
                       />
+                      <Link to={"/merch"} style={{ textDecoration: "none" }}>
+                        <Button
+                          className={clsx(
+                            classes.buttonStyle,
+                            classes.midButton
+                          )}
+                        >
+                          Merch
+                        </Button>
+                      </Link>
+                      <Divider
+                        className={classes.dividerStyle}
+                        orientation="vertical"
+                        flexItem
+                      />
                       <Link to={"/donate"} style={{ textDecoration: "none" }}>
                         <Button
                           className={clsx(
