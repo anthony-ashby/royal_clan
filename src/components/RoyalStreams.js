@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { makeStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
@@ -13,6 +13,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
 import BannerBackground from "../images/main_background.jpg";
+import TwitchApi from "./apis/TwitchApi";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -31,7 +32,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const useStyles = makeStyles({
   root: {
-    paddingTop: 25,
+    marginTop: 10,
   },
   listItem: {
     color: "#71ccdf",
@@ -140,16 +141,16 @@ function ListItemLink(props) {
   );
 }
 
-const RoyalStreams = ({
-  royalStreams,
-  setDbUpdatePending,
-  activeStreams,
-  royalStreamsArr,
-  activeStreamIDs,
-  offlineStreams,
-}) => {
+const RoyalStreams = ({ allStreams, activeAllStreamIDs }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
+  //Royal Streams
+  const [royalStreams, setRoyalStreams] = useState([]);
+  const [offlineStreams, setOfflineStreams] = useState([]);
+  const [royalStreamsArr, setRoyalStreamsArr] = useState([]);
+  const [royalStreamsString, setRoyalStreamsString] = useState();
+  const [dbUpdatePending, setDbUpdatePending] = useState(false);
+
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   const [modalTab, setModalTab] = React.useState(0);
@@ -158,7 +159,6 @@ const RoyalStreams = ({
   const [showDeleteFormError, setShowDeleteFormError] = useState(false);
   const [deleteStream, setDeleteStream] = React.useState("");
   const [deleteStreamObject, setDeleteStreamObject] = React.useState({});
-
   const [createNewStream, setCreateNewStream] = useState({
     name: "",
     url: "",
@@ -189,6 +189,52 @@ const RoyalStreams = ({
       },
     },
   }))(Button);
+
+  useEffect(() => {
+    if (royalStreamsArr.length > 0) {
+      let tempString = "";
+      royalStreamsArr.forEach((channel) => {
+        tempString += `${channel.toLowerCase()},`;
+      });
+      tempString = tempString.slice(0, -1);
+      setRoyalStreamsString(tempString);
+    }
+
+    if (royalStreamsString) {
+      const fetchOfflineStreamDataFromTwitch = async () => {
+        const result = await TwitchApi.get(
+          `https://api.twitch.tv/kraken/users?login=${royalStreamsString}`
+        );
+        setOfflineStreams(result.data.users);
+      };
+      fetchOfflineStreamDataFromTwitch();
+    }
+  }, [royalStreamsArr, royalStreamsString]);
+
+  const loadStreams = async () => {
+    try {
+      const res = await fetch("/.netlify/functions/getRoyalStreams");
+      const streams = await res.json();
+      if (streams.length > 0) {
+        let tempArr = [];
+        let tempStr = "";
+        streams.forEach((channel) => {
+          tempArr.push(channel.name.toLowerCase());
+          tempStr += `${channel.name.toLowerCase()},`;
+        });
+        setRoyalStreamsArr(tempArr);
+        setRoyalStreamsString(tempStr);
+      }
+      setRoyalStreams(streams);
+      setDbUpdatePending(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    loadStreams();
+  }, [dbUpdatePending]);
 
   const handleTabChange = (event, newValue) => {
     clearFormData();
@@ -411,13 +457,9 @@ const RoyalStreams = ({
 
   return (
     <div className={classes.root}>
-      <div className={classes.header}>
-        <div className={classes.headerText}>Royal Streams</div>
-      </div>
       {currentUser ? (
         <div>
           <ColorButtonGreen
-            style={{ marginTop: 10 }}
             endIcon={<EditIcon />}
             variant="contained"
             color="primary"
@@ -444,7 +486,7 @@ const RoyalStreams = ({
       </FormGroup>
 
       <List component="nav">
-        {activeStreams.map((stream) => (
+        {allStreams.map((stream) => (
           <div key={stream._id}>
             {royalStreamsArr.includes(stream.channel.name) ? (
               <ListItemLink
@@ -477,7 +519,7 @@ const RoyalStreams = ({
           <div>
             {offlineStreams.map((offlineStream) => (
               <div key={offlineStream._id}>
-                {!activeStreamIDs.includes(parseInt(offlineStream._id)) ? (
+                {!activeAllStreamIDs.includes(parseInt(offlineStream._id)) ? (
                   <ListItemLink
                     key={offlineStream._id}
                     className={classes.listItem}

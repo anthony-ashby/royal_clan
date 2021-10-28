@@ -44,7 +44,7 @@ const AnnouncementSection = ({
   const classes = useStyles();
 
   function handleAddNewSectionTitle(event) {
-    const { name, value } = event.target;
+    const { value } = event.target;
     const tempSections = [...sections];
     tempSections[section.sectionId] = {
       sectionId: section.sectionId,

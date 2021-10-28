@@ -261,7 +261,12 @@ function NavHeader() {
                         orientation="vertical"
                         flexItem
                       />
-                      <Link to={"/merch"} style={{ textDecoration: "none" }}>
+                      <a
+                        href="https://royal-clan-2.creator-spring.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ textDecoration: "none" }}
+                      >
                         <Button
                           className={clsx(
                             classes.buttonStyle,
@@ -270,7 +275,8 @@ function NavHeader() {
                         >
                           Merch
                         </Button>
-                      </Link>
+                      </a>
+
                       <Divider
                         className={classes.dividerStyle}
                         orientation="vertical"

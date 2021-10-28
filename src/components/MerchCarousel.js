@@ -76,9 +76,14 @@ const MerchCarousel = () => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <Link to={"/merch"} style={{ textDecoration: "none" }}>
+        <a
+          href="https://royal-clan-2.creator-spring.com/"
+          target="_blank"
+          rel="noreferrer"
+          style={{ textDecoration: "none" }}
+        >
           <img src={item.src} alt={item.altText} />
-        </Link>
+        </a>
       </CarouselItem>
     );
   });
