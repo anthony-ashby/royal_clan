@@ -144,11 +144,15 @@ function ListItemLink(props) {
 const RoyalStreams = ({ allStreams, activeAllStreamIDs }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
+
   //Royal Streams
   const [royalStreams, setRoyalStreams] = useState([]);
   const [offlineStreams, setOfflineStreams] = useState([]);
   const [royalStreamsArr, setRoyalStreamsArr] = useState([]);
   const [royalStreamsString, setRoyalStreamsString] = useState();
+  const [royalStreamIDs, setRoyalStreamIDs] = useState([]);
+  const [royalStreamsLive, setRoyalStreamsLive] = useState([]);
+  const [royalStreamsLiveIDs, setRoyalStreamsLiveIDs] = useState([]);
   const [dbUpdatePending, setDbUpdatePending] = useState(false);
 
   const [showOfflineChannels, setShowOfflineChannels] = useState(false);
@@ -202,14 +206,35 @@ const RoyalStreams = ({ allStreams, activeAllStreamIDs }) => {
 
     if (royalStreamsString) {
       const fetchOfflineStreamDataFromTwitch = async () => {
+        let streamIDs = [];
         const result = await TwitchApi.get(
           `https://api.twitch.tv/kraken/users?login=${royalStreamsString}`
         );
+        result.data.users.map((user) => streamIDs.push(user._id));
+        setRoyalStreamIDs(streamIDs);
         setOfflineStreams(result.data.users);
+        console.log(streamIDs);
       };
       fetchOfflineStreamDataFromTwitch();
     }
   }, [royalStreamsArr, royalStreamsString]);
+
+  useEffect(() => {
+    if (royalStreamIDs) {
+      const fetchLiveRoyalStreams = async () => {
+        let channelIDs = [];
+        const result = await TwitchApi.get(
+          `https://api.twitch.tv/kraken/streams/?channel=${royalStreamIDs}`
+        );
+        result.data.streams.map((stream) =>
+          channelIDs.push(stream.channel._id)
+        );
+        setRoyalStreamsLiveIDs(channelIDs);
+        setRoyalStreamsLive(result.data.streams);
+      };
+      fetchLiveRoyalStreams();
+    }
+  }, [royalStreamIDs]);
 
   const loadStreams = async () => {
     try {
@@ -486,40 +511,38 @@ const RoyalStreams = ({ allStreams, activeAllStreamIDs }) => {
       </FormGroup>
 
       <List component="nav">
-        {allStreams.map((stream) => (
+        {royalStreamsLive.map((stream) => (
           <div key={stream._id}>
-            {royalStreamsArr.includes(stream.channel.name) ? (
-              <ListItemLink
-                key={stream._id}
-                className={classes.listItem}
-                href={stream.channel.url}
-              >
-                <ListItemAvatar style={{ marginRight: -20 }}>
-                  <Avatar
-                    alt="Twitch Profile Image"
-                    src={stream.channel.logo}
-                    style={{ height: 25, width: 25 }}
-                  />
-                </ListItemAvatar>
+            <ListItemLink
+              key={stream._id}
+              className={classes.listItem}
+              href={stream.channel.url}
+            >
+              <ListItemAvatar style={{ marginRight: -20 }}>
+                <Avatar
+                  alt="Twitch Profile Image"
+                  src={stream.channel.logo}
+                  style={{ height: 25, width: 25 }}
+                />
+              </ListItemAvatar>
 
-                <ListItemText
-                  primary={stream.channel.display_name}
-                  style={{ textAlign: "left" }}
-                />
-                <ListItemText
-                  primary={stream.viewers}
-                  style={{ textAlign: "right", paddingRight: 5 }}
-                />
-                <VisibilityIcon fontSize="small" />
-              </ListItemLink>
-            ) : null}
+              <ListItemText
+                primary={stream.channel.display_name}
+                style={{ textAlign: "left" }}
+              />
+              <ListItemText
+                primary={stream.viewers}
+                style={{ textAlign: "right", paddingRight: 5 }}
+              />
+              <VisibilityIcon fontSize="small" />
+            </ListItemLink>
           </div>
         ))}
         {showOfflineChannels ? (
           <div>
             {offlineStreams.map((offlineStream) => (
               <div key={offlineStream._id}>
-                {!activeAllStreamIDs.includes(parseInt(offlineStream._id)) ? (
+                {!royalStreamsLiveIDs.includes(parseInt(offlineStream._id)) ? (
                   <ListItemLink
                     key={offlineStream._id}
                     className={classes.listItem}
