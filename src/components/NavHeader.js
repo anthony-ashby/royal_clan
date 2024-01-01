@@ -1,21 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
-import { makeStyles } from "@material-ui/styles";
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
-import clsx from "clsx";
+import { makeStyles } from "tss-react/mui";
+import { Button, Divider, Icon } from "@mui/material";
 import headerImg from "../images/royal_header_background.jpg";
 import logoImg from "../images/royal_clan_logo.png";
-import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import Icon from "@material-ui/core/Icon";
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()({
   root: {
     height: "100%",
     backgroundColor: "#2e3c45",
     marginTop: "15px",
     borderRadius: "15px",
+    boxShadow: "0 0px 15px #000000",
   },
   heroContainer: {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.95)), url(${headerImg})`,
@@ -26,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: "15px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.5)",
-    textAlign: "center",
     "@media (max-width: 992px)": {
       textAlign: "center",
       alignItems: "center",
@@ -37,14 +33,15 @@ const useStyles = makeStyles((theme) => ({
   },
   logoImg: {
     height: 200,
-    width: "80%",
-    marginRight: "20%",
+    width: 200,
     borderRadius: "15px 0 0 15px",
     "@media (max-width: 1200px)": {
       display: "none",
     },
   },
   heroContent: {
+    textAlign: "center",
+    alignItems: "center",
     width: "100%",
     padding: "10px",
     verticalAlign: "top",
@@ -56,30 +53,29 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
+  socialLinksContainer: {
+    display: "flex",
+    justifyContent: "right",
+  },
   socialLinks: {
+    textAlign: "center",
     backgroundColor: "#111821",
     height: 200,
-    width: "80%",
+    width: 200,
     borderRadius: "0 15px 15px 0",
-    marginLeft: "20%",
     "@media (max-width: 1200px)": {
       display: "none",
     },
   },
   aboutUsHeader: {
-    marginLeft: "10%",
-    width: "80%",
+    margin: "auto",
+    width: "50%",
+    marginBottom: "10px",
     "@media (max-width: 1200px)": {
       marginLeft: "0",
       width: "100%",
     },
   },
-  navButtonRow: {
-    // "@media (max-width: 1200px)": {
-    //   display: "none",
-    // },
-  },
-
   buttonStyle: {
     textDecoration: "none!important",
     textTransform: "none!important",
@@ -88,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 17,
     "&:hover": {
       backgroundColor: "#71ccdf",
-      color: "#a44e62",
+      color: "#051429",
     },
     "@media (max-width: 992px)": {
       fontSize: 10,
@@ -139,25 +135,21 @@ const useStyles = makeStyles((theme) => ({
       color: "white",
     },
   },
-}));
+});
 
-function NavHeader() {
-  const classes = useStyles();
-  const { currentUser, logout } = useAuth();
-  const history = useHistory();
+function NavHeader({ pages }) {
+  const { classes, cx } = useStyles();
+  const [customPages, setCustomPages] = useState([]);
 
-  async function handleLogout() {
-    try {
-      await logout();
-      history.push("/");
-    } catch (err) {
-      console.log(err);
+  useEffect(() => {
+    if (pages && pages.length !== 0) {
+      setCustomPages(pages);
     }
-  }
+  }, [pages]);
+
   return (
     <Row className={"no-gutters"}>
-      <Col xs={1}></Col>
-      <Col xs={10}>
+      <Col xs={12}>
         <Row className={"no-gutters"}>
           <Col xs={12} className={classes.root}>
             <div className={classes.heroContainer}>
@@ -179,15 +171,10 @@ function NavHeader() {
                       Empires 3 DE. We host tournaments, create Youtube guides,
                       and are dedicated to a fun and safe gaming community.
                     </p>
-                    <Row
-                      className={clsx(
-                        "no-gutters, justify-content-center",
-                        classes.navButtonRow
-                      )}
-                    >
+                    <Row className={"no-gutters, justify-content-center"}>
                       <Link to={"/"} style={{ textDecoration: "none" }}>
                         <Button
-                          className={clsx(
+                          className={cx(
                             classes.buttonStyle,
                             classes.leftButton
                           )}
@@ -205,10 +192,7 @@ function NavHeader() {
                         style={{ textDecoration: "none" }}
                       >
                         <Button
-                          className={clsx(
-                            classes.buttonStyle,
-                            classes.midButton
-                          )}
+                          className={cx(classes.buttonStyle, classes.midButton)}
                         >
                           Tournaments
                         </Button>
@@ -218,44 +202,25 @@ function NavHeader() {
                         orientation="vertical"
                         flexItem
                       />
-                      {/* <Link to={"/forums"} style={{ textDecoration: "none" }}>
-                    <Button
-                      className={clsx(classes.buttonStyle, classes.midButton)}
-                    >
-                      Forums
-                    </Button>
-                  </Link>
-
-                  <Divider
-                    className={classes.dividerStyle}
-                    orientation="vertical"
-                    flexItem
-                  /> */}
                       <Link to={"/content"} style={{ textDecoration: "none" }}>
                         <Button
-                          className={clsx(
-                            classes.buttonStyle,
-                            classes.midButton
-                          )}
+                          className={cx(classes.buttonStyle, classes.midButton)}
                         >
                           Content
                         </Button>
                       </Link>
-                      <Divider
+                      {/* <Divider
                         className={classes.dividerStyle}
                         orientation="vertical"
                         flexItem
                       />
                       <Link to={"/contact"} style={{ textDecoration: "none" }}>
                         <Button
-                          className={clsx(
-                            classes.buttonStyle,
-                            classes.midButton
-                          )}
+                          className={cx(classes.buttonStyle, classes.midButton)}
                         >
                           Contact Us
                         </Button>
-                      </Link>
+                      </Link> */}
                       <Divider
                         className={classes.dividerStyle}
                         orientation="vertical"
@@ -268,94 +233,50 @@ function NavHeader() {
                         style={{ textDecoration: "none" }}
                       >
                         <Button
-                          className={clsx(
+                          className={cx(
                             classes.buttonStyle,
-                            classes.midButton
+                            customPages
+                              ? classes.midButton
+                              : classes.rightButton
                           )}
                         >
                           Merch
                         </Button>
                       </a>
 
-                      <Divider
-                        className={classes.dividerStyle}
-                        orientation="vertical"
-                        flexItem
-                      />
-                      <Link to={"/donate"} style={{ textDecoration: "none" }}>
-                        <Button
-                          className={clsx(
-                            classes.buttonStyle,
-                            classes.midButton
-                          )}
-                        >
-                          Donate
-                        </Button>
-                      </Link>
-                      {/* {currentUser ? null : (
-                    <>
-                      <Divider
-                        className={classes.dividerStyle}
-                        orientation="vertical"
-                        flexItem
-                      />
-
-                      <Link to={"/login"} style={{ textDecoration: "none" }}>
-                        <Button
-                          className={clsx(
-                            classes.buttonStyle,
-                            `
-                            ${currentUser ? "" : classes.rightButton}`
-                          )}
-                        >
-                          Login
-                        </Button>
-                      </Link>
-                    </>
-                  )} */}
-                      {currentUser ? (
-                        <>
-                          <Divider
-                            className={classes.dividerStyle}
-                            orientation="vertical"
-                            flexItem
-                          />
-
-                          <Link
-                            to={"/update-profile"}
-                            style={{ textDecoration: "none" }}
-                          >
-                            <Button
-                              className={clsx(
-                                classes.buttonStyle,
-                                classes.midButton
-                              )}
-                            >
-                              Update Profile
-                            </Button>
-                          </Link>
-
-                          <Divider
-                            className={classes.dividerStyle}
-                            orientation="vertical"
-                            flexItem
-                          />
-
-                          <Button
-                            className={clsx(
-                              classes.buttonStyle,
-                              classes.rightButton
-                            )}
-                            onClick={handleLogout}
-                          >
-                            Logout
-                          </Button>
-                        </>
-                      ) : null}
+                      {customPages &&
+                        customPages.map((page, idx) => {
+                          if (page.showInNav) {
+                            return (
+                              <React.Fragment key={page._id}>
+                                <Divider
+                                  className={classes.dividerStyle}
+                                  orientation="vertical"
+                                  flexItem
+                                />
+                                <Link
+                                  to={`/${page.pageName.toLowerCase()}`}
+                                  style={{ textDecoration: "none" }}
+                                >
+                                  <Button
+                                    className={cx(
+                                      classes.buttonStyle,
+                                      customPages.length - 1 === idx
+                                        ? classes.rightButton
+                                        : classes.midButton
+                                    )}
+                                  >
+                                    {page.pageName}
+                                  </Button>
+                                </Link>
+                              </React.Fragment>
+                            );
+                          }
+                        })}
                     </Row>
                   </div>
                 </Col>
-                <Col xs={2}>
+                <Col xs={2} className={classes.socialLinksContainer}>
                   <div className={classes.socialLinks}>
                     <Row className={"no-gutters justify-center"}>
                       <Col>
@@ -413,7 +334,6 @@ function NavHeader() {
           </Col>
         </Row>
       </Col>
-      <Col xs={1}></Col>
     </Row>
   );
 }

@@ -1,25 +1,23 @@
 import React from "react";
 import "./styles/App.css";
 import Main from "./Main";
-import { makeStyles } from "@material-ui/styles";
-import { AuthProvider } from "./contexts/AuthContext";
+import { makeStyles } from "tss-react/mui";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
-    backgroundColor: "#45748c",
+    backgroundColor: "#051429",
     width: "100%",
     height: "100%",
+    padding: "0px 30px",
   },
 });
 
 function App() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
-    <AuthProvider>
-      <div className={classes.root}>
-        <Main />
-      </div>
-    </AuthProvider>
+    <div className={classes.root}>
+      <Main />
+    </div>
   );
 }
 

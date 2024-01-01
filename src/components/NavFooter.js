@@ -1,16 +1,15 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
+import { Button, Icon } from "@mui/material/";
+import { makeStyles } from "tss-react/mui";
 import BannerBackground from "../images/main_background.jpg";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
-    backgroundColor: "#2e3c45",
+    backgroundColor: "#111821",
     height: "100%",
     borderRadius: "15px 15px 0 0",
-    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.5)",
+    boxShadow: "0 0px 15px #000000",
     marginTop: "20px",
     textAlign: "center",
   },
@@ -24,40 +23,39 @@ const useStyles = makeStyles({
     fontSize: 20,
   },
   discordButton: {
-    backgroundColor: "#7289da",
+    backgroundColor: "rgb(114,137,218,0.5)",
     color: "white",
     margin: 20,
     "&:hover": {
-      backgroundColor: "rgb(114,137,218,0.5)",
+      backgroundColor: "rgb(114,137,218,0.9)",
       color: "white",
     },
   },
   youtubeButton: {
-    backgroundColor: "#FF0000",
+    backgroundColor: "rgb(255,0,0,0.5)",
     color: "white",
     margin: 20,
     "&:hover": {
-      backgroundColor: "rgb(255,0,0,0.5)",
+      backgroundColor: "rgb(255,0,0,0.9)",
       color: "white",
     },
   },
   twitchButton: {
-    backgroundColor: "#6441A5",
+    backgroundColor: "rgb(100,65,165,0.5)",
     color: "white",
     margin: 20,
     "&:hover": {
-      backgroundColor: "rgb(100,65,165,0.5)",
+      backgroundColor: "rgb(100,65,165,0.9)",
       color: "white",
     },
   },
 });
 
 function NavFooter() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Row className={"no-gutters"}>
-      <Col xs={1}></Col>
-      <Col xs={10} className={classes.root}>
+      <Col xs={12} className={classes.root}>
         <div className={classes.header}>Join Us!</div>
         <Row className={"no-gutters justify-center"}>
           <Col>
@@ -100,7 +98,6 @@ function NavFooter() {
           </Col>
         </Row>
       </Col>
-      <Col xs={1}></Col>
     </Row>
   );
 }

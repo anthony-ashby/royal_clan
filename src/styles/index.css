@@ -17,3 +17,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.MuiCardHeader-root {
+  direction: rtl;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.MuiCardHeader-root .MuiCardHeader-avatar {
+  margin-right: 0;
+}
+
+.MuiCardHeader-root .MuiCardHeader-action {
+  margin: 0;
+  align-self: center;
+}
