@@ -272,6 +272,7 @@ function NavHeader({ pages }) {
                               </React.Fragment>
                             );
                           }
+                          return null;
                         })}
                     </Row>
                   </div>

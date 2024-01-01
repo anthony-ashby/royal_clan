@@ -133,11 +133,11 @@ const StreamsPanel = ({ twitchAccessToken }) => {
             game,
           };
           if (game === "AOE3" && aoe3Count < 15) {
-            usersUrl += "&" + "id=" + stream.user_id;
+            usersUrl += "&id=" + stream.user_id;
             streamData.push(newStream);
             aoe3Count++;
           } else if (game === "AOE4" && aoe4Count < 15) {
-            usersUrl += "&" + "id=" + stream.user_id;
+            usersUrl += "&id=" + stream.user_id;
             streamData.push(newStream);
             aoe4Count++;
           }
@@ -191,7 +191,7 @@ const StreamsPanel = ({ twitchAccessToken }) => {
         royalChannels.forEach((channel) => {
           channel.user_name = channel.url.slice(22);
           const userName = channel.url.slice(22);
-          usersUrl += "&" + "login=" + userName;
+          usersUrl += "&login=" + userName;
         });
         fetchUserData(usersUrl).then((usersData) => {
           royalChannels.forEach((channel) => {
@@ -321,6 +321,7 @@ const StreamsPanel = ({ twitchAccessToken }) => {
             if (stream.game === activeTab) {
               return listButton(stream);
             }
+            return null;
           })
         ) : (
           <React.Fragment>

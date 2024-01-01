@@ -107,6 +107,7 @@ const CustomPage = ({ page }) => {
             <img
               className={classes.mainImage}
               loading="lazy"
+              alt="main"
               src={
                 page.image ? getSanityImageUrl(page.image) : UnderConstruction
               }

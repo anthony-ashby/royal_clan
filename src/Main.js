@@ -8,11 +8,9 @@ import RightContent from "./components/RightContent/RightContent";
 import ItemsPreview from "./views/ItemsPreview";
 import Loading from "./views/Loading";
 import LatestVideos from "./views/LatestVideos";
-import ContactUs from "./views/ContactUs";
 import CustomPage from "./views/CustomPage";
 import ItemDisplay from "./views/ItemDisplay";
-import { getAccessToken, getRoyalVideos } from "./apis/TwitchApi";
-import YouTubeApi from "./apis/YouTubeApi";
+import { getAccessToken } from "./apis/TwitchApi";
 import Hidden from "@mui/material/Hidden";
 import {
   getAnnouncements,

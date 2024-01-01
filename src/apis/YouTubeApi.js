@@ -1,14 +1,21 @@
 import axios from "axios";
 
-const YouTubeApi = axios.create({
-  baseURL: "https://www.googleapis.com/youtube/v3",
+export const getYouTubeUploadsPlaylistId = axios.create({
+  baseURL: "https://www.googleapis.com/youtube/v3/channels",
   params: {
-    part: "snippet",
-    maxResults: 5,
-    order: "date",
+    part: "contentDetails",
+    id: "UCVygB-argZJ4hdEipSSBkrQ",
     key: `${process.env.REACT_APP_YOUTUBE_API_CLIENTID}`,
   },
   headers: {},
 });
 
-export default YouTubeApi;
+export const getYouTubeUploads = axios.create({
+  baseURL: "https://www.googleapis.com/youtube/v3/playlistItems",
+  params: {
+    part: "snippet",
+    maxResults: 5,
+    key: `${process.env.REACT_APP_YOUTUBE_API_CLIENTID}`,
+  },
+  headers: {},
+});

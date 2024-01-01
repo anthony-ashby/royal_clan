@@ -7,7 +7,10 @@ import logoImg from "../images/royal_clan_logo.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { getRoyalVideos } from "../apis/TwitchApi";
-import YouTubeApi from "../apis/YouTubeApi";
+import {
+  getYouTubeUploadsPlaylistId,
+  getYouTubeUploads,
+} from "../apis/YouTubeApi";
 import {
   Card,
   CardMedia,
@@ -133,30 +136,36 @@ const LatestVideos = ({ twitchAccessToken }) => {
   const [currVideos, setCurrVideos] = useState([]);
   const [currVideosIndex, setCurrVideosIndex] = useState(0);
 
-  // YouTube API hitting above quota
   useEffect(() => {
-    YouTubeApi.get("/search", {
-      params: {
-        channelId: "UCVygB-argZJ4hdEipSSBkrQ",
-      },
-    })
-      .then((res) => {
-        const videos = [];
-        const response = res.data.items;
-        response.forEach((vid) => {
-          videos.push({
-            id: vid.id.videoId,
-            type: "YouTube",
-            url: `https://www.youtube.com/watch?v=${vid.id.videoId}`,
-            publishedAt: vid.snippet.publishedAt,
-            title:
-              vid.snippet.title.length <= 55
-                ? vid.snippet.title
-                : vid.snippet.title.slice(0, 55) + "...",
-            thumbnailUrl: vid.snippet.thumbnails.medium.url,
-          });
-        });
-        setYouTubeVideos(videos);
+    getYouTubeUploadsPlaylistId()
+      .then((playlistRes) => {
+        const playlistId =
+          playlistRes.data.items[0].contentDetails.relatedPlaylists.uploads;
+        getYouTubeUploads({
+          params: {
+            playlistId: playlistId,
+          },
+        })
+          .then((uploadsRes) => {
+            const videos = [];
+            const uploads = uploadsRes.data.items;
+            uploads.forEach((vid) => {
+              videos.push({
+                id: vid.snippet.resourceId.videoId,
+                type: "YouTube",
+                url: `https://www.youtube.com/watch?v=${vid.snippet.resourceId.videoId}`,
+                publishedAt: vid.snippet.publishedAt,
+                fullTitle: vid.snippet.title,
+                truncTitle:
+                  vid.snippet.title.length <= 55
+                    ? vid.snippet.title
+                    : vid.snippet.title.slice(0, 55) + "...",
+                thumbnailUrl: vid.snippet.thumbnails.medium.url,
+              });
+            });
+            setYouTubeVideos(videos);
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -177,7 +186,8 @@ const LatestVideos = ({ twitchAccessToken }) => {
               type: "Twitch",
               url: vid.url,
               publishedAt: vid.published_at,
-              title:
+              fullTitle: vid.title,
+              truncTitle:
                 vid.title.length <= 55
                   ? vid.title
                   : vid.title.slice(0, 55) + "...",
@@ -288,7 +298,7 @@ const LatestVideos = ({ twitchAccessToken }) => {
                       />
                     )}
                     <Tooltip
-                      title={video.title}
+                      title={video.fullTitle}
                       placement="top"
                       TransitionComponent={Zoom}
                       enterDelay={600}
@@ -316,7 +326,7 @@ const LatestVideos = ({ twitchAccessToken }) => {
                           />
                           <div className={classes.cardInfo}>
                             <div className={classes.cardTitle}>
-                              {video.title}
+                              {video.truncTitle}
                             </div>
                             <div className={classes.cardSubTitle}>
                               {video.publishedAt.slice(0, 10)}
@@ -338,21 +348,6 @@ const LatestVideos = ({ twitchAccessToken }) => {
             </div>
           </div>
         </div>
-
-        {/* <Row className={"no-gutters"}>
-            {youtubeVideos !== undefined
-              ? youtubeVideos.map((video) => (
-                  <Col xl={4} xs={12} key={video.id.videoId}>
-                    <ReactPlayer
-                      url={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-                      controls
-                      width="100%"
-                      style={{ padding: "20px" }}
-                    />
-                  </Col>
-                ))
-              : null}
-          </Row> */}
       </Col>
     </Row>
   );

@@ -57,5 +57,3 @@ export const getRoyalVideos = axios.create({
     first: 5,
   },
 });
-
-export default getLiveStreams;
